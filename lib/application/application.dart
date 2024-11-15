@@ -6,9 +6,9 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EZ booking',
-      theme: AppTheme().appThemeData,
+    return Scaffold(
+      
+      body: Container(),
     );
   }
 }

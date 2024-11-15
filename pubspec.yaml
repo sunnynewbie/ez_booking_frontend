@@ -17,6 +17,11 @@ dependencies:
   responsive_sizer: ^3.3.1
   dropdown_button2: ^2.3.9
   cached_network_image: ^3.4.1
+  shared_preferences: ^2.3.3
+  flutter_otp_text_field: ^1.2.0
+  get: ^4.6.6
+  http: ^1.2.2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +34,7 @@ flutter:
   assets:
     - assets/
     - assets/icon/
+    - assets/onboarding/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -42,10 +48,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/font/Lexend-VariableFont_wght.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
