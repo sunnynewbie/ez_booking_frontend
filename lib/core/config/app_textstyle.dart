@@ -20,6 +20,24 @@ class AppTextStyle {
     color: Colors.black26,
     fontFamily: AppFont.lexend
   );
+  static const TextStyle regular4 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+    fontFamily: AppFont.lexend
+  );
+  static const TextStyle regular4_fade_white = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+    fontFamily: AppFont.lexend
+  );
+  static const TextStyle pagetitle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    fontFamily: AppFont.lexend
+  );
 
   // Bold TextStyle
   static const TextStyle bold = TextStyle(

@@ -34,4 +34,5 @@ class AppAssets {
   static const music_review = 'assets/icon/image (2).png';
   static const tent = 'assets/icon/tent.png';
   static const guiter = 'assets/icon/guiter.png';
+  static const coconutTree = 'assets/icon/coconut_tree.png';
 }

@@ -1,3 +1,6 @@
+import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
+import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
+import 'package:get/get.dart';
 class RouteConfig{
 
   static const splash ='/';
@@ -14,4 +17,9 @@ class RouteConfig{
   static const notifications ='/notifications';
   static const bookingList ='/bookingList';
   static const bookingDetail ='/bookingDetail';
+  static const String oneTimeExperience = '/oneTimeExperience';
+  static const String regularExperience = '/regularExperience';
 }
+
+
+

@@ -18,43 +18,66 @@ class _AllEventState extends State<AllEvent> {
     return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(size.width * 0.04),
-        color: Colors.green,
-        child:  Column(
+        // color: Colors.green,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AllEventCard(
-                    text: 'music & Instruments',
-                    imgPath: '',
-                    color1: const Color.fromARGB(245, 235, 255, 1),
-                    color2: const Color.fromARGB(255, 201, 196, 159)),
-                
-                AllEventCard(
-                    text: 'Music',
-                    imgPath: '',
-                    color1: Colors.red,
-                    color2: Colors.yellow),
+                Text(
+                  "All Event List",
+                  style: AppTextStyle.header,
+                ),
+                Text(
+                  "See All",
+                  style: AppTextStyle.header1,
+                )
               ],
             ),
             SizedBox(
-                  height: size.height * 0.02,
-                ),
+              height: size.height * 0.012,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AllEventCard(
-                    text: 'Music',
-                    imgPath: '',
-                    color1: Colors.red,
-                    color2: Colors.yellow),
+                  text: 'Music & Instruments',
+                  text2: '15 + Classes',
+                  imgPath: '',
+                  color1: const Color.fromARGB(245, 48, 0, 87),
+                  color2: const Color.fromARGB(183, 205, 167, 235),
+                ),
                 AllEventCard(
-                    text: 'Music',
-                    imgPath: '',
-                    color1: Colors.red,
-                    color2: Colors.yellow),
+                  text: 'Music',
+                  imgPath: '',
+                  color1: const Color.fromARGB(255, 87, 150, 0),
+                  color2: const Color.fromARGB(172, 184, 245, 167),
+                  text2: '15 + Classes',
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.013,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AllEventCard(
+                  text: 'Music',
+                  imgPath: '',
+                  color1: const Color.fromARGB(255, 6, 160, 238),
+                  color2: const Color.fromARGB(164, 149, 188, 243),
+                  text2: '15 + Classes',
+                ),
+                AllEventCard(
+                  text: 'Music',
+                  imgPath: '',
+                  color1: const Color.fromARGB(255, 58, 10, 181),
+                  color2: const Color.fromARGB(255, 180, 186, 243),
+                  text2: '15 + Classes',
+                ),
               ],
             ),
           ],

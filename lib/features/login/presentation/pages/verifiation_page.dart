@@ -84,7 +84,8 @@ class VerificationPage extends StatelessWidget {
                         Container(
                           width: size.width * 0.3,
                           height: size.width * 0.3,
-                          child: Image.asset(AppAssets.mobile_password, fit: BoxFit.cover),
+                          child: Image.asset(AppAssets.mobile_password,
+                              fit: BoxFit.cover),
                         ),
                       ],
                     ),
@@ -138,30 +139,32 @@ class VerificationPage extends StatelessWidget {
                       obscureText: false,
                       keyboardType: TextInputType.number,
                       pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
-                        fieldHeight: MediaQuery.of(context).size.height * 0.05,
-                        fieldWidth: MediaQuery.of(context).size.height * 0.05,
-                        activeFillColor: Colors.transparent,
-                        activeColor: Colors.black38,
-                        selectedFillColor: Colors.transparent,
-                        selectedColor: Colors.black87,
-                        inactiveFillColor: Colors.transparent,
-                        inactiveColor: Colors.black38
-                      ),
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(5),
+                          fieldHeight:
+                              MediaQuery.of(context).size.height * 0.05,
+                          fieldWidth: MediaQuery.of(context).size.height * 0.05,
+                          activeFillColor: Colors.transparent,
+                          activeColor: Colors.black38,
+                          selectedFillColor: Colors.transparent,
+                          selectedColor: Colors.black87,
+                          inactiveFillColor: Colors.transparent,
+                          inactiveColor: Colors.black38),
                       backgroundColor: Colors.transparent,
                       enableActiveFill: true,
                       onChanged: (value) {
                         // Debugging - Log the value whenever the OTP changes
                         log("Current OTP: $value");
-                    
+
                         // Update the RxString in the controller whenever the value changes
                         if (value.length <= 6) {
-                          otpController.otpString.value = value; // Update the controller's OTP string
+                          otpController.otpString.value =
+                              value; // Update the controller's OTP string
                         } else {
-                          otpController.otpString.value = value.substring(0, 6); // Limit to 6 digits
+                          otpController.otpString.value =
+                              value.substring(0, 6); // Limit to 6 digits
                         }
-                    
+
                         log("OTP STRING: ${otpController.otpString.value}");
                       },
                     ),
@@ -189,10 +192,13 @@ class VerificationPage extends StatelessWidget {
                     ),
                     onTap: () {
                       log("Phone no : " + phoneNo.toString());
-                      log("OTP no : " + otpController.otpString.value); // Access the OTP from the controller
+                      log("OTP no : " +
+                          otpController.otpString
+                              .value); // Access the OTP from the controller
 
                       if (otpController.otpString.value.isNotEmpty) {
-                        otpController.verifyOtp(otpController.otpString.value, phoneNo);
+                        otpController.verifyOtp(
+                            otpController.otpString.value, phoneNo);
                       } else {
                         Get.snackbar("Error", "Please enter the OTP");
                       }

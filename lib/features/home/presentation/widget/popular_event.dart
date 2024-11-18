@@ -14,21 +14,28 @@ class _PopularEventState extends State<PopularEvent> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.amber,
+      // color: Colors.amber,
       padding: EdgeInsets.all(size.width * 0.04),
       child: Column(
         children: [
           Container(
             child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Popular Events", style: AppTextStyle.header, ),
-                Text("See All", style: AppTextStyle.header1,)
+                Text(
+                  "Popular Events",
+                  style: AppTextStyle.header,
+                ),
+                Text(
+                  "See All",
+                  style: AppTextStyle.header1,
+                )
               ],
             ),
           ),
-          SizedBox(height: size.height * 0.012 ,),
+          SizedBox(
+            height: size.height * 0.012,
+          ),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

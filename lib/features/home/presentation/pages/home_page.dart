@@ -2,8 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_font.dart';
+import 'package:ez_booking/core/widget/notify_box.dart';
 import 'package:ez_booking/features/home/presentation/widget/all_event_list.dart';
 import 'package:ez_booking/features/home/presentation/widget/event_category.dart';
+import 'package:ez_booking/features/home/presentation/widget/image_slider.dart';
 import 'package:ez_booking/features/home/presentation/widget/popular_event.dart';
 import 'package:ez_booking/features/home/presentation/widget/recommend_event.dart';
 import 'package:ez_booking/features/widget/card.dart';
@@ -14,13 +16,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> imgList = [
-      AppAssets.music_review,
-      AppAssets.onboarding_4,
-    ];
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Container(
           padding: EdgeInsets.only(left: 5),
@@ -78,35 +77,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             // CarouselSlider
-            Container(
-              height: size.height * 0.24, // Fixed height for the carousel
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: size.height * 0.24,
-                  autoPlay: true,
-                  enableInfiniteScroll: true,
-                  viewportFraction: 1.0,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  enlargeCenterPage: false,
-                ),
-                items: imgList.map((imageUrl) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(imageUrl),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
+            ImageSlider(),
 
             // GridView wrapped with shrinkWrap and inside a Flexible widget
             // Padding(
@@ -150,8 +121,18 @@ class HomePage extends StatelessWidget {
             ),
             EventCategory(),
             RecommenededEvent(),
+            NotifyBox(
+              text1: 'Book now & Get ₹ 100 cashback',
+              text2: 'Book any events and get 100 as a bonus',
+              text3: 'Book Now',
+              gradient1: const Color.fromARGB(230, 36, 99, 176),
+              gradient2: const Color.fromARGB(210, 67, 137, 222),
+              boxColor: Colors.white,
+              imgPath: AppAssets.coconutTree,
+            ),
+            RecommenededEvent(),
+            AllEvent(),
             PopularEvent(),
-            AllEvent()
           ],
         ),
       ),

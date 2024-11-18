@@ -14,21 +14,28 @@ class _RecommenededEventState extends State<RecommenededEvent> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.amber,
+      // color: Colors.amber,
       padding: EdgeInsets.all(size.width * 0.04),
       child: Column(
         children: [
           Container(
             child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Recommeded Events", style: AppTextStyle.header, ),
-                Text("See All", style: AppTextStyle.header1,)
+                Text(
+                  "Recommeded Events",
+                  style: AppTextStyle.header,
+                ),
+                Text(
+                  "See All",
+                  style: AppTextStyle.header1,
+                )
               ],
             ),
           ),
-          SizedBox(height: size.height * 0.012 ,),
+          SizedBox(
+            height: size.height * 0.012,
+          ),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
