@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_list_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
 import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
 import 'package:ez_booking/features/splash/presentation/pages/splash_page.dart';
@@ -32,7 +33,7 @@ class RouteUtil {
     ),
     GoRoute(
       path: RouteConfig.events,
-      builder: (context, state) => SplashPage(),
+      builder: (context, state) => EventListPage(),
     ),
     GoRoute(
       path: RouteConfig.eventDetail,

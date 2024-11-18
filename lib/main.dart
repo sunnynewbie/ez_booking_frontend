@@ -64,6 +64,10 @@ class MyApp extends StatelessWidget {
           name: RouteConfig.regularExperience,
           page: () => const RegularExperience(),
         ),
+        GetPage(
+          name: RouteConfig.events,
+          page: () => const RegularExperience(),
+        ),
       ],
     );
   }

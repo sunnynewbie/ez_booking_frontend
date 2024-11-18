@@ -22,7 +22,7 @@ class _RegularExperienceState extends State<RegularExperience> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HorizontalFlex(),
+            // HorizontalFlex(),
             Container(
               padding: EdgeInsets.only(left:size.width * 0.035,right:size.width * 0.035),
               child: Column(
