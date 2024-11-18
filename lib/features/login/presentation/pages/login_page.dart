@@ -165,7 +165,7 @@ class LoginPage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => VerifiationPage())
+                          MaterialPageRoute(builder: (context) => VerificationPage(phoneNo: phoneController.text.toString(),))
                         );
                       },
                       child: Text(

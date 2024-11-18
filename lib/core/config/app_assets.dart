@@ -30,4 +30,8 @@ class AppAssets {
   static const mobile_password = 'assets/icon/mobile_password.png';
   static const search_normal = 'assets/icon/search-normal.png';
   static const notification = 'assets/icon/notification.png';
+  static const travel = 'assets/icon/image (1).png';
+  static const music_review = 'assets/icon/image (2).png';
+  static const tent = 'assets/icon/tent.png';
+  static const guiter = 'assets/icon/guiter.png';
 }

@@ -26,3 +26,6 @@ class UserModel {
     );
   }
 }
+
+
+// {"message":"OTP verified","status":true,"data":{"id":4,"name":"","phone_no":"9898989899","created_at":"2024-10-26T09:29:41.000Z","updated_at":"2024-11-15T15:22:01.000Z","gender":1}}
