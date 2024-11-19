@@ -10,6 +10,9 @@ import 'package:ez_booking/features/home/presentation/widget/popular_event.dart'
 import 'package:ez_booking/features/home/presentation/widget/recommend_event.dart';
 import 'package:ez_booking/features/widget/card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -70,6 +73,16 @@ class HomePage extends StatelessWidget {
               print("Notification icon tapped");
             },
           ),
+          IconButton(
+            icon: const SizedBox(
+              width: 24,
+              height: 24,
+              child: Icon(Icons.person_3_outlined),
+            ),
+            onPressed: () {
+              _showLogoutDialog(context); // Show dialog box
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -78,44 +91,6 @@ class HomePage extends StatelessWidget {
           children: [
             // CarouselSlider
             ImageSlider(),
-
-            // GridView wrapped with shrinkWrap and inside a Flexible widget
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-            //   child: SizedBox(
-            //     // No fixed height for the GridView
-            //     child: GridView.builder(
-            //       shrinkWrap:
-            //           true, // Allows the GridView to only take as much space as needed
-            //       physics:
-            //           NeverScrollableScrollPhysics(), // Disable the grid view scrolling
-            //       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-            //       itemCount: 10,
-            //       itemBuilder: (ctx, i) {
-            //         return Container(
-            //           // height: size.height * 0.7,
-            //           child: Stack(
-            //             children: [
-            //               Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-            //                 children: [
-            //                   Expanded(child: InfoCard()),
-            //                 ],
-            //               ),
-            //             ],
-            //           ),
-            //         );
-            //       },
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //         childAspectRatio: 1.0,
-            //         crossAxisSpacing: size.width * 0.02,
-            //         mainAxisSpacing: size.width * 0.015,
-            //         mainAxisExtent: 264,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -136,6 +111,41 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+   void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // Rounded edges
+          ),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.red), // Red border
+                foregroundColor: Colors.red, // Text color
+              ),
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.remove('auth_token'); // Remove auth_token
+                Get.offAllNamed('/login'); // Navigate to LoginPage using GetX
+              },
+              child: const Text('Logout'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

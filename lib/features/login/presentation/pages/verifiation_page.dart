@@ -184,9 +184,11 @@ class VerificationPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),
-                  GestureDetector(
+                  Obx(()
+                  => GestureDetector(
                     child: CustomButtom(
-                      text: "Verify OTP",
+                      text: otpController.isLoading.value ? 'Loading..' : 'Verify OTP' ,
+                      // text:  'Verify OTP' ,
                       height: size.height * 0.06,
                       width: size.width * 0.85,
                     ),
@@ -203,7 +205,7 @@ class VerificationPage extends StatelessWidget {
                         Get.snackbar("Error", "Please enter the OTP");
                       }
                     },
-                  ),
+                  ),)
                 ],
               ),
             ),

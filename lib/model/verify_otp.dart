@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 // Model for API response
@@ -6,14 +7,16 @@ class ApiResponse {
   final String? message;
   final bool status;
   final UserData? data;
+  final String? token;  // Added token field
 
-  ApiResponse({this.message, required this.status, this.data});
+  ApiResponse({this.message, required this.status, this.data, this.token});
 
-  factory ApiResponse.fromJson(Map<String, dynamic> json) {
+  factory ApiResponse.fromJson(Map<String, dynamic> json, String? token) {
     return ApiResponse(
       message: json['message'],
       status: json['status'] ?? false,
       data: json['data'] != null ? UserData.fromJson(json['data']) : null,
+      token: token,  // Assign token here
     );
   }
 }
@@ -47,25 +50,3 @@ class UserData {
   }
 }
 
-// Service class to handle API calls
-class ApiService {
-  Future<ApiResponse> verifyOtp(String otp, String phoneNo) async {
-    const String url = 'https://ezbooking-node.onrender.com/v1/user/verify-otp'; // Replace with actual base URL
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'otp': otp,
-        'phone_no': phoneNo,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return ApiResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to verify OTP');
-    }
-  }
-}
