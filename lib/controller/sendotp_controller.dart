@@ -25,7 +25,7 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         print(response.body.toString());
         userModel.value = UserModel.fromJson(json.decode(response.body));
-        Get.to(() => VerifiationPage()); 
+        Get.to(() => VerificationPage(phoneNo: phoneNumber,)); 
       } else {
         Get.snackbar("Error", "Failed to send OTP. Please try again.");
       }

@@ -91,11 +91,10 @@ class LoginPage extends StatelessWidget {
                         'Phone Number',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: AppFont.lexend,
-                          fontSize: size.height * 0.021,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500
-                        ),
+                            fontFamily: AppFont.lexend,
+                            fontSize: size.height * 0.021,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
                       ),
                       SizedBox(
                         height: size.height * 0.005,
@@ -103,21 +102,15 @@ class LoginPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(left: 8),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black26,
-                            width: 2
-                          ),
-                          borderRadius: BorderRadius.circular(5)
-                        ),
+                            border: Border.all(color: Colors.black26, width: 2),
+                            borderRadius: BorderRadius.circular(5)),
                         child: TextField(
                           controller: phoneController,
                           cursorColor: AppColors.primary,
-                          style: TextStyle(
-                              color: AppColors.primary),
+                          style: TextStyle(color: AppColors.primary),
                           decoration: InputDecoration(
                             hintText: 'Enter phone number',
-                            hintStyle: TextStyle(
-                                color: Colors.black45),
+                            hintStyle: TextStyle(color: Colors.black45),
                             border: InputBorder.none,
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -131,20 +124,21 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.023,
                 ),
-                Obx(() => GestureDetector(
-                  child: CustomButtom(
-                    text: loginController.isLoading.value ? "Loading..." : "Continue",
-                    height: size.height * 0.06,
-                    width: size.width * 0.82,
-                    
+                Obx(
+                  () => GestureDetector(
+                    child: CustomButtom(
+                      text: loginController.isLoading.value
+                          ? "Loading..."
+                          : "Continue",
+                      height: size.height * 0.06,
+                      width: size.width * 0.82,
+                    ),
+                    onTap: () {
+                      if (!loginController.isLoading.value) {
+                        loginController.loginUser(phoneController.text);
+                      }
+                    },
                   ),
-                  onTap: () {
-                    if (!loginController.isLoading.value) {
-                      loginController.loginUser(phoneController.text);
-                    }
-                  },
-                ),
-                
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -156,17 +150,17 @@ class LoginPage extends StatelessWidget {
                       "Don't have an account ? ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: AppFont.lexend,
-                        fontSize: size.height * 0.019,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold
-                      ),
+                          fontFamily: AppFont.lexend,
+                          fontSize: size.height * 0.019,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => VerifiationPage())
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => VerificationPage(
+                                  phoneNo: phoneController.text.toString(),
+                                )));
                       },
                       child: Text(
                         "Sign up",
