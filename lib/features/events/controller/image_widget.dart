@@ -2,11 +2,12 @@ import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:get/get.dart';
 
 class ImageController extends GetxController {
-  // List of images to be displayed
   final List<String> imageList = [
     AppAssets.onboarding_1,
     AppAssets.onboarding_3,
     AppAssets.onboarding_2,
+    AppAssets.onboarding_4,
+    AppAssets.onboarding_5,
   ];
 
   // Observable index for the currently selected image

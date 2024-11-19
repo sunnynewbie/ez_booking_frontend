@@ -54,14 +54,10 @@ class ImageChangerWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Organized by', // Replace with dynamic organizer name
-                      style: AppTextStyle.regular
-                    ),
-                    Text(
-                      'Camp Monk', // Replace with dynamic event name
-                      style: AppTextStyle.regular
-                    ),
+                    Text('Organized by', // Replace with dynamic organizer name
+                        style: AppTextStyle.regular),
+                    Text('Camp Monk', // Replace with dynamic event name
+                        style: TextStyle(fontSize: 11, color: Colors.blue)),
                   ],
                 ),
               ),
@@ -94,8 +90,7 @@ class ImageChangerWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: isSelected
                               ? Border.all(
-                                  color: Colors
-                                      .blue,
+                                  color: Colors.blue,
                                   width: 2,
                                 )
                               : null, // No border for unselected
