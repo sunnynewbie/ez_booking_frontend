@@ -22,6 +22,8 @@ dependencies:
   get: ^4.6.6
   http: ^1.2.2
   carousel_slider: ^5.0.0
+  pin_code_fields: ^8.0.1
+  snapping_page_scroll: ^3.1.0
 
 dev_dependencies:
   flutter_test:
