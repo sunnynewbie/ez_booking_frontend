@@ -30,15 +30,15 @@ class _RegularExperienceState extends State<RegularExperience> {
                   Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InfoCard(),
-                  InfoCard()
+                  InfoCard(eventid: 1,),
+                  InfoCard(eventid: 1,)
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InfoCard(),
-                  InfoCard()
+                  InfoCard(eventid: 1,),
+                  InfoCard(eventid: 1,)
                 ],
               ),
                 ],

@@ -40,8 +40,8 @@ class _PopularEventState extends State<PopularEvent> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InfoCard(),
-                InfoCard(),
+                InfoCard(eventid: 1,),
+                InfoCard(eventid: 1,),
               ],
             ),
           )

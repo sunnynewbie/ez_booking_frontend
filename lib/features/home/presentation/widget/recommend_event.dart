@@ -40,8 +40,8 @@ class _RecommenededEventState extends State<RecommenededEvent> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InfoCard(),
-                InfoCard(),
+                InfoCard(eventid: 1,),
+                InfoCard(eventid: 1,),
               ],
             ),
           )

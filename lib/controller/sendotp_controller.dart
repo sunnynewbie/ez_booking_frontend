@@ -23,7 +23,8 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        print(response.body.toString());
+        log("Headers "+response.body.toString());
+        log(response.headers.toString());
         userModel.value = UserModel.fromJson(json.decode(response.body));
         Get.to(() => VerificationPage(phoneNo: phoneNumber,)); 
       } else {

@@ -9,9 +9,9 @@ class AppTextStyle {
     fontFamily: AppFont.lexend
   );
   static const TextStyle regular2 = TextStyle(
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: FontWeight.normal,
-    color: Colors.black26,
+    color: Colors.black38,
     fontFamily: AppFont.lexend
   );
   static const TextStyle regular3 = TextStyle(
