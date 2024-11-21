@@ -17,7 +17,13 @@ class AppTextStyle {
   static const TextStyle regular3 = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w600,
-    color: Colors.black26,
+    color: Colors.black38,
+    fontFamily: AppFont.lexend
+  );
+  static const TextStyle regular5 = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w300,
+    color: Colors.black,
     fontFamily: AppFont.lexend
   );
   static const TextStyle regular4 = TextStyle(
