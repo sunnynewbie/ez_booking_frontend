@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart';
@@ -8,6 +9,7 @@ class ApiResponse<T> {
   bool status;
   T? data;
   int? total;
+
   ApiResponse({
     this.message,
     this.status = false,
@@ -18,6 +20,8 @@ class ApiResponse<T> {
   factory ApiResponse.fromResponse(Response response,
       {T? Function(dynamic)? fromJson}) {
     ApiResponse<T> apiResponse = ApiResponse();
+    log('response status ${response.statusCode}');
+    log('response body ${response.body}');
     var responseJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
       apiResponse.status = true;
@@ -36,12 +40,14 @@ class ApiResponse<T> {
             apiResponse.data = fromJson.call(responseJson);
           }
         }
-        if (fromJson != null) {
-          apiResponse.data = fromJson.call(responseJson);
-        }
       }
     } else {
-      apiResponse.data = responseJson;
+      apiResponse.message = responseJson['message'].toString();
+      if (fromJson != null) {
+        apiResponse.data = responseJson['data'];
+      } else {
+        apiResponse.data = responseJson;
+      }
     }
 
     return apiResponse;

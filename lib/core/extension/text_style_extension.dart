@@ -119,7 +119,7 @@ extension StyleExtension on TextStyle {
 
   TextStyle get withSuccessColor => copyWith(color: Colors.green);
 
-  TextStyle get withgrey78 => copyWith(color:AppColors.textGrey);
+  TextStyle get withgrey78 => copyWith(color:AppColors.grey78);
 
 
   TextStyle get withErrorRed => copyWith(color: Colors.red.shade800);

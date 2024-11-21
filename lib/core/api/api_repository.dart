@@ -1,6 +1,7 @@
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
+import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/user_model.dart';
 
@@ -32,6 +33,9 @@ class ApiRepository {
     try {
       var response =
           await apiService.post(path: NetworkUrl.verifyOtp, data: data);
+      if(response.headers['token']!=null){
+        PrefUtils().setToken(response.headers['token'].toString());
+      }
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,

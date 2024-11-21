@@ -68,7 +68,7 @@ class AppTextFormField extends StatelessWidget {
       this.prefixIconSize,
       this.filled = false,
       this.fillColor,
-      this.borderRadius = AppDimens.borderRadius30,
+      this.borderRadius = AppDimens.borderRadius10,
       this.label,
       this.contentPadding,
       this.textCapitalization = TextCapitalization.none});

@@ -1,49 +1,72 @@
-import 'dart:developer';
+import 'dart:async';
 
-import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
+import 'package:ez_booking/core/api/api_repository.dart';
+import 'package:ez_booking/core/config/app_constant.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/features/login/service/verify_otp_service.dart';
-import 'package:ez_booking/model/verify_otp.dart';
-import 'package:flutter/material.dart';
+import 'package:ez_booking/model/user_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class OtpController extends GetxController {
+class VerifyOtpController extends GetxController {
   final ApiService _apiService = ApiService();
   RxString otpString = ''.obs;
   RxBool isLoading = false.obs; // Loading state
+  Rxn<UserModel>? userModel = Rxn();
+  var ctrl = TextEditingController();
+  Timer? timer;
+  var timerCount = RxInt(60);
 
-  Future<void> verifyOtp(String otp, String phoneNo) async {
+  Future<void> verifyOtp() async {
     isLoading.value = true; // Start loading
-    try {
-      // Call the API
-      final ApiResponse response = await _apiService.verifyOtp(otp, phoneNo);
-
-      // Check if status is true and data exists
-      if (response.status == true && response.data != null) {
-        final userData = response.data!;
-
-        // Save data in SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('name', userData.name ?? ''); // Handle nullable name
-        await prefs.setString('phone_no', userData.phoneNo);
-        await prefs.setBool('isLoggedIn', true);
-        String? token = response.token; // Assuming token is returned in the response header
-        log("Token - " + token!);
-        if (token != null) {
-          await prefs.setString('auth_token', token); // Save the token
-        }
-        // Navigate to HomePage
-        Get.offAll(() => HomePage());
-      } else {
-        // Handle invalid response
-        Get.snackbar('Error', response.message ?? 'OTP verification failed');
-      }
-    } catch (error) {
-      // Handle errors
-      Get.snackbar('Error', 'Something went wrong: $error');
-      print(error.toString());
-    } finally {
-      isLoading.value = false; 
+    var response = await ApiRepository().verifyOtp({
+      'otp': ctrl.text.trim(),
+      'phone_no': userModel!.value!.phone_no,
+    });
+    isLoading.value = false;
+    if (response.status) {
+      await PrefUtils().setUser(response.data!);
+      Get.offNamedUntil(
+        RouteConfig.homePage,
+        (route) => false,
+      );
+    }else{
+      Get.snackbar(AppConstant.appName, response.message??'');
     }
+  }
+
+  @override
+  void onInit() {
+    var arg = Get.arguments as UserModel?;
+    print(arg);
+    if (arg != null) {
+      userModel!.value = arg;
+    }
+    super.onInit();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    timer = null;
+    super.dispose();
+  }
+
+  startTimer() {
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+      timer = null;
+    }
+    timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        if (timerCount.value == 0) {
+          timer?.cancel();
+        }
+        timerCount -= 1;
+      },
+    );
   }
 }
