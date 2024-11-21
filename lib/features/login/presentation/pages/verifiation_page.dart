@@ -184,28 +184,31 @@ class VerificationPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),
-                  Obx(()
-                  => GestureDetector(
-                    child: CustomButtom(
-                      text: otpController.isLoading.value ? 'Loading..' : 'Verify OTP' ,
-                      // text:  'Verify OTP' ,
-                      height: size.height * 0.06,
-                      width: size.width * 0.85,
-                    ),
-                    onTap: () {
-                      log("Phone no : " + phoneNo.toString());
-                      log("OTP no : " +
-                          otpController.otpString
-                              .value); // Access the OTP from the controller
+                  Obx(
+                    () => GestureDetector(
+                      child: CustomButtom(
+                        text: otpController.isLoading.value
+                            ? 'Loading..'
+                            : 'Verify OTP',
+                        // text:  'Verify OTP' ,
+                        height: size.height * 0.06,
+                        width: size.width * 0.85,
+                      ),
+                      onTap: () {
+                        log("Phone no : " + phoneNo.toString());
+                        log("OTP no : " +
+                            otpController.otpString
+                                .value); // Access the OTP from the controller
 
-                      if (otpController.otpString.value.isNotEmpty) {
-                        otpController.verifyOtp(
-                            otpController.otpString.value, phoneNo);
-                      } else {
-                        Get.snackbar("Error", "Please enter the OTP");
-                      }
-                    },
-                  ),)
+                        if (otpController.otpString.value.isNotEmpty) {
+                          otpController.verifyOtp(
+                              otpController.otpString.value, phoneNo);
+                        } else {
+                          Get.snackbar("Error", "Please enter the OTP");
+                        }
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
