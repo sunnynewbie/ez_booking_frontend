@@ -1,5 +1,6 @@
 class NetworkUrl {
   static const baseUrl ='https://ezbooking-node.onrender.com/v1/';
+  static const imagePath ='https://ezbooking-node.onrender.com';
 
   static const sendOtp='user/send-otp';
   static const verifyOtp='user/verify-otp';
@@ -12,4 +13,6 @@ class NetworkUrl {
   static const getBookingDetail='events_booking/booking/:id';
   static const createBooking='events_booking/booking/create_booking';
   static const updateUserInBooking='events_booking/booking/update_user';
+  static const getDashboard= 'user/home';
+  static const mainCategory= 'user/category';
 }

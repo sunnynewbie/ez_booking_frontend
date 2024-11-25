@@ -2,11 +2,11 @@ import 'package:ez_booking/controller/verify_otp_controller.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
-import 'package:ez_booking/core/config/app_font.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon_button.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -94,10 +94,7 @@ class VerificationPage extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: PinCodeTextField(
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontFamily: AppFont.lexend,
-                    ),
+                    textStyle: context.xl18,
                     appContext: context,
                     length: 6,
                     // Use the TextEditingController
@@ -136,7 +133,17 @@ class VerificationPage extends StatelessWidget {
                           TextSpan(
                             text: "Didn't get the OTP?",
                           ),
-                          TextSpan(text: ' Resend in 00:${_.timerCount.value}'),
+                          if (_.timerCount.value == 0)
+                            TextSpan(
+                              text: ' Send',
+                              style: context.md14.blackunderLine,
+                              recognizer: TapGestureRecognizer()..onTap = () {
+                                _.sendOtp();
+                              },
+                            )
+                          else
+                            TextSpan(
+                                text: ' Resend in 00:${_.timerCount.value}'),
                         ],
                       ),
                       style: context.md14.withgrey78),

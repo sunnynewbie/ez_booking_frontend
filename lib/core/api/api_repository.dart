@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
+import 'package:ez_booking/model/dashboard_cateogry_model.dart';
+import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/user_model.dart';
 
@@ -33,7 +38,7 @@ class ApiRepository {
     try {
       var response =
           await apiService.post(path: NetworkUrl.verifyOtp, data: data);
-      if(response.headers['token']!=null){
+      if (response.headers['token'] != null) {
         PrefUtils().setToken(response.headers['token'].toString());
       }
       return ApiResponse.fromResponse(
@@ -66,7 +71,7 @@ class ApiRepository {
       Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getEvents, data: data);
+          await apiService.get(path: NetworkUrl.getEvents, query: data);
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map['data'] is List
@@ -100,11 +105,21 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse> getCategoriesbyType(Map<String, dynamic>? data) async {
+  Future<ApiResponse<List<AllCategoryBean>>> getCategoriesbyType(
+      Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.geCategories, data: data);
-      return ApiResponse.fromResponse(response);
+          await apiService.get(path: NetworkUrl.geCategories, query: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List)
+                .map(
+                  (e) => AllCategoryBean.fromJson(e),
+                )
+                .toList()
+            : [],
+      );
     } on Exception catch (e) {
       print(e);
 
@@ -180,6 +195,38 @@ class ApiRepository {
     } on Exception catch (e) {
       print(e);
 
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<Category_typeBean>>> getHomeCategory() async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.mainCategory);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0['data'] is List
+            ? (p0['data'] as List)
+                .map(
+                  (e) => e is String
+                      ? Category_typeBean.fromJson(jsonDecode(e))
+                      : Category_typeBean.fromJson(e),
+                )
+                .toList()
+            : [],
+      );
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<DashboardModel?>> getDashboardContent() async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.getDashboard);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? DashboardModel.fromJson(p0) : null,
+      );
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }

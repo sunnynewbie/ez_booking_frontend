@@ -69,6 +69,10 @@ class PrefUtils {
   setToken(String token) async {
     await sharedPreferences.setString(PrefUtils.token, token);
   }
+
+  String? getToken(){
+    return sharedPreferences.getString(PrefUtils.token);
+  }
   setUser(UserModel user)async{
     await sharedPreferences.setString(PrefUtils.userData, jsonEncode(user.toJson()));
   }
@@ -78,5 +82,9 @@ class PrefUtils {
     return null;
   }
   return UserModel.fromJson(jsonDecode(user));
+  }
+
+  clear() async {
+ await   sharedPreferences.clear();
   }
 }

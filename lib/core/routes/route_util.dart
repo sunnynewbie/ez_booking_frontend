@@ -1,7 +1,7 @@
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
-import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
+import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
@@ -24,17 +24,13 @@ class RouteUtil {
       name: RouteConfig.login,
       page: () => LoginPage(),
     ),
-    GetPage(
-      name: RouteConfig.oneTimeExperience,
-      page: () => const OneTimeExperience(),
-    ),
-    GetPage(
-      name: RouteConfig.regularExperience,
-      page: () => const RegularExperience(),
+     GetPage(
+      name: RouteConfig.eventByCateogry,
+      page: () => const EventByCategoryPage(),
     ),
     GetPage(
       name: RouteConfig.events,
-      page: () => const RegularExperience(),
+      page: () => const EventByCategoryPage(),
     ),
   ];
 }

@@ -3,23 +3,34 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_model.g.dart';
 
-@JsonSerializable(converters: [StringConverter(),IntConverter()])
+@JsonSerializable(
+    converters: [StringConverter(), NumConverter(), DateNullableConverter()])
 class EventModel {
-  final int event_id;
-  final String event_name;
-  final String event_desc;
-  final String tags;
-  final String address;
-  final double latitude;
-  final double longitude;
-  final int event_type;
-  final int ticket;
-  final int category_id;
-  final int quantity;
-  final String event_price;
-  final List<String> features;
-  final bool event_status;
-  final String image_path;
+  num event_id;
+  String event_name;
+  String event_desc;
+  String tags;
+  String address;
+  num latitude;
+  num longitude;
+  num event_type;
+  num ticket;
+  num category_id;
+  num quantity;
+  String event_price;
+  @JsonKey(defaultValue: [], disallowNullValue: false)
+  List<String> features;
+  bool event_status;
+  DateTime? event_date;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String image_path;
+
+  factory EventModel.fromJson(Map<String, dynamic> json) =>
+      _$EventModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EventModelToJson(this);
+
   EventModel({
     required this.event_id,
     required this.event_name,
@@ -35,9 +46,9 @@ class EventModel {
     required this.event_price,
     required this.features,
     required this.event_status,
+    required this.event_date,
+    required this.createdAt,
+    required this.updatedAt,
     required this.image_path,
   });
-
-  factory EventModel.fromJson(Map<String, dynamic> json) => _$EventModelFromJson(json);
-  Map<String, dynamic> toJson() => _$EventModelToJson(this);
 }

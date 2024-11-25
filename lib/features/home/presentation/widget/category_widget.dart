@@ -1,4 +1,6 @@
+import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:flutter/material.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -7,6 +9,7 @@ class CategoryWidget extends StatefulWidget {
   final String text;
   final String imgPath;
   final Function onPressed;
+
   const CategoryWidget(
       {super.key,
       required this.height,
@@ -23,7 +26,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
+print('${NetworkUrl.baseUrl}${widget.imgPath}');
     return GestureDetector(
       child: Container(
         height: widget.height,
@@ -42,9 +45,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               // color: Colors.red,
               height: size.height * 0.08,
               width: size.height * 0.08,
-              child: Image.asset(
-                widget.imgPath,
-                fit: BoxFit.fill,
+              child: ImageView(
+                imageType: ImageType.network,
+                path: '${NetworkUrl.imagePath}${widget.imgPath}',
               ),
             ),
             // SizedBox(

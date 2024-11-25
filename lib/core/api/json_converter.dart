@@ -76,7 +76,7 @@ class DateTimeConverter extends JsonConverter<DateTime, dynamic> {
   }
 
   @override
-  toJson(DateTime? object) {
+  toJson(DateTime object) {
     return object;
   }
 

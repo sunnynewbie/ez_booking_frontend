@@ -3,7 +3,7 @@ import 'package:ez_booking/core/routes/route_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
-import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
+import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:flutter/material.dart';

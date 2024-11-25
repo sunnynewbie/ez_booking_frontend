@@ -1,21 +1,21 @@
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/features/widget/card.dart';
+import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
-class PopularEvent extends StatefulWidget {
-  const PopularEvent({super.key});
+class PopularEvent extends StatelessWidget {
+  final DashboardModel dashboardModel;
 
-  @override
-  State<PopularEvent> createState() => _PopularEventState();
-}
+  const PopularEvent({super.key, required this.dashboardModel});
 
-class _PopularEventState extends State<PopularEvent> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Container(
       // color: Colors.amber,
-      padding: EdgeInsets.all(size.width * 0.04),
+      padding: EdgeInsets.all(AppDimens.space15),
       child: Column(
         children: [
           Container(
@@ -33,18 +33,24 @@ class _PopularEventState extends State<PopularEvent> {
               ],
             ),
           ),
+          Gap(AppDimens.space15),
           SizedBox(
-            height: size.height * 0.012,
-          ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InfoCard(eventid: 1,),
-                InfoCard(eventid: 1,),
-              ],
+            height: Get.height *.32,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => Gap(AppDimens.space15),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                var item =dashboardModel.popular_events.elementAt(index);
+                return InfoCard(
+                  eventid: item.event_id.toInt(),
+                  eventName: item.event_name,
+                  location: item.address,
+                  eventDate: item.event_date,
+                );
+              },
+              itemCount: dashboardModel.popular_events.length,
             ),
-          )
+          ),
         ],
       ),
     );

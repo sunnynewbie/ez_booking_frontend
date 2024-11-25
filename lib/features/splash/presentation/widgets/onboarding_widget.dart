@@ -100,9 +100,9 @@ class OnboardingWidget extends StatelessWidget {
                         AppDimens.space20,
                       ),
                       Text(
-                        'Welcome to Fyndio \n'
+                        'Welcome to Ezbooking \n'
                         'Made for Everyone!',
-                        style: context.x24.weigh500,
+                        style: context.x24.weigh600,
                         textAlign: TextAlign.center,
                       ),
                       Gap(AppDimens.space30),

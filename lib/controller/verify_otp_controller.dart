@@ -31,20 +31,20 @@ class VerifyOtpController extends GetxController {
         RouteConfig.homePage,
         (route) => false,
       );
-    }else{
-      Get.snackbar(AppConstant.appName, response.message??'');
+    } else {
+      Get.snackbar(AppConstant.appName, response.message ?? '');
     }
   }
 
   @override
   void onInit() {
     var arg = Get.arguments as UserModel?;
-    print(arg);
     if (arg != null) {
       userModel!.value = arg;
     }
     super.onInit();
     startTimer();
+    otpString.value=userModel?.value?.otp??'';
   }
 
   @override
@@ -60,13 +60,27 @@ class VerifyOtpController extends GetxController {
       timer = null;
     }
     timer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (timer) {
-        if (timerCount.value == 0) {
+        if (timerCount.value == 1) {
           timer?.cancel();
         }
         timerCount -= 1;
       },
     );
+  }
+
+  Future<void> sendOtp() async {
+    isLoading.value = true;
+    var response =
+    await ApiRepository().sendOTP({"phone_no": userModel!.value!.phone_no});
+    isLoading.value = false;
+    if (response.status) {
+      userModel!.value = response.data;
+      timerCount.value=60;
+      startTimer();
+    } else {
+      Get.snackbar(AppConstant.appName, response.message ?? '');
+    }
   }
 }

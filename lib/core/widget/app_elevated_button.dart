@@ -26,7 +26,7 @@ class AppElevatedButton extends StatelessWidget {
     this.buttonName,
     super.key,
     this.buttonColor = AppColors.primary,
-    this.fontSize = 13,
+    this.fontSize = 16,
     this.fontColor = Colors.white,
     this.borderColor = AppColors.primary,
     this.borderRadius = AppDimens.circleRadius20,

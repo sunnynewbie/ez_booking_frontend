@@ -27,9 +27,10 @@ class _OneTimeExperienceState extends State<OneTimeExperience> {
         child: Column(
           children: [
             HorizontalFlex(
-              onPressed: () {
+              categories: [],
+              onPressed: (item) {
                 // Navigate to EventListPage using GetX
-                Get.to(() => const EventListPage());
+                // Get.to(() => const EventListPage());
               },
             ),
             Container(

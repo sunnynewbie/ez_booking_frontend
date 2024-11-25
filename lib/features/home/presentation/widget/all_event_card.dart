@@ -1,5 +1,7 @@
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_font.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:flutter/material.dart';
 
 class AllEventCard extends StatelessWidget {
@@ -18,14 +20,11 @@ class AllEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
 
     return Container(
       alignment: Alignment.centerLeft,
-      width: size.width * 0.45,
-      height: size.height * 0.12,
       padding:
-          EdgeInsets.only(left: size.width * 0.03, right: size.width * 0.03),
+          EdgeInsets.symmetric(horizontal: AppDimens.space15),
       decoration: BoxDecoration(
           color: color2,
           border: Border.all(color: color1, width: 1.5),
@@ -34,30 +33,24 @@ class AllEventCard extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(top: size.height * 0.01),
+            padding: EdgeInsets.only(top: AppDimens.space10),
             child: Text(
               text,
-              style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.w600,
-                  color: color1,
-                  fontFamily: AppFont.lexend),
-            ),
+              style: context.md14.weigh600.copyWith(
+                color: color1
+              ) ),
           ),
           SizedBox(
-            height: size.height * 0.006,
+            height: AppDimens.space5,
           ),
           Container(
             alignment: Alignment.centerLeft,
             // width: size.width * 0.35,
             child: Text(
               text2,
-              style: TextStyle(
-                  fontSize: size.height * 0.017,
-                  fontWeight: FontWeight.w200,
-                  color: color1,
-                  fontFamily: AppFont.lexend),
-            ),
+              style: context.md14.weigh300.copyWith(
+                color: color1
+              )),
           ),
           // Container(
           //   color: Colors.red,

@@ -1,57 +1,78 @@
-import 'package:ez_booking/core/config/app_assets.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
+import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class HorizontalFlex extends StatelessWidget {
-  final VoidCallback? onPressed;
-  const HorizontalFlex({super.key, required this.onPressed});
+  final Function(AllCategoryBean item)? onPressed;
+  final List<AllCategoryBean> categories;
+  final AllCategoryBean? selectedCategory;
+
+  const HorizontalFlex(
+      {super.key,
+      required this.onPressed,
+      required this.categories,
+      this.selectedCategory});
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Container(
-        padding: EdgeInsets.all(size.width * 0.03),
-        child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, 
-        child: Row(
-          children: List.generate(
-            6, // Number of containers
-            (index) => GestureDetector(
-              child: Container(
-                width: size.height * 0.13,
-                height: size.height * 0.15,
-                margin: const EdgeInsets.all(0), 
-                // color: const Color.fromARGB(255, 212, 9, 9),
+    return SizedBox(
+      height: 120,
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            var item = categories.elementAt(index);
+            bool selected = item == selectedCategory;
+            return InkWell(
+              onTap: () {
+                onPressed?.call(item);
+              },
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 90,
+                  minWidth: 90,
+                ),
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(size.width * 0.014),
-                      height: size.height * 0.09,
-                      width: size.height * 0.1,
-                  decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(size.height * 0.014),
-                color: const Color.fromARGB(169, 222, 218, 218),
-              
-                ),
-                child: Image.asset(AppAssets.coconutTree),
-                ),
-                SizedBox(height: size.height * 0.01,),
-                    Container(
-                      height: size.height * 0.05,
-                  decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(size.height * 0.02),
-              
-                ),
-                child: Text('Camping', style: AppTextStyle.header1,),
-                ),
+                      height: AppDimens.imageSize70,
+                      width: AppDimens.imageSize70,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(AppDimens.borderRadius10),
+                        color: AppColors.grey78.withOpacity(selected ? .4 : .1),
+                      ),
+                      child: Center(
+                        child: ImageView(
+                          imageType: ImageType.network,
+                          path: item.category_name,
+                          height: AppDimens.imageSize50,
+                          width: AppDimens.imageSize50,
+                        ),
+                      ),
+                    ),
+                    Gap(AppDimens.space10),
+                    Expanded(
+                      child: Text(
+                        item.category_name,
+                        style: context.md14.weigh500.copyWith(
+                            color:
+                                selected ? Colors.black87 : AppColors.grey78),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
-                )
+                ),
               ),
-              onTap: onPressed,
-            ),
-          ),
-        ),
-      ),
-      );
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Gap(AppDimens.space10);
+          },
+          itemCount: categories.length),
+    );
   }
 }
