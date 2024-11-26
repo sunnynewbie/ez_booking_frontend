@@ -1,23 +1,21 @@
-import 'package:ez_booking/core/config/app_assets.dart';
+import 'package:ez_booking/controller/home_controller.dart';
+import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/features/home/presentation/widget/all_event_card.dart';
-import 'package:ez_booking/features/home/presentation/widget/category_widget.dart';
+import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class AllEvent extends StatefulWidget {
-  const AllEvent({super.key});
+class AllEvent extends StatelessWidget {
+  final DashboardModel dashboardModel;
+  const AllEvent({super.key, required this.dashboardModel});
 
-  @override
-  State<AllEvent> createState() => _AllEventState();
-}
-
-class _AllEventState extends State<AllEvent> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Container(
+    return  Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(size.width * 0.04),
+        padding: EdgeInsets.all(AppDimens.space15),
         // color: Colors.green,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,48 +35,27 @@ class _AllEventState extends State<AllEvent> {
               ],
             ),
             SizedBox(
-              height: size.height * 0.012,
+              height: AppDimens.space15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AllEventCard(
-                  text: 'Music & Instruments',
-                  text2: '15 + Classes',
-                  imgPath: '',
-                  color1: const Color.fromARGB(245, 48, 0, 87),
-                  color2: const Color.fromARGB(183, 205, 167, 235),
-                ),
-                AllEventCard(
-                  text: 'Music',
-                  imgPath: '',
-                  color1: const Color.fromARGB(255, 87, 150, 0),
-                  color2: const Color.fromARGB(172, 184, 245, 167),
-                  text2: '15 + Classes',
-                ),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 0.013,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AllEventCard(
-                  text: 'Music',
-                  imgPath: '',
-                  color1: const Color.fromARGB(255, 6, 160, 238),
-                  color2: const Color.fromARGB(164, 149, 188, 243),
-                  text2: '15 + Classes',
-                ),
-                AllEventCard(
-                  text: 'Music',
-                  imgPath: '',
-                  color1: const Color.fromARGB(255, 58, 10, 181),
-                  color2: const Color.fromARGB(255, 180, 186, 243),
-                  text2: '15 + Classes',
-                ),
-              ],
+            GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 16 / 8,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemCount: dashboardModel.all_categories.length,
+              itemBuilder: (context, index) {
+                var item = dashboardModel.all_categories.elementAt(index);
+                return AllEventCard(
+                  text: item.category_name,
+                  text2: '${item.total_events} events',
+                  imgPath: '${item.image_path}',
+                  color1: AppColors.colors[index % AppColors.colors.length],
+                  color2:AppColors.colors[index % AppColors.colors.length].withOpacity(.2),
+                );
+              },
             ),
           ],
         ));

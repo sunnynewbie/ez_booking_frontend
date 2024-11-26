@@ -34,6 +34,10 @@ class ImageView extends StatelessWidget {
           fit: boxFit,
           height: height,
           width: width,
+        errorListener: (value) {
+
+        },
+        errorWidget: (context, url, error) => Placeholder(),
         ),
       ImageType.file => Image.file(
           File(path),

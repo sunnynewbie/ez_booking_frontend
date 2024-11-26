@@ -1,20 +1,15 @@
-import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/home/presentation/widget/category_widget.dart';
+import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:go_router/go_router.dart';
 
-class EventCategory extends StatefulWidget {
-  const EventCategory({super.key});
+class EventCategory extends StatelessWidget {
+  final List<Category_typeBean> categories;
 
-  @override
-  State<EventCategory> createState() => _EventCategoryState();
-}
+  const EventCategory({super.key, required this.categories});
 
-class _EventCategoryState extends State<EventCategory> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -33,22 +28,17 @@ class _EventCategoryState extends State<EventCategory> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CategoryWidget(
-                  height: size.height * 0.19,
-                  width: size.width * 0.44,
-                  text: 'One time Experience',
-                  imgPath: AppAssets.tent,
-                  onPressed: () => Get.toNamed(RouteConfig.oneTimeExperience),
-                ),
-                CategoryWidget(
-                  height: size.height * 0.19,
-                  width: size.width * 0.44,
-                  text: 'Regular Experience',
-                  imgPath: AppAssets.guiter,
-                  onPressed: () => Get.toNamed(RouteConfig.regularExperience),
-                ),
-              ],
+              children: categories
+                  .map((e) => CategoryWidget(
+                        height: size.height * 0.19,
+                        width: size.width * 0.44,
+                        text: e.category_type,
+                        imgPath: e.image_path,
+                        onPressed: () => Get.toNamed(
+                            RouteConfig.eventByCateogry,
+                            arguments: e),
+                      ))
+                  .toList(),
             )
           ],
         ));

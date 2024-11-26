@@ -1,13 +1,18 @@
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/routes/route_util.dart';
+import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
-import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
+import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
+import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefUtils().initSharedPrefrence();
   runApp(const MyApp());
 }
 
@@ -20,55 +25,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Lexend'
       ),
-      home: const SplashScreen(),
-      getPages: [
-        GetPage(
-          name: RouteConfig.homePage,
-          page: () => const HomePage(),
-        ),
-        GetPage(
-          name: RouteConfig.login,
-          page: () => const LoginPage(),
-        ),
-        GetPage(
-          name: RouteConfig.oneTimeExperience,
-          page: () => const OneTimeExperience(),
-        ),
-        GetPage(
-          name: RouteConfig.regularExperience,
-          page: () => const RegularExperience(),
-        ),
-        GetPage(
-          name: RouteConfig.events,
-          page: () => const RegularExperience(),
-        ),
-      ],
+      initialRoute: RouteConfig.splash,
+      getPages:RouteUtil().route,
     );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    _checkAuthToken(); // Check auth token on initialization
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(), // Loading indicator
-      ),
-    );
-  }
-
-  Future<void> _checkAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? authToken = prefs.getString('auth_token');
-
-    if (authToken == null || authToken.isEmpty) {
-      Get.offNamed(RouteConfig.login); // Navigate to Login Page
-    } else {
-      Get.offNamed(RouteConfig.homePage); // Navigate to Home Page
-    }
   }
 }

@@ -1,67 +1,40 @@
 import 'package:ez_booking/core/routes/route_config.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_list_page.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
+import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
-import 'package:ez_booking/features/home/presentation/pages/regular_exp.dart';
+import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
+import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
+import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
+import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
+import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/splash_page.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class RouteUtil {
-  GoRouter route = GoRouter(routes: [
-    GoRoute(
-      path: RouteConfig.splash,
-      builder: (context, state) => SplashPage(),
+  List<GetPage> route = [
+    GetPage(name: RouteConfig.splash, page: () => const SplashPage()),
+    GetPage(name: RouteConfig.onboarding, page: () => const OnboardingPage()),
+    GetPage(name: RouteConfig.location, page: () => const LocationPage()),
+    GetPage(
+        name: RouteConfig.verification, page: () => const VerificationPage()),
+    GetPage(
+      name: RouteConfig.homePage,
+      page: () => const HomePage(),
     ),
-    GoRoute(
-      path: RouteConfig.location,
-      builder: (context, state) => SplashPage(),
+    GetPage(
+      name: RouteConfig.login,
+      page: () => LoginPage(),
     ),
-    GoRoute(
-      path: RouteConfig.login,
-      builder: (context, state) => SplashPage(),
+     GetPage(
+      name: RouteConfig.eventByCateogry,
+      page: () => const EventByCategoryPage(),
     ),
-    GoRoute(
-      path: RouteConfig.verification,
-      builder: (context, state) => SplashPage(),
+    GetPage(
+      name: RouteConfig.events,
+      page: () => const EventByCategoryPage(),
+    ),GetPage(
+      name: RouteConfig.eventDetail,
+      page: () => const EventDetailPage(),
     ),
-    GoRoute(
-      path: RouteConfig.homePage,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.profile,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.events,
-      builder: (context, state) => EventListPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.eventDetail,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.bookingList,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.bookingDetail,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.notifications,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.settings,
-      builder: (context, state) => SplashPage(),
-    ),
-    GoRoute(
-      path: RouteConfig.oneTimeExperience,
-      builder: (context, state) => OneTimeExperience(),
-    ),
-    GoRoute(
-      path: RouteConfig.regularExperience,
-      builder: (context, state) => RegularExperience(),
-    ),
-  ]);
+  ];
 }
