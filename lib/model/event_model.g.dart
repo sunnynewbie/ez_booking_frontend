@@ -23,7 +23,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
               ?.map(const StringConverter().fromJson)
               .toList() ??
           [],
-      event_status: json['event_status'] as bool,
+      event_status: const IntConverter().fromJson(json['event_status']),
       event_date: const DateNullableConverter().fromJson(json['event_date']),
       createdAt: const DateNullableConverter().fromJson(json['createdAt']),
       updatedAt: const DateNullableConverter().fromJson(json['updatedAt']),
@@ -46,7 +46,7 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'event_price': const StringConverter().toJson(instance.event_price),
       'features':
           instance.features.map(const StringConverter().toJson).toList(),
-      'event_status': instance.event_status,
+      'event_status': const IntConverter().toJson(instance.event_status),
       'event_date': const DateNullableConverter().toJson(instance.event_date),
       'createdAt': const DateNullableConverter().toJson(instance.createdAt),
       'updatedAt': const DateNullableConverter().toJson(instance.updatedAt),

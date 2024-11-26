@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'event_model.g.dart';
 
 @JsonSerializable(
-    converters: [StringConverter(), NumConverter(), DateNullableConverter()])
+    converters: [StringConverter(), IntConverter(),NumConverter(), DateNullableConverter()])
 class EventModel {
   num event_id;
   String event_name;
@@ -20,7 +20,7 @@ class EventModel {
   String event_price;
   @JsonKey(defaultValue: [], disallowNullValue: false)
   List<String> features;
-  bool event_status;
+  int event_status;
   DateTime? event_date;
   DateTime? createdAt;
   DateTime? updatedAt;

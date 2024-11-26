@@ -6,7 +6,7 @@ class NetworkUrl {
   static const verifyOtp='user/verify-otp';
   static const getUser='user/user/:id';
   static const getEvents='events/event';
-  static const getEvent='events/event/:id';
+  static  getEvent(int id)=>'events/event/$id';
   static const geCategories='events/event-categories';
   static const getTimeSlots='events/event/:id/time_slot';
   static const getBookings='events_booking/get_bookings';

@@ -1,6 +1,7 @@
 import 'package:ez_booking/controller/event_by_category_list.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/home/presentation/widget/horizontal_flex.dart';
 import 'package:ez_booking/features/widget/card.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +51,16 @@ class EventByCategoryPage extends StatelessWidget {
                     itemCount: ctrl.events.length,
                     itemBuilder: (context, index) {
                       var event = ctrl.events.elementAt(index);
-                      return InfoCard(
-                        eventid: event.event_id.toInt(),
-                        location: event.address,
-                        eventName: event.event_name,
-                        eventDate: event.event_date,
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteConfig.eventDetail,arguments: event.event_id.toInt());
+                        },
+                        child: InfoCard(
+                          eventid: event.event_id.toInt(),
+                          location: event.address,
+                          eventName: event.event_name,
+                          eventDate: event.event_date,
+                        ),
                       );
                     },
                   ),

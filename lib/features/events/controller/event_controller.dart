@@ -1,12 +1,12 @@
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/features/events/services/event_services.dart';
+import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/get_all_event.dart';
 import 'package:get/get.dart';
 
 class EventController extends GetxController {
-  final EventService _eventService = EventService();
   var isLoading = true.obs;
-  var eventList = <Event>[].obs;
+  RxList<EventModel> events=RxList.empty();
 
   @override
   void onInit() {
@@ -20,7 +20,7 @@ class EventController extends GetxController {
   }
 
   getCategories(int id) async {
-    var query = {'event_type': id};
-    var response = await ApiRepository().getCategoriesbyType(query);
+    var data = {'event_id': id};
+    var response = await ApiRepository().getEventBYId(id: id);
   }
 }

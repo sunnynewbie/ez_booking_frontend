@@ -90,10 +90,10 @@ class ApiRepository {
   }
 
   Future<ApiResponse<EventModel?>> getEventBYId(
-      Map<String, dynamic>? data) async {
+      {required int id,Map<String, dynamic>? data}) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getEvent, data: data);
+          await apiService.post(path: NetworkUrl.getEvent(id), data: data);
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => p0 != null ? EventModel.fromJson(p0) : null,

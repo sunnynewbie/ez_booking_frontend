@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
@@ -31,6 +32,9 @@ class RouteUtil {
     GetPage(
       name: RouteConfig.events,
       page: () => const EventByCategoryPage(),
+    ),GetPage(
+      name: RouteConfig.eventDetail,
+      page: () => const EventDetailPage(),
     ),
   ];
 }

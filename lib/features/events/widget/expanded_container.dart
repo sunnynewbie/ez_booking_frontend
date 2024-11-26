@@ -117,7 +117,7 @@ class _ExpandedContainerState extends State<ExpandedContainer> {
                 Obx(() {
                   if (eventController.event.value != null) {
                     return Text(
-                      "\₹ ${eventController.event.value!.eventPrice}",
+                      "\₹ ${eventController.event.value!.event_price}",
                       style: AppTextStyle.pagetitle,
                     );
                   } else {
