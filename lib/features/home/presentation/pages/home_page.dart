@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                 child: Icon(Icons.person_3_outlined),
               ),
               onPressed: () {
-                _showLogoutDialog(context); // Show dialog box
+                 Get.toNamed('/profile');
               },
             ),
           ],

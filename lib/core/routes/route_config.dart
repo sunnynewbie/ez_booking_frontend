@@ -18,6 +18,7 @@ class RouteConfig{
   static const bookingList ='/bookingList';
   static const bookingDetail ='/bookingDetail';
   static const String eventByCateogry = '/eventByCateogry';
+  static const String editUserProfile = '/editUserProfile';
 }
 
 

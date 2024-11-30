@@ -15,4 +15,6 @@ class NetworkUrl {
   static const updateUserInBooking='events_booking/booking/update_user';
   static const getDashboard= 'user/home';
   static const mainCategory= 'user/category';
+
+static const updateUser= 'user/update-user/:id';
 }

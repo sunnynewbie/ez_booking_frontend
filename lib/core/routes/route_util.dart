@@ -5,6 +5,8 @@ import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/splash_page.dart';
@@ -32,9 +34,18 @@ class RouteUtil {
     GetPage(
       name: RouteConfig.events,
       page: () => const EventByCategoryPage(),
-    ),GetPage(
+    ),
+    GetPage(
       name: RouteConfig.eventDetail,
       page: () => const EventDetailPage(),
+    ),
+    GetPage(
+      name: RouteConfig.profile,
+      page: () => const ProfilePage(),
+    ),
+    GetPage(
+      name: RouteConfig.editUserProfile,
+      page: () =>  EditProfilePage(),
     ),
   ];
 }

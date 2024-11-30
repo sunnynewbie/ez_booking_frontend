@@ -51,7 +51,7 @@ class ApiService {
       headers ??= {};
       setHeader(headers);
       final response =
-            await http.get(url,headers: headers).timeout(
+            await http.post(url,body: data, headers: headers).timeout(
         30.seconds,
         onTimeout: () {
           return http.Response(jsonEncode({'message': 'Timeout'}), 500);
