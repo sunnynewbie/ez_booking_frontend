@@ -5,8 +5,13 @@ import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
+import 'package:ez_booking/features/mybooking/presentation/pages/booking_details.dart';
+import 'package:ez_booking/features/mybooking/presentation/pages/my_booking.dart';
 import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
+import 'package:ez_booking/features/review/presentation/pages/review.dart';
+import 'package:ez_booking/features/rewards_and_offer/presentation/pages/reward_and_offer.dart';
+import 'package:ez_booking/features/settings/presentation/pages/settings.dart';
 import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/splash_page.dart';
@@ -46,6 +51,26 @@ class RouteUtil {
     GetPage(
       name: RouteConfig.editUserProfile,
       page: () =>  EditProfilePage(),
+    ),
+    GetPage(
+      name: RouteConfig.settings,
+      page: () =>  const Settings(),
+    ),
+    GetPage(
+      name: RouteConfig.rewardAndOffers,
+      page: () =>  const RewardAndOffer(),
+    ),
+    GetPage(
+      name: RouteConfig.review,
+      page: () =>   const MyReviews(),
+    ),
+    GetPage(
+      name: RouteConfig.myBooking,
+      page: () =>   const MyBooking(),
+    ),
+    GetPage(
+      name: RouteConfig.bookingDetails,
+      page: () =>   const BookingDetails(),
     ),
   ];
 }

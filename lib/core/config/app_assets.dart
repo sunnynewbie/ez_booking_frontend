@@ -36,4 +36,6 @@ class AppAssets {
   static const guiter = 'assets/icon/guiter.png';
   static const coconutTree = 'assets/icon/coconut_tree.png';
   static const reward_icon = 'assets/icon/reward_icon.png';
+  static const hotAirBallon = 'assets/appImages/hot_air_ballon.png';
+  static const group = 'assets/appImages/group.png';
 }

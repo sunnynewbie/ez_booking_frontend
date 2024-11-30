@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
       builder: (ctrl) => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Container(
             padding: EdgeInsets.only(left: 5),
             child: Column(

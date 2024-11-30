@@ -52,7 +52,7 @@ class ProfileWithAvatarTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Aadesh Kumar ',
+                    name,
                     style: AppTextStyle.header,
                   ),
                   Text(
@@ -82,7 +82,8 @@ class ProfileWithAvatarTile extends StatelessWidget {
 class NormalTitle extends StatefulWidget {
   final String imgPath;
   final String text;
-  const NormalTitle({super.key, required this.imgPath, required this.text});
+  final VoidCallback ontap;
+  const NormalTitle({super.key, required this.imgPath, required this.text, required this.ontap});
 
   @override
   State<NormalTitle> createState() => _NormalTitleState();
@@ -91,51 +92,54 @@ class NormalTitle extends StatefulWidget {
 class _NormalTitleState extends State<NormalTitle> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: AppDimens.space20,
-        right: AppDimens.space20,
-        top: AppDimens.space5,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        alignment: Alignment.center,
-        height: 80, // TODO: Adjust dynamically if required later
-        decoration: BoxDecoration(
-          border: const Border(
-            bottom: BorderSide(
-              color: Color.fromARGB(255, 244, 243, 243),
-              width: 1.0,
-            ),
-          ),
+    return GestureDetector(
+      onTap: widget.ontap,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: AppDimens.space20,
+          right: AppDimens.space20,
+          top: AppDimens.space5,
         ),
-        child: Row(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              height: 50,
-              width: 50,
-              // decoration: BoxDecoration(
-              //   color: AppColors.textGrey,
-              //   borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
-              // ),
-              child: Image.asset(widget.imgPath, scale: 3.4,),
-            ),
-            SizedBox(width: AppDimens.space12),
-
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.text,
-                    style: AppTextStyle.header1,
-                  ),
-                   IconButton(icon: Image.asset(AppAssets.arrowIcon, scale: 3.5,), onPressed: (){},),
-                ],
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          alignment: Alignment.center,
+          height: 80, // TODO: Adjust dynamically if required later
+          decoration: BoxDecoration(
+            border: const Border(
+              bottom: BorderSide(
+                color: Color.fromARGB(255, 244, 243, 243),
+                width: 1.0,
               ),
             ),
-          ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                width: 50,
+                // decoration: BoxDecoration(
+                //   color: AppColors.textGrey,
+                //   borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
+                // ),
+                child: Image.asset(widget.imgPath, scale: 3.4,),
+              ),
+              SizedBox(width: AppDimens.space12),
+      
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.text,
+                      style: AppTextStyle.header1,
+                    ),
+                     IconButton(icon: Image.asset(AppAssets.arrowIcon, scale: 3.5,), onPressed: (){},),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
