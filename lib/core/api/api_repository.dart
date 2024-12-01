@@ -255,17 +255,6 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse> addReview(Map<String, dynamic>? data) async {
-    try {
-      var response =
-          await apiService.post(path: NetworkUrl.sendOtp, data: data);
-      return ApiResponse.fromResponse(response);
-    } on Exception catch (e) {
-      print(e);
-
-      return ApiResponse();
-    }
-  }
 
   Future<ApiResponse> editProfile(Map<String, dynamic> data) async {
     try {
