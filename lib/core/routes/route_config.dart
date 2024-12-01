@@ -14,6 +14,7 @@ class RouteConfig{
   static const profile ='/profile';
   static const settings ='/settings';
   static const policies ='/policies';
+  static const rewardAndOffers ='/rewardAndOffers';
   static const search ='/search';
   static const events ='/events';
   static const eventDetail ='/eventDetail';
@@ -21,8 +22,11 @@ class RouteConfig{
   static const notifications ='/notifications';
   static const bookingList ='/bookingList';
   static const bookingDetail ='/bookingDetail';
-  static const String eventByCateogry = '/eventByCateogry';
-  static const String editUserProfile = '/editUserProfile';
+  static const eventByCateogry = '/eventByCateogry';
+  static const editUserProfile = '/editUserProfile';
+  static const review = '/review';
+  static const myBooking = '/myBooking';
+  static const bookingDetails = '/bookingDetails';
 }
 
 
