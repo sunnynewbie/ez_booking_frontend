@@ -172,7 +172,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         : AppElevatedButton(
                           height: AppDimens.buttonHeight,
                           fontColor: Colors.white,
-                          buttonName: 'Save Changes',
+                          text: 'Save Changes',
                           width: double.infinity,
                             onTap: () async {
                               await controller.submitForm();

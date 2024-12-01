@@ -269,7 +269,6 @@ class ApiRepository {
       );
     } catch (e) {
       print("Error updating user: $e");
-      log(e.toString());
       return  ApiResponse();
     }
   }
