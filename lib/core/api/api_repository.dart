@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
@@ -91,7 +92,7 @@ class ApiRepository {
   }
 
   Future<ApiResponse<EventModel?>> getEventBYId(
-      {required int id, Map<String, dynamic>? data}) async {
+      {required int id,Map<String, dynamic>? data}) async {
     try {
       var response =
           await apiService.get(path: NetworkUrl.getEvent(id), query: data);
@@ -210,7 +211,17 @@ class ApiRepository {
     }
   }
 
+  Future<ApiResponse> addReview(Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.sendOtp, data: data);
+      return ApiResponse.fromResponse(response);
+    } on Exception catch (e) {
+      print(e);
 
+      return ApiResponse();
+    }
+  }
 
   Future<ApiResponse<List<Category_typeBean>>> getHomeCategory() async {
     try {
@@ -255,13 +266,13 @@ class ApiRepository {
       return ApiResponse();
     }
   }
-  
+
   Future<ApiResponse> editProfile(Map<String, dynamic> data) async {
     try {
       var response = await apiService.post(
         path:  NetworkUrl.updateUser,
         data: data
-        
+
       );
       return ApiResponse.fromResponse(
         response,
