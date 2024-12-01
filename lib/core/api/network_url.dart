@@ -11,8 +11,11 @@ class NetworkUrl {
   static const getTimeSlots='events/event/:id/time_slot';
   static const getBookings='events_booking/get_bookings';
   static const getBookingDetail='events_booking/booking/:id';
-  static const createBooking='events_booking/booking/create_booking';
-  static const updateUserInBooking='events_booking/booking/update_user';
+  static const createOnTimeBooking='events_booking/booking/create-onetime-booking';
+  static const createBooking='events_booking/booking/create-booking';
+  static const updateUserInBooking='events_booking/booking/update-user';
   static const getDashboard= 'user/home';
   static const mainCategory= 'user/category';
+
+static const updateUser= 'user/update-user/:id';
 }

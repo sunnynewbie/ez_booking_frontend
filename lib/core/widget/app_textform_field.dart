@@ -82,7 +82,7 @@ class AppTextFormField extends StatelessWidget {
         if (label != null) ...[
           Text(
             label ?? "",
-            style: context.md13.weigh500,
+            style: context.lg16.weigh500,
           ),
           const Gap(AppDimens.space4),
         ],
@@ -117,9 +117,9 @@ class AppTextFormField extends StatelessWidget {
         prefixIconConstraints: prefixIconSize,
         hintText: hint,
         // labelText: label,
-        labelStyle:context.md13.withgrey78,
+        labelStyle:context.md14.withgrey78,
         hintStyle:
-            hintTextStyle ??context.md13.withgrey78,
+            hintTextStyle ??context.md14.withgrey78,
         filled: filled,
         disabledBorder: showBorder
             ? OutlineInputBorder(

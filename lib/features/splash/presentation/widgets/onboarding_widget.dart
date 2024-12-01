@@ -108,7 +108,7 @@ class OnboardingWidget extends StatelessWidget {
                       Gap(AppDimens.space30),
                       AppElevatedButton(
                         width: double.maxFinite,
-                        buttonName: 'Get started',
+                        text: 'Get started',
                         onTap: () {
                           Get.offNamedUntil(RouteConfig.login,(route) => false);
                         },

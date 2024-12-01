@@ -4,24 +4,29 @@ import 'package:flutter/material.dart';
 
 class AppIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final String imagePath;
+  final String? imagePath;
   final Widget? child;
   final Color? iconColor;
   final double? iconSize;
   final BoxConstraints? constraints;
   final bool shrinkButton;
   final EdgeInsetsGeometry? padding;
+  final double? borderRadius;
+  final Color? borderColor;
 
   const AppIconButton(
-      {required this.imagePath,
+      {this.imagePath,
       super.key,
       this.onPressed,
       this.child,
       this.shrinkButton = false,
       this.constraints,
       this.padding,
+      this.borderColor,
+      this.borderRadius,
       this.iconSize,
       this.iconColor});
+
   @override
   Widget build(BuildContext context) {
     // if (!isButton) {
@@ -44,14 +49,21 @@ class AppIconButton extends StatelessWidget {
         tapTargetSize: shrinkButton
             ? MaterialTapTargetSize.shrinkWrap
             : MaterialTapTargetSize.padded,
+        side: BorderSide(color: borderColor ?? Colors.white),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius ?? 0),
+        ),
       ),
-      icon: child ??
-          Image.asset(
-            imagePath,
-            color: iconColor,
-            height: (iconSize ?? AppDimens.imageSize24).hs,
-            width: (iconSize ?? AppDimens.imageSize24).hs,
-          ),
+      icon: child == null
+          ? imagePath != null
+              ? Image.asset(
+                  imagePath!,
+                  color: iconColor,
+                  height: (iconSize ?? AppDimens.imageSize24).hs,
+                  width: (iconSize ?? AppDimens.imageSize24).hs,
+                )
+              : SizedBox()
+          : child!,
     );
   }
 }

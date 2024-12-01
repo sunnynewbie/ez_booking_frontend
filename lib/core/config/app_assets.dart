@@ -1,5 +1,7 @@
 class AppAssets {
   static const appIcon = 'assets/app_icon.png';
+  static const splash_logo = 'assets/splash_logo.png';
+  static const allowLocation = 'assets/location_allow_img.png';
   static const splashBG = 'assets/splash_bg.png';
   static const arrowIcon = 'assets/icon/arrow_icon.png';
   static const backIcon = 'assets/icon/back_icon.png';
@@ -35,4 +37,5 @@ class AppAssets {
   static const tent = 'assets/icon/tent.png';
   static const guiter = 'assets/icon/guiter.png';
   static const coconutTree = 'assets/icon/coconut_tree.png';
+  static const reward_icon = 'assets/icon/reward_icon.png';
 }

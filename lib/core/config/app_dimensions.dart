@@ -10,12 +10,14 @@ class AppDimens {
   static const double space16 = 16;
   static const double space20 = 20;
   static const double space30 = 30;
+  static const double space35 = 35;
   static const double space40 = 40;
   static const double space45 = 45;
   static const double space50 = 50;
   static const double space55 = 55;
   static const double space60 = 60;
   static const double space80 = 80;
+  static const double space90 = 90;
 
   static const imageSize8 = 10.0;
   static const imageSize10 = 10.0;
@@ -61,4 +63,7 @@ class AppDimens {
 
   static double mainTextShimmerRadius = 3;
   static double productRatingShimmerRadius = 5;
+
+  static double profileTilewithAvatarHeight = 180;
+  static double profileTile = 40;
 }

@@ -1,10 +1,16 @@
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_chekout_page.dart';
 import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
-import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
-import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_list_page.dart';
+import 'package:ez_booking/features/events/presentation/pages/event_loading_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
+import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
+import 'package:ez_booking/features/home/presentation/pages/search_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
+import 'package:ez_booking/features/splash/presentation/pages/allow_location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/splash_page.dart';
@@ -15,6 +21,9 @@ class RouteUtil {
     GetPage(name: RouteConfig.splash, page: () => const SplashPage()),
     GetPage(name: RouteConfig.onboarding, page: () => const OnboardingPage()),
     GetPage(name: RouteConfig.location, page: () => const LocationPage()),
+    GetPage(name: RouteConfig.loadingpage, page: () => const EventLoadingPage()),
+    GetPage(
+        name: RouteConfig.allowLocation, page: () => const AllowLocationPage()),
     GetPage(
         name: RouteConfig.verification, page: () => const VerificationPage()),
     GetPage(
@@ -25,16 +34,32 @@ class RouteUtil {
       name: RouteConfig.login,
       page: () => LoginPage(),
     ),
-     GetPage(
+    GetPage(
       name: RouteConfig.eventByCateogry,
       page: () => const EventByCategoryPage(),
     ),
     GetPage(
       name: RouteConfig.events,
-      page: () => const EventByCategoryPage(),
-    ),GetPage(
+      page: () => const EventListPage(),
+    ),
+    GetPage(
       name: RouteConfig.eventDetail,
       page: () => const EventDetailPage(),
+    ),
+    GetPage(
+      name: RouteConfig.profile,
+      page: () => const ProfilePage(),
+    ),
+    GetPage(
+      name: RouteConfig.editUserProfile,
+      page: () =>  EditProfilePage(),
+    ),
+    GetPage(
+      name: RouteConfig.search,
+      page: () => const SearchPage(),
+    ),GetPage(
+      name: RouteConfig.addUserEvent,
+      page: () => const EventCheckoutPage(),
     ),
   ];
 }

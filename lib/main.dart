@@ -1,14 +1,9 @@
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/routes/route_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
-import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
-import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
-import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
-import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
-import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
+import 'package:ez_booking/service/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,20 +11,37 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    Get.put( Appservice());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'Lexend'
+    return SafeArea(
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
+          fontFamily: 'Lexend',
+          appBarTheme: AppBarTheme(
+              color: Colors.white,
+              titleSpacing: 0,
+              surfaceTintColor: Colors.white),
+        ),
+        initialRoute: RouteConfig.splash,
+        getPages: RouteUtil().route,
       ),
-      initialRoute: RouteConfig.splash,
-      getPages:RouteUtil().route,
     );
   }
 }

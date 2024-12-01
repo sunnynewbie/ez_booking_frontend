@@ -51,12 +51,7 @@ class VerificationPage extends StatelessWidget {
                               Text(
                                 'Verify OTP',
                               ),
-                              Obx(
-                                () => Text(
-                                  'Otp sent to phone number ${_.userModel!.value!.phone_no}',
-                                ),
-                              ),
-                              Gap(AppDimens.space15),
+                              Gap(AppDimens.space40),
                             ],
                           ),
                         ),
@@ -106,11 +101,15 @@ class VerificationPage extends StatelessWidget {
                         fieldHeight: AppDimens.imageSize50,
                         fieldWidth: AppDimens.imageSize50,
                         activeFillColor: Colors.transparent,
-                        activeColor: Colors.black38,
+                        activeColor: AppColors.greyd2,
+                        borderWidth: .5,
+                        activeBorderWidth: .5,
+                        inactiveBorderWidth: .5,
+                        errorBorderWidth: .5,
                         selectedFillColor: Colors.transparent,
-                        selectedColor: Colors.black87,
+                        selectedColor:AppColors.greyd2,
                         inactiveFillColor: Colors.transparent,
-                        inactiveColor: Colors.black38),
+                        inactiveColor: AppColors.greyd2),
                     controller: _.ctrl,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -125,25 +124,26 @@ class VerificationPage extends StatelessWidget {
                     enableActiveFill: true,
                   ),
                 ),
-                Gap(AppDimens.space15),
+                Gap(AppDimens.space5),
                 Obx(
                   () => Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Didn't get the OTP?",
+                            text: "Didn't get the OTP? ",
                           ),
                           if (_.timerCount.value == 0)
                             TextSpan(
-                              text: ' Send',
+                              text: 'Send',
                               style: context.md14.blackunderLine,
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                _.sendOtp();
-                              },
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  _.sendOtp();
+                                },
                             )
                           else
                             TextSpan(
-                                text: ' Resend in 00:${_.timerCount.value}'),
+                                text: 'Resend in 00:${_.timerCount.value}'),
                         ],
                       ),
                       style: context.md14.withgrey78),
@@ -156,7 +156,7 @@ class VerificationPage extends StatelessWidget {
                       _.verifyOtp();
                     },
                     isLoading: _.isLoading.value,
-                    buttonName: 'Verify OTP',
+                    text: 'Verify OTP',
                   ),
                 ),
               ],

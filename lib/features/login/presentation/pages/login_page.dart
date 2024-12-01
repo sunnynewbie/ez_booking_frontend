@@ -1,11 +1,12 @@
 // pages/login_page.dart
 import 'package:ez_booking/controller/login_controller.dart';
-import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_icon.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -28,27 +29,11 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Image.asset(
-                              AppAssets.Fyndio,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Gap(AppDimens.space10),
-                          Text(
-                            'Ez booking',
-                            style: context.x26.withprimary.weigh700,
-                          )
-                        ],
-                      ),
+                      AppIcon(),
                       Gap(AppDimens.space50),
                       Text(
-                        'Welcome to Ez booking !!',
-                        style: context.x20.weigh700,
+                        'Welcome to Ezbooking!!',
+                        style: context.x24.weigh600,
                       ),
                       SizedBox(
                         height: AppDimens.space10,
@@ -60,7 +45,7 @@ class LoginPage extends StatelessWidget {
                         child: Text(
                           'Start your journey,Please enter your phone number.',
                           textAlign: TextAlign.center,
-                          style: context.md14.withgrey78,
+                          style: context.md14.weigh500.withgrey78,
                         ),
                       ),
                       Gap(AppDimens.space15),
@@ -68,6 +53,9 @@ class LoginPage extends StatelessWidget {
                         controller: _.phoneCtrl,
                         label: 'Phone number',
                         maxLength: 10,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -88,7 +76,7 @@ class LoginPage extends StatelessWidget {
                               _.sendOtp();
                             }
                           },
-                          buttonName: 'Continue',
+                          text: 'Continue',
                           width: double.maxFinite,
                         ),
                       ),

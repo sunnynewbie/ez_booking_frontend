@@ -5,9 +5,11 @@ import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
+import 'package:ez_booking/model/booking_model.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:ez_booking/model/event_model.dart';
+import 'package:ez_booking/model/params/add_user_booking_param.dart';
 import 'package:ez_booking/model/user_model.dart';
 
 class ApiRepository {
@@ -52,10 +54,10 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse<UserModel>> getUser(Map<String, dynamic>? data) async {
+  Future<ApiResponse<UserModel>> getUser(Map<String, dynamic>? query) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getUser, data: data);
+          await apiService.get(path: NetworkUrl.getUser, query: query);
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
@@ -93,7 +95,7 @@ class ApiRepository {
       {required int id,Map<String, dynamic>? data}) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getEvent(id), data: data);
+          await apiService.get(path: NetworkUrl.getEvent(id), query: data);
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => p0 != null ? EventModel.fromJson(p0) : null,
@@ -144,6 +146,28 @@ class ApiRepository {
       var response =
           await apiService.post(path: NetworkUrl.createBooking, data: data);
       return ApiResponse.fromResponse(response);
+    } on Exception catch (e) {
+      print(e);
+
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<BookingModel>>> createOneTmeBooking(
+      AddUserBookingParam param) async {
+    try {
+      var response = await apiService.post(
+          path: NetworkUrl.createOnTimeBooking, data: param.toJson());
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) {
+          return p0['data'] is List
+              ? (p0['data'] as List)
+                  .map((e) => BookingModel.fromJson(e))
+                  .toList()
+              : [];
+        },
+      );
     } on Exception catch (e) {
       print(e);
 
@@ -228,6 +252,24 @@ class ApiRepository {
       );
     } on Exception catch (e) {
       return ApiResponse();
+    }
+  }
+
+
+  Future<ApiResponse> editProfile(Map<String, dynamic> data) async {
+    try {
+      var response = await apiService.post(
+        path:  NetworkUrl.updateUser,
+        data: data
+
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
+      );
+    } catch (e) {
+      print("Error updating user: $e");
+      return  ApiResponse();
     }
   }
 }
