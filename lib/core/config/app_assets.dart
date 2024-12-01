@@ -37,4 +37,5 @@ class AppAssets {
   static const tent = 'assets/icon/tent.png';
   static const guiter = 'assets/icon/guiter.png';
   static const coconutTree = 'assets/icon/coconut_tree.png';
+  static const reward_icon = 'assets/icon/reward_icon.png';
 }

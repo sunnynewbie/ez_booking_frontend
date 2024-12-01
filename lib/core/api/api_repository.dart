@@ -53,10 +53,10 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse<UserModel>> getUser(Map<String, dynamic>? data) async {
+  Future<ApiResponse<UserModel>> getUser(Map<String, dynamic>? query) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getUser, data: data);
+          await apiService.get(path: NetworkUrl.getUser, query: query);
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
@@ -210,17 +210,7 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse> addReview(Map<String, dynamic>? data) async {
-    try {
-      var response =
-          await apiService.post(path: NetworkUrl.sendOtp, data: data);
-      return ApiResponse.fromResponse(response);
-    } on Exception catch (e) {
-      print(e);
 
-      return ApiResponse();
-    }
-  }
 
   Future<ApiResponse<List<Category_typeBean>>> getHomeCategory() async {
     try {
@@ -251,6 +241,36 @@ class ApiRepository {
       );
     } on Exception catch (e) {
       return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse> addReview(Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.sendOtp, data: data);
+      return ApiResponse.fromResponse(response);
+    } on Exception catch (e) {
+      print(e);
+
+      return ApiResponse();
+    }
+  }
+  
+  Future<ApiResponse> editProfile(Map<String, dynamic> data) async {
+    try {
+      var response = await apiService.post(
+        path:  NetworkUrl.updateUser,
+        data: data
+        
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
+      );
+    } catch (e) {
+      print("Error updating user: $e");
+      log(e.toString());
+      return  ApiResponse();
     }
   }
 }

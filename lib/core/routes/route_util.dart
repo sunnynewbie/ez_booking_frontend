@@ -8,6 +8,8 @@ import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/search_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/allow_location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/location_page.dart';
 import 'package:ez_booking/features/splash/presentation/pages/onboarding_page.dart';
@@ -43,6 +45,14 @@ class RouteUtil {
     GetPage(
       name: RouteConfig.eventDetail,
       page: () => const EventDetailPage(),
+    ),
+    GetPage(
+      name: RouteConfig.profile,
+      page: () => const ProfilePage(),
+    ),
+    GetPage(
+      name: RouteConfig.editUserProfile,
+      page: () =>  EditProfilePage(),
     ),
     GetPage(
       name: RouteConfig.search,
