@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 class ApiResponse<T> {
   String? message;
@@ -21,8 +21,8 @@ class ApiResponse<T> {
       {T? Function(dynamic)? fromJson}) {
     ApiResponse<T> apiResponse = ApiResponse();
     log('response status ${response.statusCode}');
-    log('response body ${response.body}');
-    var responseJson = jsonDecode(response.body);
+    log('response body ${response.data}');
+    var responseJson = response.data;
     if (response.statusCode == 200) {
       apiResponse.status = true;
 

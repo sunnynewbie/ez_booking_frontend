@@ -1,7 +1,7 @@
-import 'package:ez_booking/controller/home_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/home/presentation/widget/all_event_card.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +9,12 @@ import 'package:get/get.dart';
 
 class AllEvent extends StatelessWidget {
   final DashboardModel dashboardModel;
+
   const AllEvent({super.key, required this.dashboardModel});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(AppDimens.space15),
         // color: Colors.green,
@@ -28,9 +29,14 @@ class AllEvent extends StatelessWidget {
                   "All Event List",
                   style: AppTextStyle.header,
                 ),
-                Text(
-                  "See All",
-                  style: AppTextStyle.header1,
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(RouteConfig.events);
+                  },
+                  child: Text(
+                    "See All",
+                    style: AppTextStyle.header1,
+                  ),
                 )
               ],
             ),
@@ -53,7 +59,8 @@ class AllEvent extends StatelessWidget {
                   text2: '${item.total_events} events',
                   imgPath: '${item.image_path}',
                   color1: AppColors.colors[index % AppColors.colors.length],
-                  color2:AppColors.colors[index % AppColors.colors.length].withOpacity(.2),
+                  color2: AppColors.colors[index % AppColors.colors.length]
+                      .withOpacity(.1),
                 );
               },
             ),

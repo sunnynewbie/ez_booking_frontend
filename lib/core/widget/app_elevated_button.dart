@@ -5,7 +5,7 @@ import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:flutter/material.dart';
 
 class AppElevatedButton extends StatelessWidget {
-  final String? buttonName;
+  final String? text;
   final Color? buttonColor;
 
   final VoidCallback? onTap;
@@ -23,7 +23,7 @@ class AppElevatedButton extends StatelessWidget {
 
   const AppElevatedButton({
     required this.onTap,
-    this.buttonName,
+    this.text,
     super.key,
     this.buttonColor = AppColors.primary,
     this.fontSize = 16,
@@ -67,7 +67,7 @@ class AppElevatedButton extends StatelessWidget {
             : childWidget ??
                 Text(
                   textAlign: TextAlign.center,
-                  buttonName ?? '',
+                  text ?? '',
                   style: context.md13.weigh500.copyWith(
                       fontSize: fontSize, color: fontColor, height: 1.1),
                 ),

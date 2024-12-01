@@ -1,9 +1,11 @@
 import 'package:ez_booking/core/api/network_url.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:flutter/material.dart';
 
-class CategoryWidget extends StatefulWidget {
+class CategoryWidget extends StatelessWidget {
   final double height;
   final double width;
   final String text;
@@ -19,58 +21,42 @@ class CategoryWidget extends StatefulWidget {
       required this.onPressed});
 
   @override
-  State<CategoryWidget> createState() => _CategoryWidgetState();
-}
-
-class _CategoryWidgetState extends State<CategoryWidget> {
-  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-print('${NetworkUrl.baseUrl}${widget.imgPath}');
     return GestureDetector(
       child: Container(
-        height: widget.height,
-        width: widget.width,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(
-              color: Colors.black26,
-            ),
+            border: Border.all(color: AppColors.grey0f),
             borderRadius: BorderRadius.circular(20)),
+        alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              // color: Colors.red,
-              height: size.height * 0.08,
-              width: size.height * 0.08,
-              child: ImageView(
-                imageType: ImageType.network,
-                path: '${NetworkUrl.imagePath}${widget.imgPath}',
-              ),
+            ImageView(
+              imageType: ImageType.network,
+              height: AppDimens.imageSize75,
+              width: AppDimens.imageSize75,
+              path: '${NetworkUrl.imagePath}$imgPath',
             ),
-            // SizedBox(
-            //   // height: size.height * 0.013,
-            // ),
-            Container(
-              // color: Colors.green,
-              // width: ,
-              padding: EdgeInsets.only(
-                  left: size.width * 0.03, right: size.width * 0.03),
-
-              alignment: Alignment.center,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppDimens.space16,
+                right: AppDimens.space16,
+              ),
               child: Text(
-                widget.text,
+                '$text',
                 textAlign: TextAlign.center,
-                style: AppTextStyle.header1,
+                style: context.lg16.weigh500,
               ),
             ),
           ],
         ),
       ),
       onTap: () {
-        widget.onPressed();
+        onPressed();
       },
     );
   }

@@ -48,7 +48,7 @@ class AllEventCard extends StatelessWidget {
             // width: size.width * 0.35,
             child: Text(
               text2,
-              style: context.md14.weigh300.copyWith(
+              style: context.md14.copyWith(
                 color: color1
               )),
           ),

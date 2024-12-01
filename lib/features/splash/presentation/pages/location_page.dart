@@ -1,7 +1,11 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_font.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({super.key});
@@ -18,10 +22,6 @@ class _LocationPageState extends State<LocationPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
-        ),
         title: Text(
           'Your Location',
           style: TextStyle(
@@ -35,68 +35,25 @@ class _LocationPageState extends State<LocationPage> {
         padding: EdgeInsets.all(size.width * 0.03),
         child: Column(
           children: [
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Container(
-              padding: EdgeInsets.all(size.width * 0.03),
-              height: size.height * 0.07,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(AppAssets.search),
-                  SizedBox(
-                    width: size.height * 0.01,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      cursorColor: AppColors.primary,  // Corrected here
-                      style: TextStyle(color: AppColors.primary),  // Corrected here
-                      decoration: InputDecoration(
-                        hintText: 'Search for location',
-                        hintStyle: TextStyle(color: Colors.black45),  // Corrected here
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black12,
-                border: Border.all(
-                  color: Colors.black26,
-                  width: 2
-                )
+            Gap(AppDimens.space20),
+            AppTextFormField(
+              filled: true,
+              hint: 'Search for location',
+              fillColor: AppColors.grey0f,
+              prefixIcon: Image.asset(
+                AppAssets.search,
               ),
             ),
-            SizedBox(
-              height: size.height * 0.012,
+            const Gap(AppDimens.space15),
+            AppTextFormField(
+              fillColor: AppColors.grey0f,
+              filled: true,
+              hint: 'Choose from map',
+              hintTextStyle: context.md14.withBlack,
+              borderRadius: 0,
+              borderColor: Colors.transparent,
+              suffixIcon: Image.asset(AppAssets.map),
             ),
-            Container(
-              padding: EdgeInsets.all(size.height * 0.02),
-              alignment: Alignment.centerLeft,
-              height: size.height * 0.07,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Choose From Map',
-              style: TextStyle(
-                fontFamily: AppFont.lexend,
-                fontSize: size.height * 0.018
-              ),
-              ),
-              Image.asset(AppAssets.map)
-                ],
-              )
-            )
           ],
         ),
       ),

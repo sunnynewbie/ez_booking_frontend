@@ -12,34 +12,31 @@ class ImageSlider extends StatelessWidget {
       AppAssets.music_review,
       AppAssets.onboarding_4,
     ];
-    return Container(
-      height: size.height * 0.24, // Fixed height for the carousel
-      child: CarouselSlider(
-        options: CarouselOptions(
-          height: size.height * 0.24,
-          autoPlay: true,
-          enableInfiniteScroll: true,
-          viewportFraction: 1.0,
-          autoPlayInterval: Duration(seconds: 3),
-          autoPlayAnimationDuration: Duration(milliseconds: 800),
-          enlargeCenterPage: false,
-        ),
-        items: imgList.map((imageUrl) {
-          return Builder(
-            builder: (BuildContext context) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
-          );
-        }).toList(),
+    return CarouselSlider(
+      options: CarouselOptions(
+        autoPlay: true,
+        enableInfiniteScroll: true,
+        viewportFraction: 1.0,
+        aspectRatio:16/8,
+        autoPlayInterval: Duration(seconds: 3),
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        enlargeCenterPage: false,
       ),
+      items: imgList.map((imageUrl) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+        );
+      }).toList(),
     );
   }
 }

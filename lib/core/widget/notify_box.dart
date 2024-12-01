@@ -1,26 +1,22 @@
-import 'package:ez_booking/core/config/app_assets.dart';
+import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:flutter/material.dart';
 
-class NotifyBox extends StatefulWidget {
+class NotifyBox extends StatelessWidget {
   final String text1;
   final String text2;
   final String text3;
-  final Color gradient1;
-  final Color gradient2;
   final Color boxColor;
   final String imgPath;
+
   const NotifyBox(
       {super.key,
       required this.text1,
       required this.text2,
-      required this.text3, required this.gradient1, required this.gradient2, required this.boxColor, required this.imgPath});
+      required this.text3,
+      required this.boxColor,
+      required this.imgPath});
 
-  @override
-  State<NotifyBox> createState() => _NotifyBoxState();
-}
-
-class _NotifyBoxState extends State<NotifyBox> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -34,11 +30,7 @@ class _NotifyBoxState extends State<NotifyBox> {
         //   // const Color.fromARGB(255, 43, 101, 172),
         //   const Color.fromARGB(210, 67, 137, 222),
         // ]),
-        gradient: LinearGradient(colors: 
-        [
-          widget.gradient1,
-          widget.gradient2,
-        ]),
+        gradient: AppColors.blueGredient,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -56,27 +48,28 @@ class _NotifyBoxState extends State<NotifyBox> {
                 Container(
                   width: size.width * 0.6,
                   child: Text(
-                    widget.text1,
+                    text1,
                     style: AppTextStyle.regular4,
                   ),
                 ),
                 Container(
                   width: size.width * 0.6,
                   child: Text(
-                    widget.text2,
+                    text2,
                     style: AppTextStyle.regular4_fade_white,
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.only(top: size.height * 0.012, left: size.width * 0.007),
+                  margin: EdgeInsets.only(
+                      top: size.height * 0.012, left: size.width * 0.007),
                   decoration: BoxDecoration(
                       // color: Colors.white,
-                      color: widget.boxColor,
+                      color: boxColor,
                       borderRadius: BorderRadius.circular(4)),
                   height: size.height * 0.034,
                   width: size.width * 0.24,
-                  child: Text(widget.text3),
+                  child: Text(text3),
                 ),
               ],
             ),
@@ -85,7 +78,7 @@ class _NotifyBoxState extends State<NotifyBox> {
             padding: EdgeInsets.all(size.height * 0.01),
             width: size.width * 0.27,
             // color: Colors.red,
-            child: Image.asset(widget.imgPath),
+            child: Image.asset(imgPath),
           )
         ],
       ),

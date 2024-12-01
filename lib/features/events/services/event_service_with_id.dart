@@ -14,8 +14,9 @@ class SpecificEventController extends GetxController {
 
   // Method to fetch event details
   Future<void> fetchEventDetails(int id) async {
+    isLoading.value=true;
     var response =await ApiRepository().getEventBYId(id: id);
-
+    isLoading.value=false;
     if(response.status){
       event.value=response.data;
     }

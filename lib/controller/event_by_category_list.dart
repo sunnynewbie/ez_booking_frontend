@@ -9,6 +9,7 @@ class EventByCategoryListController extends GetxController {
   Rxn<AllCategoryBean> selectedCategory = Rxn();
   RxList<AllCategoryBean> categories = RxList.empty();
   RxList<EventModel> events = RxList.empty();
+  RxBool isoading = RxBool(false);
 
   @override
   void onInit() {
@@ -22,6 +23,7 @@ class EventByCategoryListController extends GetxController {
   }
 
   getCategories(int id) async {
+    isoading.value = true;
     var query = {'event_type': id.toString()};
     var response = await ApiRepository().getCategoriesbyType(query);
     if (response.data != null) {
@@ -32,6 +34,7 @@ class EventByCategoryListController extends GetxController {
   }
 
   getEventsByCategory() async {
+    isoading.value = true;
     events.clear();
     var response = await ApiRepository().getEventList({
       "page": "1",
@@ -41,5 +44,6 @@ class EventByCategoryListController extends GetxController {
     if (response.status) {
       events.assignAll(response.data ?? []);
     }
+    isoading.value = false;
   }
 }
