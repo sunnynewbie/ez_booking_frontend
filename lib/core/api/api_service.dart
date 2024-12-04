@@ -34,6 +34,7 @@ class ApiService {
     try {
       headers ??= {};
       setHeader(headers);
+      print(headers);
       dio.options.headers = headers;
       final response = await dio.get(path, queryParameters: query, data: data);
       return response;
@@ -53,7 +54,7 @@ class ApiService {
 
       headers ??= {};
       setHeader(headers);
-      print(url);
+      print(headers);
       print(jsonEncode(data));
       dio.options.contentType=Headers.jsonContentType;
       dio.options.headers = headers;
@@ -121,6 +122,7 @@ class ApiService {
 
   setHeader(Map<String, String> header) {
     var token = PrefUtils().getToken();
+    print(token);
     if (token != null) {
       header.addAll({'token': token});
     }

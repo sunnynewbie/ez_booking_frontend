@@ -100,7 +100,7 @@ class OnboardingWidget extends StatelessWidget {
                         AppDimens.space20,
                       ),
                       Text(
-                        'Welcome to Ezbooking \n'
+                        'Welcome to Ezbook \n'
                         'Made for Everyone!',
                         style: context.x24.weigh600,
                         textAlign: TextAlign.center,
@@ -110,7 +110,7 @@ class OnboardingWidget extends StatelessWidget {
                         width: double.maxFinite,
                         text: 'Get started',
                         onTap: () {
-                          Get.offNamedUntil(RouteConfig.login,(route) => false);
+                          Get.offNamedUntil(AppRoutes.login,(route) => false);
                         },
                       ),
                     ],

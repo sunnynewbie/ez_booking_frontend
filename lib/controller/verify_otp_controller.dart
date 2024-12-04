@@ -28,7 +28,7 @@ class VerifyOtpController extends GetxController {
     if (response.status) {
       await PrefUtils().setUser(response.data!);
       Get.offNamedUntil(
-        RouteConfig.homePage,
+        AppRoutes.homePage,
         (route) => false,
       );
     } else {
@@ -45,7 +45,9 @@ class VerifyOtpController extends GetxController {
     super.onInit();
     startTimer();
     otpString.value=userModel?.value?.otp??'';
+  ctrl.text=userModel?.value?.otp??'';
   }
+
 
   @override
   void dispose() {

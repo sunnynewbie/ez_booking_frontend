@@ -1,5 +1,6 @@
 class AppAssets {
   static const appIcon = 'assets/app_icon.png';
+  static const logoWhite = 'assets/logo_white.png';
   static const splash_logo = 'assets/splash_logo.png';
   static const allowLocation = 'assets/location_allow_img.png';
   static const splashBG = 'assets/splash_bg.png';

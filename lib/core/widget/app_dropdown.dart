@@ -51,8 +51,7 @@ class AppDropdown<T> extends StatelessWidget {
     this.height,
     this.width,
     this.iconPadding,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: AppDimens.space16),
+    this.contentPadding,
     this.onChanged,
     this.dropdownHeight,
     this.dropdownWidth,
@@ -110,73 +109,68 @@ class AppDropdown<T> extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: hintTextStyle,
           ),
-          /*   decoration: InputDecoration(
-            disabledBorder: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide:
-                  BorderSide(color: borderColor ?? AppColors.borderColorGrey),
-            ),
-            border: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide:
-                  BorderSide(color: borderColor ?? AppColors.borderColorGrey),
-            ),
-            enabledBorder: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide:
-                  BorderSide(color: borderColor ?? AppColors.borderColorGrey),
-            ),
-            errorBorder: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide: const BorderSide(color: AppColors.errorRed),
-            ),
-            focusedBorder: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide:
-                  BorderSide(color: borderColor ?? AppColors.borderColorGrey),
-            ),
-            focusedErrorBorder: SquircleInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
-              borderSide: const BorderSide(color: AppColors.errorRed),
-            ),
-            contentPadding: EdgeInsets.zero,
-            filled: bgColor != null,
-            fillColor: bgColor,
-            enabled: enabled,
-          ),*/
           decoration: InputDecoration.collapsed(
             hintText: 'hintText',
             hintStyle: hintTextStyle,
+          ).copyWith(
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
+              borderSide:
+                  BorderSide(color: borderColor ?? AppColors.borderColor),
+            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius30),
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
+              borderSide:
+                  BorderSide(color: borderColor ?? AppColors.borderColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
+              borderSide:
+                  BorderSide(color: borderColor ?? AppColors.borderColor),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
               borderSide: const BorderSide(color: AppColors.errorRed),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
+              borderSide:
+                  BorderSide(color: borderColor ?? AppColors.borderColor),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
+              borderSide: const BorderSide(color: AppColors.errorRed),
+            ),
+            contentPadding: contentPadding ??
+                EdgeInsets.only(
+                    top: AppDimens.space12, bottom: AppDimens.space12),
+            filled: bgColor != null,
+            fillColor: bgColor,
+            enabled: enabled,
           ),
           buttonStyleData: ButtonStyleData(
-            height: height ?? context.w(AppDimens.inputFieldHeight + 8),
             padding: iconPadding ?? EdgeInsets.only(right: AppDimens.space16),
             decoration: BoxDecoration(
               color: enabled ? bgColor : AppColors.textGrey,
-              borderRadius: BorderRadius.circular(AppDimens.circleRadius15),
+              borderRadius: BorderRadius.circular(AppDimens.circleRadius10),
             ),
           ),
           iconStyleData: IconStyleData(
-            openMenuIcon: RotatedBox(
-              quarterTurns: 1,
-              child: Icon(
-                Icons.chevron_left,
-                color: iconColor,
+              openMenuIcon: RotatedBox(
+                quarterTurns: 1,
+                child: Icon(
+                  Icons.chevron_left,
+                  color: iconColor,
+                ),
               ),
-            ),
-            icon: RotatedBox(
-              quarterTurns: 3,
-              child: Icon(
-                Icons.chevron_left,
-                color: iconColor,
+              icon: RotatedBox(
+                quarterTurns: 3,
+                child: Icon(
+                  Icons.chevron_left,
+                  color: iconColor,
+                ),
               ),
-            ),
-            iconSize: 20
-          ),
+              iconSize: 20),
           dropdownSearchData: searchEnable
               ? DropdownSearchData(
                   searchController: controller,
@@ -191,7 +185,7 @@ class AppDropdown<T> extends StatelessWidget {
                 )
               : null,
           menuItemStyleData: MenuItemStyleData(
-            padding:itemPadding?? EdgeInsets.only(left: AppDimens.space12.hs),
+            padding: itemPadding ?? EdgeInsets.only(left: AppDimens.space12.hs),
             selectedMenuItemBuilder: (context, child) {
               return child;
             },
@@ -207,6 +201,7 @@ class AppDropdown<T> extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(AppDimens.borderRadius10),
                     border: Border.all(color: AppColors.borderColor),
+              color:Colors.white
                   )
                 : const BoxDecoration(),
           ),

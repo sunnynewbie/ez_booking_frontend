@@ -1,34 +1,41 @@
-import 'dart:developer';
-
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
-import 'package:ez_booking/core/config/app_font.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ProfileWithAvatarTile extends StatelessWidget {
   const ProfileWithAvatarTile(
-      {super.key, required this.username, required this.name});
+      {super.key,
+      required this.username,
+      required this.name,
+      required this.phoneNumber});
+
+  final String phoneNumber;
   final String username;
   final String name;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      
-      padding: EdgeInsets.only(left:AppDimens.space20, right: AppDimens.space20),
+      padding: const EdgeInsets.only(
+          left: AppDimens.space20, right: AppDimens.space20),
       child: Container(
-        margin: EdgeInsets.only(bottom: AppDimens.space10),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(bottom: AppDimens.space10),
+        padding: const EdgeInsets.all(10),
         alignment: Alignment.center,
-        height: 100, //Static height needs to be change @TODO
+        height: 100,
+        //Static height needs to be change @TODO
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: const Color.fromARGB(255, 244, 243, 243)),
             borderRadius: BorderRadius.circular(AppDimens.borderRadius10)),
         child: Row(
+
           children: [
             Container(
               child: Container(
@@ -36,40 +43,48 @@ class ProfileWithAvatarTile extends StatelessWidget {
                 width: AppDimens.imageSize80,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP4fNghY7Kx6eP79gmdp6YhesUm6GZGL53Rw&s',
-                    fit: BoxFit.cover,
+                  child: ImageView(
+                    imageType: ImageType.network,
+                    boxFit: BoxFit.cover,
+                    path:
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP4fNghY7Kx6eP79gmdp6YhesUm6GZGL53Rw&s',
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Container(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    name,
-                    style: AppTextStyle.header,
+                    name.isEmpty ? 'Ezbook user' : name,
+                    style: context.lg16.weigh500,
                   ),
                   Text(
-                    username.toString(),
-                    style: AppTextStyle.header1,
+                    phoneNumber.toString(),
+                    style: context.md14.withgrey78,
+                  ),Text(
+                    phoneNumber.toString(),
+                    style: context.md14.withgrey78,
                   )
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: IconButton(
-                onPressed: (){
-                  Get.toNamed('/editUserProfile');
+                onPressed: () {
+                  Get.toNamed(AppRoutes.editUserProfile);
                 },
-                icon: Image.asset(AppAssets.editIcon, scale: 4,),
+                icon: Image.asset(
+                  AppAssets.editIcon,
+                  scale: 4,
+                ),
               ),
             )
           ],
@@ -79,62 +94,61 @@ class ProfileWithAvatarTile extends StatelessWidget {
   }
 }
 
-class NormalTitle extends StatefulWidget {
+class NormalTitle extends StatelessWidget {
   final String imgPath;
   final String text;
   final VoidCallback ontap;
-  const NormalTitle({super.key, required this.imgPath, required this.text, required this.ontap});
 
-  @override
-  State<NormalTitle> createState() => _NormalTitleState();
-}
+  const NormalTitle(
+      {super.key,
+      required this.imgPath,
+      required this.text,
+      required this.ontap});
 
-class _NormalTitleState extends State<NormalTitle> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.ontap,
+      onTap: ontap,
       child: Padding(
-        padding: EdgeInsets.only(
-          left: AppDimens.space20,
-          right: AppDimens.space20,
+        padding: const EdgeInsets.only(
+          left: AppDimens.space16,
+          right: AppDimens.space16,
           top: AppDimens.space5,
         ),
         child: Container(
           padding: const EdgeInsets.all(8),
           alignment: Alignment.center,
-          height: 80, // TODO: Adjust dynamically if required later
-          decoration: BoxDecoration(
-            border: const Border(
+          decoration: const BoxDecoration(
+            border: Border(
               bottom: BorderSide(
-                color: Color.fromARGB(255, 244, 243, 243),
+                color: AppColors.grey0f,
                 width: 1.0,
               ),
             ),
           ),
           child: Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 50,
-                width: 50,
-                // decoration: BoxDecoration(
-                //   color: AppColors.textGrey,
-                //   borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
-                // ),
-                child: Image.asset(widget.imgPath, scale: 3.4,),
+              ImageView(
+                imageType: ImageType.asset,
+                path: imgPath,
+                height: AppDimens.imageSize35,
+                width: AppDimens.imageSize35,
               ),
-              SizedBox(width: AppDimens.space12),
-      
+              const Gap(AppDimens.space12),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.text,
-                      style: AppTextStyle.header1,
+                    Text(text, style: context.lg16.withBlack),
+                    IconButton(
+                      icon: const ImageView(
+                        path: AppAssets.arrowIcon,
+                        imageType: ImageType.asset,
+                        height: AppDimens.imageSize24,
+                        width: AppDimens.imageSize24,
+                      ),
+                      onPressed: () {},
                     ),
-                     IconButton(icon: Image.asset(AppAssets.arrowIcon, scale: 3.5,), onPressed: (){},),
                   ],
                 ),
               ),

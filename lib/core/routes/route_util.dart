@@ -1,8 +1,9 @@
 import 'package:ez_booking/core/routes/route_config.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_chekout_page.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_list_page.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_loading_page.dart';
+import 'package:ez_booking/features/events/pages/event_chekout_page.dart';
+import 'package:ez_booking/features/events/pages/event_chekout_summery_page.dart';
+import 'package:ez_booking/features/events/pages/event_detail_page.dart';
+import 'package:ez_booking/features/events/pages/event_list_page.dart';
+import 'package:ez_booking/features/events/pages/event_loading_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/search_page.dart';
@@ -23,68 +24,72 @@ import 'package:get/get.dart';
 
 class RouteUtil {
   List<GetPage> route = [
-    GetPage(name: RouteConfig.splash, page: () => const SplashPage()),
-    GetPage(name: RouteConfig.onboarding, page: () => const OnboardingPage()),
-    GetPage(name: RouteConfig.location, page: () => const LocationPage()),
-    GetPage(name: RouteConfig.loadingpage, page: () => const EventLoadingPage()),
+    GetPage(name: AppRoutes.splash, page: () => const SplashPage()),
+    GetPage(name: AppRoutes.onboarding, page: () => const OnboardingPage()),
+    GetPage(name: AppRoutes.location, page: () => const LocationPage()),
+    GetPage(name: AppRoutes.loadingpage, page: () => const EventLoadingPage()),
     GetPage(
-        name: RouteConfig.allowLocation, page: () => const AllowLocationPage()),
+        name: AppRoutes.allowLocation, page: () => const AllowLocationPage()),
+    GetPage(name: AppRoutes.verification, page: () => const VerificationPage()),
     GetPage(
-        name: RouteConfig.verification, page: () => const VerificationPage()),
-    GetPage(
-      name: RouteConfig.homePage,
+      name: AppRoutes.homePage,
       page: () => const HomePage(),
     ),
     GetPage(
-      name: RouteConfig.login,
+      name: AppRoutes.login,
       page: () => LoginPage(),
     ),
     GetPage(
-      name: RouteConfig.eventByCateogry,
+      name: AppRoutes.eventByCateogry,
       page: () => const EventByCategoryPage(),
     ),
     GetPage(
-      name: RouteConfig.events,
+      name: AppRoutes.events,
       page: () => const EventListPage(),
     ),
     GetPage(
-      name: RouteConfig.eventDetail,
+      name: AppRoutes.eventDetail,
       page: () => const EventDetailPage(),
     ),
     GetPage(
-      name: RouteConfig.profile,
+      name: AppRoutes.profile,
       page: () => const ProfilePage(),
     ),
     GetPage(
-      name: RouteConfig.editUserProfile,
-      page: () =>  EditProfilePage(),
+      name: AppRoutes.editUserProfile,
+      page: () => EditProfilePage(),
     ),
     GetPage(
-      name: RouteConfig.search,
+      name: AppRoutes.search,
       page: () => const SearchPage(),
-    ),GetPage(
-      name: RouteConfig.addUserEvent,
+    ),
+    GetPage(
+      name: AppRoutes.addUserEvent,
       page: () => const EventCheckoutPage(),
     ),
     GetPage(
-      name: RouteConfig.settings,
-      page: () =>  const Settings(),
+      name: AppRoutes.settings,
+      page: () => const Settings(),
     ),
     GetPage(
-      name: RouteConfig.rewardAndOffers,
-      page: () =>  const RewardAndOffer(),
+      name: AppRoutes.rewardAndOffers,
+      page: () => const RewardAndOffer(),
     ),
     GetPage(
-      name: RouteConfig.review,
-      page: () =>   const MyReviews(),
+      name: AppRoutes.review,
+      page: () => const MyReviews(),
     ),
     GetPage(
-      name: RouteConfig.myBooking,
-      page: () =>   const MyBooking(),
+      name: AppRoutes.myBooking,
+      page: () => const MyBooking(),
     ),
     GetPage(
-      name: RouteConfig.bookingDetails,
-      page: () =>   const BookingDetails(),
+      name: AppRoutes.bookingDetails,
+      page: () => const BookingDetailspage(),
+    ),
+    GetPage(
+      name: AppRoutes.eventSummeryPage,
+      page: () => const EventCheckoutSummeryPage(),
     ),
   ];
 }

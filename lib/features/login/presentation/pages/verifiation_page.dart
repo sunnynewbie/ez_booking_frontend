@@ -35,6 +35,7 @@ class VerificationPage extends StatelessWidget {
                     child: AppBar(
                       backgroundColor: AppColors.grey0f,
                       leading: AppIconButton(
+                        borderColor: Colors.transparent,
                         imagePath: AppAssets.backIcon,
                         onPressed: () {
                           Get.back();
@@ -138,6 +139,7 @@ class VerificationPage extends StatelessWidget {
                               style: context.md14.blackunderLine,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+                                _.ctrl.clear();
                                   _.sendOtp();
                                 },
                             )

@@ -27,7 +27,7 @@ class PopularEvent extends StatelessWidget {
                 style: AppTextStyle.header,
               ),
               TextButton(
-                onPressed: () => Get.toNamed(RouteConfig.events),
+                onPressed: () => Get.toNamed(AppRoutes.events),
                 child: const Text(
                   "See All",
                   style: AppTextStyle.header1,
@@ -45,7 +45,7 @@ class PopularEvent extends StatelessWidget {
                 var item = dashboardModel.popular_events.elementAt(index);
                 return InkWell(
                   onTap: () {
-                    Get.toNamed(RouteConfig.eventDetail,
+                    Get.toNamed(AppRoutes.eventDetail,
                         arguments: item.event_id);
                   },
                   child: InfoCard(

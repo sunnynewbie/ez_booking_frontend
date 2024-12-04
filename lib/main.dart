@@ -1,7 +1,7 @@
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/routes/route_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
-import 'package:ez_booking/service/app_service.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
               titleSpacing: 0,
               surfaceTintColor: Colors.white),
         ),
-        initialRoute: RouteConfig.splash,
+        initialRoute: AppRoutes.splash,
         getPages: RouteUtil().route,
       ),
     );

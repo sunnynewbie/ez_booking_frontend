@@ -4,7 +4,7 @@ import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
-import 'package:ez_booking/service/app_service.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -42,7 +42,7 @@ class AllowLocationPage extends StatelessWidget {
               width: double.maxFinite,
               child: TextButton(
                 onPressed: () {
-                  Get.toNamed(RouteConfig.location);
+                  Get.toNamed(AppRoutes.location);
                 },
                 child: Text(
                   'Enter location manually',
@@ -57,7 +57,7 @@ class AllowLocationPage extends StatelessWidget {
                 if (response) {
                   bool status = await Appservice.instance.onLocation();
                   if (status) {
-                    Get.offNamedUntil(RouteConfig.splash,(route) => false,);
+                    Get.offNamedUntil(AppRoutes.splash,(route) => false,);
                   }
                 }
               },

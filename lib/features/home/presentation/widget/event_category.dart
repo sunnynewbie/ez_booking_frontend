@@ -32,7 +32,7 @@ class EventCategory extends StatelessWidget {
                     text: e.category_type,
                     imgPath: e.image_path,
                     onPressed: () =>
-                        Get.toNamed(RouteConfig.eventByCateogry, arguments: e),
+                        Get.toNamed(AppRoutes.eventByCateogry, arguments: e),
                   ))
               .toList(),
         )

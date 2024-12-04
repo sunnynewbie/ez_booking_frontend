@@ -1,8 +1,10 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
+import 'package:ez_booking/features/events/controller/event_summery_args.dart';
 import 'package:ez_booking/features/events/controller/event_upate_user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -151,7 +153,13 @@ class EventCheckoutPage extends StatelessWidget {
                   width: double.maxFinite,
                   onTap: () {
                     if (_.formKey.currentState!.validate()) {
-                    _.createBooking();
+                      // _.createBooking();
+
+                      Get.toNamed(AppRoutes.eventSummeryPage,
+                          arguments: EventSummeryArgs(
+                            eventModel: _.eventModel!,
+                            users: _.users.toList(),
+                          ));
                     }
                   },
                 ),

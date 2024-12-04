@@ -1,6 +1,6 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_list_page.dart';
+import 'package:ez_booking/features/events/pages/event_list_page.dart';
 import 'package:ez_booking/features/home/presentation/widget/horizontal_flex.dart';
 import 'package:ez_booking/features/widget/card.dart';
 import 'package:flutter/material.dart';

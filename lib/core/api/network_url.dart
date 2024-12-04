@@ -9,8 +9,8 @@ class NetworkUrl {
   static  getEvent(int id)=>'events/event/$id';
   static const geCategories='events/event-categories';
   static const getTimeSlots='events/event/:id/time_slot';
-  static const getBookings='events_booking/get_bookings';
-  static const getBookingDetail='events_booking/booking/:id';
+  static const getBookings='events_booking/get-bookings';
+  static  getBookingDetail(int id)=>'events_booking/booking/$id';
   static const createOnTimeBooking='events_booking/booking/create-onetime-booking';
   static const createBooking='events_booking/booking/create-booking';
   static const updateUserInBooking='events_booking/booking/update-user';

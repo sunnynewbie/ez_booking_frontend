@@ -18,7 +18,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       ticket: const NumConverter().fromJson(json['ticket']),
       category_id: const NumConverter().fromJson(json['category_id']),
       quantity: const NumConverter().fromJson(json['quantity']),
-      event_price: const StringConverter().fromJson(json['event_price']),
+      event_price: const NumConverter().fromJson(json['event_price']),
       features: (json['features'] as List<dynamic>?)
               ?.map(const StringConverter().fromJson)
               .toList() ??
@@ -43,7 +43,7 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'ticket': const NumConverter().toJson(instance.ticket),
       'category_id': const NumConverter().toJson(instance.category_id),
       'quantity': const NumConverter().toJson(instance.quantity),
-      'event_price': const StringConverter().toJson(instance.event_price),
+      'event_price': const NumConverter().toJson(instance.event_price),
       'features':
           instance.features.map(const StringConverter().toJson).toList(),
       'event_status': const IntConverter().toJson(instance.event_status),

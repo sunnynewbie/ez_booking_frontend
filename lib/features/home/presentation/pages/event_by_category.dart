@@ -56,7 +56,7 @@ class EventByCategoryPage extends StatelessWidget {
                             var event = ctrl.events.elementAt(index);
                             return InkWell(
                               onTap: () {
-                                Get.toNamed(RouteConfig.eventDetail,
+                                Get.toNamed(AppRoutes.eventDetail,
                                     arguments: event.event_id.toInt());
                               },
                               child: InfoCard(

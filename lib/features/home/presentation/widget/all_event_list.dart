@@ -31,7 +31,7 @@ class AllEvent extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(RouteConfig.events);
+                    Get.toNamed(AppRoutes.events);
                   },
                   child: Text(
                     "See All",

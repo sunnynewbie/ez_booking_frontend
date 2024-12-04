@@ -1,12 +1,13 @@
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/extension/common_extension.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
-import 'package:ez_booking/features/events/presentation/widgets/even_add_user_bs.dart';
-import 'package:ez_booking/features/events/presentation/widgets/event_shimmer_widget.dart';
-import 'package:ez_booking/features/events/services/event_service_with_id.dart';
+import 'package:ez_booking/controller/event_service_with_id.dart';
+import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
+import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
 import 'package:ez_booking/model/event_user_model.dart';
 import 'package:ez_booking/model/params/add_user_param.dart';
@@ -21,8 +22,8 @@ class EventDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SpecificEventController>(
-      init: SpecificEventController(),
+    return GetBuilder<EventDetailController>(
+      init: EventDetailController(),
       builder: (_) => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -141,8 +142,7 @@ class EventDetailPage extends StatelessWidget {
                             EventDetailsField(
                                 title: 'Date',
                                 text: _.event.value?.event_date != null
-                                    ? DateFormat('dd MMM,yyyy')
-                                        .format(_.event.value!.event_date!)
+                                    ?_.event.value!.event_date!.ddMMyyyy
                                     : ''),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
@@ -186,13 +186,13 @@ class EventDetailPage extends StatelessWidget {
         ),
         bottomNavigationBar: Obx(
           () => BookButton(
-            amount: _.event.value?.event_price,
+            amount: _.event.value?.event_price.toMoney,
             onBookClick: () async {
               var users = await Get.bottomSheet(EventAddUserBs(
                 eventModel: _.event.value!,
               ));
               if (users is List<EventUser>) {
-                Get.toNamed(RouteConfig.addUserEvent,
+                Get.toNamed(AppRoutes.addUserEvent,
                     arguments: AddUserParam(
                       eventModel: _.event.value!,
                       users: users,

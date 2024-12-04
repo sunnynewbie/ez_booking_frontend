@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                 actions: [
                   AppIconButton(
                     onPressed: () {
-                      Get.toNamed(RouteConfig.search);
+                      Get.toNamed(AppRoutes.search);
                     },
                     imagePath: AppAssets.search_normal,
                     iconSize: 20,
@@ -64,7 +64,9 @@ class HomePage extends StatelessWidget {
                     shrinkButton: true,
                   ),
                   AppIconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed('/profile');
+                    },
                     imagePath: '',
                     constraints: BoxConstraints(),
                     shrinkButton: true,

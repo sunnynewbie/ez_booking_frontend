@@ -17,7 +17,7 @@ class LoginController extends GetxController {
     isLoading.value = false;
     if (response.status) {
       userModel.value = response.data;
-      Get.toNamed(RouteConfig.verification, arguments: response.data);
+      Get.toNamed(AppRoutes.verification, arguments: response.data);
     } else {
       Get.snackbar(AppConstant.appName, response.message ?? '');
     }

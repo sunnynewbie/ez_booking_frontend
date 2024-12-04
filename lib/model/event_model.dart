@@ -1,10 +1,15 @@
 import 'package:ez_booking/core/api/json_converter.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'event_model.g.dart';
 
-@JsonSerializable(
-    converters: [StringConverter(), IntConverter(),NumConverter(), DateNullableConverter()])
+@JsonSerializable(converters: [
+  StringConverter(),
+  IntConverter(),
+  NumConverter(),
+  DateNullableConverter()
+])
 class EventModel {
   num event_id;
   String event_name;
@@ -17,7 +22,7 @@ class EventModel {
   num ticket;
   num category_id;
   num quantity;
-  String event_price;
+  num event_price;
   @JsonKey(defaultValue: [], disallowNullValue: false)
   List<String> features;
   int event_status;
@@ -26,6 +31,7 @@ class EventModel {
   DateTime? updatedAt;
   String image_path;
 
+  String get dateStr => DateFormat('dd MMM,yyyy').format(event_date!);
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
 

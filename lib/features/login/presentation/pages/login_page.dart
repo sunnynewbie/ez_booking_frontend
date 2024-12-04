@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                       AppIcon(),
                       Gap(AppDimens.space50),
                       Text(
-                        'Welcome to Ezbooking!!',
+                        'Welcome to Ezbook!!',
                         style: context.x24.weigh600,
                       ),
                       SizedBox(
