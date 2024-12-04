@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_bottomnavbar.dart';
 import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/one_time_exp.dart';
@@ -7,6 +8,8 @@ import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/booking_details.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/my_booking.dart';
+import 'package:ez_booking/features/navbar/navbar_binding.dart';
+import 'package:ez_booking/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
 import 'package:ez_booking/features/review/presentation/pages/review.dart';
@@ -72,5 +75,11 @@ class RouteUtil {
       name: RouteConfig.bookingDetails,
       page: () =>   const BookingDetails(),
     ),
+    GetPage(
+      name: RouteConfig.bottomNavBar,
+      page: () =>   NavbarScreen(),
+      binding: NavBarBinding(),
+    ),
+    
   ];
 }

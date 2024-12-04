@@ -28,7 +28,7 @@ class VerifyOtpController extends GetxController {
     if (response.status) {
       await PrefUtils().setUser(response.data!);
       Get.offNamedUntil(
-        RouteConfig.homePage,
+        RouteConfig.bottomNavBar,
         (route) => false,
       );
     } else {

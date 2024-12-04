@@ -23,6 +23,7 @@ class RouteConfig{
   static const review = '/review';
   static const myBooking = '/myBooking';
   static const bookingDetails = '/bookingDetails';
+  static const bottomNavBar = '/bottomNavBar';
 }
 
 

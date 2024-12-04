@@ -12,7 +12,7 @@ class SplashController extends GetxController {
     Future.delayed(Duration(seconds: 2), () async {
       var result = await PrefUtils().getUser();
       if (result != null) {
-        Get.offNamedUntil(RouteConfig.homePage,(route) =>false);
+        Get.offNamedUntil(RouteConfig.bottomNavBar,(route) =>false);
       } else {
         if (PrefUtils().getBool('firstTime') ?? true) {
           Get.offNamedUntil(
