@@ -2,6 +2,7 @@ import 'package:ez_booking/controller/event_summery_controller.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/events/widget/booking_event_item.dart';
 import 'package:ez_booking/features/events/widget/event_summery_widget.dart';
 import 'package:ez_booking/features/events/widget/event_user_list_widget.dart';
@@ -16,7 +17,7 @@ class EventCheckoutSummeryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
       init: EventSummeryController(),
-      builder: (_) => Scaffold(
+      builder: (_) => AppScaffold(
         appBar: AppBar(
           title: Text(
             'Event summery',

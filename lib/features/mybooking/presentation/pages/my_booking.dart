@@ -3,6 +3,7 @@ import 'package:ez_booking/controller/my_booking_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/booking_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,12 +17,13 @@ class MyBooking extends StatelessWidget {
 
     return GetBuilder(
       init: MyBookingController(),
-      builder: (_) => Scaffold(
+      builder: (_) => AppScaffold(
         appBar: AppBar(
-          title: const Text(
+          title:  Text(
             'My Booking',
-            style: TextStyle(color: Colors.black),
+            style: context.lg16.weigh500,
           ),
+          titleSpacing: 10,
           bottom: ButtonsTabBar(
             controller: _.tabController,
             width: 120,

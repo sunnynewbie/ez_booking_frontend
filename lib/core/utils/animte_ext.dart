@@ -11,14 +11,14 @@ extension AnimteExt on Widget {
         height: height,
         width: width,
         child: ColoredBox(
-          color: AppColors.grey78.withOpacity(.2),
+          color: AppColors.grey0f,
         ),
       )
           .animate(
             delay: 500.ms,
             onPlay: (controller) => controller.repeat(period: 500.ms),
           )
-          .shimmer(color: Colors.white.withOpacity(0.5)),
+          .shimmer(color: Colors.white.withOpacity(0.5),),
     );
   }
 }

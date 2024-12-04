@@ -32,6 +32,7 @@ class EventSummeryWidget extends StatelessWidget {
             border: Border.all(
               color: AppColors.greyd2,
             ),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(
               AppDimens.borderRadius10,
             ),

@@ -4,7 +4,9 @@ import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_font.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/utils/animte_ext.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/events/widget/booking_event_item.dart';
 import 'package:ez_booking/features/events/widget/event_summery_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ class BookingDetailspage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<BookingDetailController>(
       init: BookingDetailController(),
-      builder: (_) => Scaffold(
+      builder: (_) => AppScaffold(
         appBar: AppBar(
           title: Text(
             'Booking Details',
@@ -34,72 +36,96 @@ class BookingDetailspage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(AppDimens.space15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(
-                      () => _.bookingDetail.value == null
-                          ? SizedBox()
-                          : BookingEventItem(
-                              eventTitle:
-                                  _.bookingDetail.value!.event.event_name,
-                              eventImage: '',
-                              eventAddress:
-                                  _.bookingDetail.value!.event.address,
-                              evetnDate: _.bookingDetail.value!.booking_date,
+              child: Obx(
+            ()=> Padding(
+                  padding: EdgeInsets.all(AppDimens.space15),
+                  child: _.bookingDetail.value == null
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Gap(AppDimens.space15),
+                            ListTile().shimmerEffect(
+                                height: 90, width: double.maxFinite),
+                            Gap(AppDimens.space30),
+                            SizedBox().shimmerEffect(),
+                            Gap(AppDimens.space10),
+                            SizedBox().shimmerEffect(
+                                height: 180, width: double.maxFinite),
+                            Gap(AppDimens.space30),
+                            SizedBox().shimmerEffect(),
+                            Gap(AppDimens.space10),
+                            SizedBox().shimmerEffect(
+                                height: 180, width: double.maxFinite),
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Obx(
+                              () => _.bookingDetail.value == null
+                                  ? SizedBox()
+                                  : BookingEventItem(
+                                      eventTitle:
+                                          _.bookingDetail.value!.event.event_name,
+                                      eventImage: '',
+                                      eventAddress:
+                                          _.bookingDetail.value!.event.address,
+                                      evetnDate:
+                                          _.bookingDetail.value!.booking_date,
+                                    ),
                             ),
-                    ),
-                    SizedBox(height: 15),
-                    Obx(
-                      () =>_.bookingDetail.value == null
-                          ? SizedBox()
-                          :  EventSummeryWidget(
-                        title: "Booking details",
-                        content: [
-                          RowContent(
-                              title: 'Duration',
-                              content: _.bookingDetail.value!.booking_date
-                                  .toIso8601String(),
-                              titleStyle: context.md14.withgrey78,
-                              contentStyle: context.md14.weigh500),
-                          RowContent(
-                              title: 'Location',
-                              content: _.bookingDetail.value!.event.address,
-                              titleStyle: context.md14.withgrey78,
-                              contentStyle: context.md14.weigh500),
-                          RowContent(
-                              title: "Time",
-                              content: '',
-                              titleStyle: context.md14.withgrey78,
-                              contentStyle: context.md14.weigh500)
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 15),
-                    EventSummeryWidget(
-                      title: 'Price details',
-                      content: [
-                        RowContent(
-                            title: 'Subtotal',
-                            content: '',
-                            titleStyle: context.md14.withgrey78,
-                            contentStyle: context.md14.withgrey78),
-                        RowContent(
-                            title: 'Tax',
-                            content: '',
-                            titleStyle: context.md14.withgrey78,
-                            contentStyle: context.md14.withgrey78),
-                        RowContent(
-                            title: 'Grand Total',
-                            content: '',
-                            titleStyle: context.lg16.weigh500,
-                            contentStyle: context.lg16.weigh500)
-                      ],
-                    ),
-                    Gap(AppDimens.space30),
-                  ],
+                            SizedBox(height: 15),
+                            Obx(
+                              () => _.bookingDetail.value == null
+                                  ? SizedBox()
+                                  : EventSummeryWidget(
+                                      title: "Booking details",
+                                      content: [
+                                        RowContent(
+                                            title: 'Duration',
+                                            content: _
+                                                .bookingDetail.value!.booking_date
+                                                .toIso8601String(),
+                                            titleStyle: context.md14.withgrey78,
+                                            contentStyle: context.md14.weigh500),
+                                        RowContent(
+                                            title: 'Location',
+                                            content: _.bookingDetail.value!.event
+                                                .address,
+                                            titleStyle: context.md14.withgrey78,
+                                            contentStyle: context.md14.weigh500),
+                                        RowContent(
+                                            title: "Time",
+                                            content: '',
+                                            titleStyle: context.md14.withgrey78,
+                                            contentStyle: context.md14.weigh500)
+                                      ],
+                                    ),
+                            ),
+                            SizedBox(height: 15),
+                            EventSummeryWidget(
+                              title: 'Price details',
+                              content: [
+                                RowContent(
+                                    title: 'Subtotal',
+                                    content: '',
+                                    titleStyle: context.md14.withgrey78,
+                                    contentStyle: context.md14.withgrey78),
+                                RowContent(
+                                    title: 'Tax',
+                                    content: '',
+                                    titleStyle: context.md14.withgrey78,
+                                    contentStyle: context.md14.withgrey78),
+                                RowContent(
+                                    title: 'Grand Total',
+                                    content: '',
+                                    titleStyle: context.lg16.weigh500,
+                                    contentStyle: context.lg16.weigh500)
+                              ],
+                            ),
+                            Gap(AppDimens.space30),
+                          ],
+                        ),
                 ),
               ),
             ),

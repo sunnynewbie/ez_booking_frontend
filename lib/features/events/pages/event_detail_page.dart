@@ -6,6 +6,7 @@ import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/controller/event_service_with_id.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
@@ -24,8 +25,7 @@ class EventDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<EventDetailController>(
       init: EventDetailController(),
-      builder: (_) => Scaffold(
-        backgroundColor: Colors.white,
+      builder: (_) => AppScaffold(
         appBar: AppBar(
           title: const Text(
             'Event Details',
@@ -46,6 +46,7 @@ class EventDetailPage extends StatelessWidget {
                       Container(
                         height: Get.width,
                         width: Get.width,
+                        color: Colors.white,
                         child: const Placeholder(),
                       ),
                       const Gap(AppDimens.space15),
@@ -130,6 +131,7 @@ class EventDetailPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(color: Colors.black12, width: 1.2),
+                        color: Colors.white
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,6 +165,7 @@ class EventDetailPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(color: Colors.black12, width: 1.2),
+                          color: Colors.white
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -180,6 +183,7 @@ class EventDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Gap(AppDimens.space15),
                     ],
                   ),
           ),

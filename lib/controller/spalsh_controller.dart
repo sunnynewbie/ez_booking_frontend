@@ -13,7 +13,7 @@ class SplashController extends GetxController {
       var result = await PrefUtils().getUser();
 
       if (result != null) {
-        Get.offNamedUntil(AppRoutes.homePage, (route) => false);
+        Get.offNamedUntil(AppRoutes.bottomNavBar, (route) => false);
       } else {
         if (PrefUtils().getBool('firstTime') ?? true) {
           Get.offNamedUntil(

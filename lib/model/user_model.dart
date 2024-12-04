@@ -2,7 +2,8 @@ import 'package:ez_booking/core/api/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
-@JsonSerializable(converters: [StringConverter(),IntConverter()])
+
+@JsonSerializable(converters: [StringConverter(), IntConverter()])
 class UserModel {
   final int id;
   final String f_name;
@@ -14,7 +15,7 @@ class UserModel {
   final int gender;
   final String otp;
 
- UserModel({
+  UserModel({
     required this.id,
     required this.f_name,
     required this.l_name,
@@ -25,8 +26,17 @@ class UserModel {
     required this.gender,
     required this.otp,
   });
- 
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  String get displayName {
+    if (f_name.isEmpty && l_name.isEmpty) {
+      return 'Ez user';
+    }
+
+    return '$f_name $l_name';
+  }
 }

@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NavBarController extends GetxController {
-  var tabIndex = 0;
+  RxInt tabIndex = 0.obs;
    @override
    void onInit() {
     super.onInit();
     print("NavBarController initialized");
   }
   void changeTabIndex(int index){
-    tabIndex = index;
-    update();
+    tabIndex.value = index;
+
   }
 
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/config/app_constant.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/features/login/service/verify_otp_service.dart';
 import 'package:ez_booking/model/user_model.dart';
@@ -27,6 +28,7 @@ class VerifyOtpController extends GetxController {
     isLoading.value = false;
     if (response.status) {
       await PrefUtils().setUser(response.data!);
+      Appservice.instance.user.value=response.data;
       Get.offNamedUntil(
         AppRoutes.bottomNavBar,
         (route) => false,

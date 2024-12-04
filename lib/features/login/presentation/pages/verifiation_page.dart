@@ -6,6 +6,7 @@ import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon_button.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -24,7 +25,7 @@ class VerificationPage extends StatelessWidget {
     return GetBuilder<VerifyOtpController>(
       init: VerifyOtpController(),
       builder: (_) => SafeArea(
-        child: Scaffold(
+        child: AppScaffold(
           appBar: PreferredSize(
             preferredSize: Size(double.maxFinite, 120),
             child: ColoredBox(

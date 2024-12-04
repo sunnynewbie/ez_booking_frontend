@@ -20,31 +20,34 @@ class BookingEventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
-          side: BorderSide(
-            color: AppColors.greyd2,
-          )),
-      leading: ImageView(
-        imageType: ImageType.network,
-        path: eventImage,
-        height: AppDimens.imageSize50,
-        width: AppDimens.imageSize50,
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(dateStr),
-          Text(
-            eventTitle,
-            style: context.lg16.weigh500.withBlack,
-          ),
-          Text(
-            eventAddress,
-            style: context.md13.weigh400.withgrey78,
-          ),
-        ],
+    return Material(
+      child: ListTile(
+        tileColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
+            side: BorderSide(
+              color: AppColors.greyd2,
+            )),
+        leading: ImageView(
+          imageType: ImageType.network,
+          path: eventImage,
+          height: AppDimens.imageSize50,
+          width: AppDimens.imageSize50,
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(dateStr),
+            Text(
+              eventTitle,
+              style: context.lg16.weigh500.withBlack,
+            ),
+            Text(
+              eventAddress,
+              style: context.md13.weigh400.withgrey78,
+            ),
+          ],
+        ),
       ),
     );
   }

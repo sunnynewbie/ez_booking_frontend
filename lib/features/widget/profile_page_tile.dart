@@ -119,6 +119,7 @@ class NormalTitle extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           alignment: Alignment.center,
           decoration: const BoxDecoration(
+            color: Colors.white,
             border: Border(
               bottom: BorderSide(
                 color: AppColors.grey0f,

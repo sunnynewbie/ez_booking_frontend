@@ -33,6 +33,7 @@ class InfoCard extends StatelessWidget {
           border: Border.all(
             color: Colors.black12,
           ),
+          color:  Colors.white
         ),
         constraints: BoxConstraints(
           maxWidth: Get.width / 2.2,

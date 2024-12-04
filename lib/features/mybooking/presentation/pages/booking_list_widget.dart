@@ -31,6 +31,7 @@ class BookingListWidget extends StatelessWidget {
             vertical: AppDimens.space10,
           ),
           decoration: BoxDecoration(
+              color: Colors.white,
               border: Border.all(
                 color: AppColors.greyd2,
               ),

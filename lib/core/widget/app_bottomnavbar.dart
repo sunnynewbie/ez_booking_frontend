@@ -94,47 +94,43 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      container: true,
-      selected: isSelected,
-      child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
-        height: double.maxFinite,
-        duration: animationDuration,
-        curve: curve,
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              isSelected ? item.imgPathSelected : item.imgPath,
-              width: 22,
-              height: 22,
-              color: isSelected ? Colors.white : AppColors.primary,
-            ),
-            if (isSelected)
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: DefaultTextStyle.merge(
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: AppFont.lexend
-                    ),
-                    maxLines: 1,
-                    textAlign: item.textAlign,
-                    child: item.title,
+    return AnimatedContainer(
+      width: isSelected ? 130 : 50,
+      height: double.maxFinite,
+      duration: animationDuration,
+      curve: curve,
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.primary : Colors.transparent,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            isSelected ? item.imgPathSelected : item.imgPath,
+            width: 22,
+            height: 22,
+            color: isSelected ? Colors.white : AppColors.primary,
+          ),
+          if (isSelected)
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                child: DefaultTextStyle.merge(
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: AppFont.lexend
                   ),
+                  maxLines: 1,
+                  textAlign: item.textAlign,
+                  child: item.title,
                 ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

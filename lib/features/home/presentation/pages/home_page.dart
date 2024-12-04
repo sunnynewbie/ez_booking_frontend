@@ -4,8 +4,10 @@ import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/widget/app_icon_button.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/notify_box.dart';
 import 'package:ez_booking/features/home/presentation/widget/all_event_list.dart';
 import 'package:ez_booking/features/home/presentation/widget/event_category.dart';
@@ -25,8 +27,7 @@ class HomePage extends StatelessWidget {
 
     return GetBuilder<HomeController>(
       init: HomeController(),
-      builder: (ctrl) => Scaffold(
-        backgroundColor: Colors.white,
+      builder: (ctrl) => AppScaffold(
         body: Obx(
           () => CustomScrollView(
             slivers: [
@@ -40,9 +41,11 @@ class HomePage extends StatelessWidget {
                       'hello,',
                       style: context.lg16,
                     ),
-                    Text(
-                      'Aadesh Kumar',
-                      style: context.x20.weigh500,
+                    Obx(
+                      () => Text(
+                        '${Appservice.instance.user.value?.displayName}',
+                        style: context.x20.weigh500,
+                      ),
                     ),
                   ],
                 ),
@@ -62,20 +65,6 @@ class HomePage extends StatelessWidget {
                     iconSize: 20,
                     constraints: BoxConstraints(),
                     shrinkButton: true,
-                  ),
-                  AppIconButton(
-                    onPressed: () {
-                      Get.toNamed('/profile');
-                    },
-                    imagePath: '',
-                    constraints: BoxConstraints(),
-                    shrinkButton: true,
-                    iconColor: AppColors.black32,
-                    child: Icon(
-                      Icons.person_outlined,
-                      size: AppDimens.imageSize25,
-                      color: AppColors.black32,
-                    ),
                   ),
                 ],
                 toolbarHeight: 75,

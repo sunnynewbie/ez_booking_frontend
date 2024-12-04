@@ -4,6 +4,7 @@ import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
     return GetBuilder<LoginController>(
         init: LoginController(),
         builder: (_) {
-          return Scaffold(
+          return AppScaffold(
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: AppDimens.space15),
               child: Form(

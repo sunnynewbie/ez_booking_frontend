@@ -2,13 +2,12 @@ import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/model/event_user_model.dart';
-import 'package:ez_booking/model/params/add_user_param.dart';
-import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class EventUserListWidget extends StatelessWidget {
   final List<EventUser> users;
+
   const EventUserListWidget({
     super.key,
     required this.users,
@@ -30,6 +29,7 @@ class EventUserListWidget extends StatelessWidget {
             vertical: AppDimens.space20,
           ),
           decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(AppDimens.borderRadius15),
             border: Border.all(
               color: AppColors.greyd2,

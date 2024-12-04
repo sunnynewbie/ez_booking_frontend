@@ -2,6 +2,7 @@ import 'package:ez_booking/controller/event_by_category_list.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/home/presentation/widget/horizontal_flex.dart';
 import 'package:ez_booking/features/home/presentation/widget/shimmer/event_bu_category_shimmer.dart';
 import 'package:ez_booking/features/widget/card.dart';
@@ -16,7 +17,7 @@ class EventByCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<EventByCategoryListController>(
       init: EventByCategoryListController(),
-      builder: (ctrl) => Scaffold(
+      builder: (ctrl) => AppScaffold(
         appBar: AppBar(
           centerTitle: false,
           title: Obx(
