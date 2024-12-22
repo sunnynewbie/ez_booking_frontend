@@ -8,12 +8,13 @@ class AppRoutes{
   static const login ='/login';
   static const verification ='/verification';
   static const allowLocation ='/allowLocation';
-  static const location ='/location';
+  static const select_city ='/location';
   static const loadingpage ='/loadingpage';
   static const homePage ='/homePage';
   static const profile ='/profile';
   static const settings ='/settings';
   static const policies ='/policies';
+  static const policyDetail ='/policyDetail';
   static const rewardAndOffers ='/rewardAndOffers';
   static const search ='/search';
   static const events ='/events';
@@ -27,7 +28,10 @@ class AppRoutes{
   static const review = '/review';
   static const myBooking = '/myBooking';
   static const bookingDetails = '/bookingDetails';
+  static const regularCheckout = '/regularCheckout';
   static const bottomNavBar = '/bottomNavBar';
+  static const eventSuccess = '/eventSuccess';
+  static const eventFail = '/eventFail';
 }
 
 

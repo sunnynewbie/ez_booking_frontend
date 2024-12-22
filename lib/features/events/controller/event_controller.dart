@@ -19,12 +19,14 @@ class EventController extends GetxController {
   }
 
   getevents(int? id) async {
+    isLoading.value=true;
     var query = {
       'page': page.toString(),
       'limit': limit.toString(),
     if(id!=null)  'category_id': id.toString(),
     };
     var response = await ApiRepository().getEventList(query);
+    isLoading.value=false;
     if (response.status) {
       if (page == 1) {
         events.assignAll(response.data ?? []);

@@ -28,7 +28,11 @@ class VerifyOtpController extends GetxController {
     isLoading.value = false;
     if (response.status) {
       await PrefUtils().setUser(response.data!);
-      Appservice.instance.user.value=response.data;
+      Appservice.instance.user.value = response.data;
+      if (response.data!.city == null) {
+        Get.offNamedUntil(AppRoutes.allowLocation, (route) => false);
+        return;
+      }
       Get.offNamedUntil(
         AppRoutes.bottomNavBar,
         (route) => false,
@@ -46,10 +50,9 @@ class VerifyOtpController extends GetxController {
     }
     super.onInit();
     startTimer();
-    otpString.value=userModel?.value?.otp??'';
-  ctrl.text=userModel?.value?.otp??'';
+    otpString.value = userModel?.value?.otp ?? '';
+    ctrl.text = userModel?.value?.otp ?? '';
   }
-
 
   @override
   void dispose() {
@@ -77,11 +80,11 @@ class VerifyOtpController extends GetxController {
   Future<void> sendOtp() async {
     isLoading.value = true;
     var response =
-    await ApiRepository().sendOTP({"phone_no": userModel!.value!.phone_no});
+        await ApiRepository().sendOTP({"phone_no": userModel!.value!.phone_no});
     isLoading.value = false;
     if (response.status) {
       userModel!.value = response.data;
-      timerCount.value=60;
+      timerCount.value = 60;
       startTimer();
     } else {
       Get.snackbar(AppConstant.appName, response.message ?? '');

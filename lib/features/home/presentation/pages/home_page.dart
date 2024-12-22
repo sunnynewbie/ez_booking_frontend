@@ -1,4 +1,5 @@
 import 'package:ez_booking/controller/home_controller.dart';
+import 'package:ez_booking/controller/select_city_controller.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
@@ -14,6 +15,7 @@ import 'package:ez_booking/features/home/presentation/widget/event_category.dart
 import 'package:ez_booking/features/home/presentation/widget/home_shimmer_widget.dart';
 import 'package:ez_booking/features/home/presentation/widget/image_slider.dart';
 import 'package:ez_booking/features/home/presentation/widget/popular_event.dart';
+import 'package:ez_booking/model/city_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -29,113 +31,134 @@ class HomePage extends StatelessWidget {
       init: HomeController(),
       builder: (ctrl) => AppScaffold(
         body: Obx(
-          () => CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                titleSpacing: AppDimens.space15,
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'hello,',
-                      style: context.lg16,
-                    ),
-                    Obx(
-                      () => Text(
-                        '${Appservice.instance.user.value?.displayName}',
-                        style: context.x20.weigh500,
+          () => RefreshIndicator(
+            onRefresh: () async {
+              await ctrl.getHomeScreen();
+            },
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  pinned: true,
+                  titleSpacing: AppDimens.space15,
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'hello,',
+                        style: context.lg16,
                       ),
+                      Obx(
+                        () => Text(
+                          '${Appservice.instance.user.value?.displayName}',
+                          style: context.x20.weigh500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    AppIconButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.search);
+                      },
+                      imagePath: AppAssets.search_normal,
+                      iconSize: 20,
+                      constraints: BoxConstraints(),
+                      shrinkButton: true,
+                    ),
+                    AppIconButton(
+                      onPressed: () {},
+                      imagePath: AppAssets.notification,
+                      iconSize: 20,
+                      constraints: BoxConstraints(),
+                      shrinkButton: true,
                     ),
                   ],
-                ),
-                actions: [
-                  AppIconButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.search);
-                    },
-                    imagePath: AppAssets.search_normal,
-                    iconSize: 20,
-                    constraints: BoxConstraints(),
-                    shrinkButton: true,
-                  ),
-                  AppIconButton(
-                    onPressed: () {},
-                    imagePath: AppAssets.notification,
-                    iconSize: 20,
-                    constraints: BoxConstraints(),
-                    shrinkButton: true,
-                  ),
-                ],
-                toolbarHeight: 75,
-                bottom: PreferredSize(
-                  preferredSize: Size(double.maxFinite, AppDimens.space15),
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                        left: AppDimens.space16,
-                        right: AppDimens.space5,
-                        top: AppDimens.space5,
-                        bottom: AppDimens.space5),
-                    decoration: BoxDecoration(color: AppColors.primary),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'data',
-                            style: context.md14.withWhite,
-                          ),
+                  toolbarHeight: 75,
+                  bottom: PreferredSize(
+                    preferredSize: Size(double.maxFinite, AppDimens.space15),
+                    child: InkWell(
+                      onTap: () async {
+                        var city = Appservice.instance.user.value?.city;
+                        var response = await Get.toNamed(AppRoutes.select_city,
+                            arguments: SelectCityParam(
+                                cityName: Appservice
+                                    .instance.user.value?.city?.city_name,
+                                fromHome: true));
+
+                        if (response is CityModel) {
+                          if (response.city_id != city?.city_id) {
+                            ctrl.getHomeScreen();
+                          }
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: AppDimens.space16,
+                            right: AppDimens.space5,
+                            top: AppDimens.space5,
+                            bottom: AppDimens.space5),
+                        decoration: BoxDecoration(color: AppColors.primary),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Current city: ${Appservice.instance.user.value?.city?.city_name}',
+                                style: context.md14.withWhite,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_drop_down_rounded,
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
-                        Icon(
-                          Icons.arrow_drop_down_rounded,
-                          color: Colors.white,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: ctrl.isLoading.value
-                    ? const HomeShimmerWidget()
-                    : Column(
-                        children: [
-                          // CarouselSlider
-                          ImageSlider(),
-                          Gap(AppDimens.space10),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppDimens.space16,
+                SliverToBoxAdapter(
+                  child: ctrl.isLoading.value
+                      ? const HomeShimmerWidget()
+                      : Column(
+                          children: [
+                            // CarouselSlider
+                            ImageSlider(),
+                            Gap(AppDimens.space10),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppDimens.space16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  EventCategory(
+                                    categories: ctrl.categories,
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                EventCategory(
-                                  categories: ctrl.categories,
-                                ),
-                              ],
+                            const Gap(AppDimens.space15),
+                            const NotifyBox(
+                              text1: 'Book now & Get ₹ 100 cashback',
+                              text2: 'Book any events and get 100 as a bonus',
+                              text3: 'Book Now',
+                              boxColor: Colors.white,
+                              imgPath: AppAssets.coconutTree,
                             ),
-                          ),
-                          const Gap(AppDimens.space15),
-                          const NotifyBox(
-                            text1: 'Book now & Get ₹ 100 cashback',
-                            text2: 'Book any events and get 100 as a bonus',
-                            text3: 'Book Now',
-                            boxColor: Colors.white,
-                            imgPath: AppAssets.coconutTree,
-                          ),
-                          if (ctrl.dashboard.value != null) ...[
-                            Gap(AppDimens.space15),
-                            AllEvent(
-                              dashboardModel: ctrl.dashboard.value!,
-                            ),
-                            PopularEvent(
-                              dashboardModel: ctrl.dashboard.value!,
-                            ),
+                            if (ctrl.dashboard.value != null) ...[
+                              Gap(AppDimens.space15),
+                              AllEvent(
+                                dashboardModel: ctrl.dashboard.value!,
+                              ),
+                              PopularEvent(
+                                dashboardModel: ctrl.dashboard.value!,
+                              ),
+                            ],
                           ],
-                        ],
-                      ),
-              ),
-            ],
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -26,7 +26,7 @@ class EventByCategoryPage extends StatelessWidget {
           ),
         ),
         body: Obx(
-          () => ctrl.isoading.value
+          () => ctrl.isoading.value && ctrl.selectedCategory.value == null
               ? EventByCategoryShimmer()
               : SingleChildScrollView(
                   padding: EdgeInsets.symmetric(horizontal: AppDimens.space15),

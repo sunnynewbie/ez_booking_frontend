@@ -19,7 +19,10 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         titleSpacing: 10,
-        title: Text('Profile',style: context.lg16.weigh500,),
+        title: Text(
+          'Profile',
+          style: context.lg16.weigh500,
+        ),
       ),
       body: Container(
         child: Obx(() {
@@ -30,9 +33,11 @@ class ProfilePage extends StatelessWidget {
           }
           final user = userController.user.value;
 
-          return SingleChildScrollView(
-            child: Container(
-                child: Column(
+          return RefreshIndicator(
+            onRefresh: () async {
+              await userController.fetchUserData();
+            },
+            child: ListView(
               children: [
                 ProfileWithAvatarTile(
                     phoneNumber: user?.phone_no ?? '',
@@ -72,7 +77,7 @@ class ProfilePage extends StatelessWidget {
                   },
                 )
               ],
-            )),
+            ),
           );
         }),
       ),

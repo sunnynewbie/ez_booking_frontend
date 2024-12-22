@@ -54,13 +54,18 @@ class AllEvent extends StatelessWidget {
               itemCount: dashboardModel.all_categories.length,
               itemBuilder: (context, index) {
                 var item = dashboardModel.all_categories.elementAt(index);
-                return AllEventCard(
-                  text: item.category_name,
-                  text2: '${item.total_events} events',
-                  imgPath: '${item.image_path}',
-                  color1: AppColors.colors[index % AppColors.colors.length],
-                  color2: AppColors.colors[index % AppColors.colors.length]
-                      .withOpacity(.1),
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.events,arguments: item.category_id);
+                  },
+                  child: AllEventCard(
+                    text: item.category_name,
+                    text2: '${item.total_events} events',
+                    imgPath: '${item.image_path}',
+                    color1: AppColors.colors[index % AppColors.colors.length],
+                    color2: AppColors.colors[index % AppColors.colors.length]
+                        .withOpacity(.1),
+                  ),
                 );
               },
             ),

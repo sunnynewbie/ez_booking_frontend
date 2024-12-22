@@ -31,7 +31,7 @@ extension StrExt on String {
 extension NumExt on num {
   String get toMoney {
     NumberFormat numberFormat =
-        NumberFormat.compactCurrency(locale: 'en_IN', symbol: '₹');
+        NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     numberFormat.maximumFractionDigits = 2;
     numberFormat.minimumFractionDigits = 0;
 

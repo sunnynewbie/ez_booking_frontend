@@ -1,4 +1,6 @@
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/events/controller/event_controller.dart';
 import 'package:ez_booking/features/events/pages/event_detail_page.dart';
 import 'package:ez_booking/features/widget/card.dart';
@@ -16,7 +18,7 @@ class EventListPage extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
-            'Camping Events',
+            'Events',
             style: AppTextStyle.pagetitle,
           ),
         ),
@@ -26,57 +28,42 @@ class EventListPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-
+          if (ctrl.events.isNotEmpty) {
+            return GridView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimens.space16,
+                vertical: AppDimens.space20,
+              ),
+              physics: ClampingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: .65,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: ctrl.events.length,
+              itemBuilder: (context, index) {
+                var event = ctrl.events.elementAt(index);
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.eventDetail,
+                        arguments: event.event_id.toInt());
+                  },
+                  child: InfoCard(
+                    eventid: event.event_id.toInt(),
+                    location: event.address,
+                    eventName: event.event_name,
+                    eventDate: event.event_date,
+                  ),
+                );
+              },
+            );
+          }
           return const Center(
             child: Text('No events found'),
           );
-
-          /*   return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: SizedBox(
-              // No fixed height for the GridView
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                itemCount: _controller.eventList.length,
-                itemBuilder: (ctx, i) {
-                  return Container(
-                    // height: size.height * 0.7,
-                    child: Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                                child: InfoCard(
-                              eventName: _controller.eventList[i].eventName ??
-                                  'Unamed title',
-                              location: _controller.eventList[i].address ??
-                                  'Unamed address',
-                              eventid: _controller.eventList[i].eventId ?? 0,
-                              onPressed: () {
-                                Get.to(() => EventDetailPage(
-                                    eventId: _controller.eventList[i].eventId));
-                              },
-                            )),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: size.width * 0.02,
-                  mainAxisSpacing: size.width * 0.015,
-                  mainAxisExtent: 264,
-                ),
-              ),
-            ),
-          );
-       */ }),
+        }),
       ),
     );
   }

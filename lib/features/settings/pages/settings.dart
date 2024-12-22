@@ -34,7 +34,9 @@ class Settings extends StatelessWidget {
                     NormalTitle(
                       imgPath: AppAssets.reward_icon,
                       text: 'Policies',
-                      ontap: () {},
+                      ontap: () {
+                        Get.toNamed(AppRoutes.policies);
+                      },
                     ),
                     NormalTitle(
                       imgPath: AppAssets.reward_icon,

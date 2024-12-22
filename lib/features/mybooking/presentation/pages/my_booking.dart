@@ -5,6 +5,7 @@ import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/booking_list_widget.dart';
+import 'package:ez_booking/features/mybooking/presentation/pages/upcoming_bookings_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class MyBooking extends StatelessWidget {
       init: MyBookingController(),
       builder: (_) => AppScaffold(
         appBar: AppBar(
-          title:  Text(
+          title: Text(
             'My Booking',
             style: context.lg16.weigh500,
           ),
@@ -35,7 +36,7 @@ class MyBooking extends StatelessWidget {
             labelStyle: context.md14.withWhite,
             backgroundColor: AppColors.primary,
             unselectedLabelStyle: context.md14.withgrey78,
-            tabs: [
+            tabs: const [
               Tab(text: 'All'),
               Tab(text: 'Upcoming'),
               Tab(text: 'Cancel'),
@@ -47,23 +48,11 @@ class MyBooking extends StatelessWidget {
         ),
         body: TabBarView(
           controller: _.tabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            Obx(
-              () => BookingListWidget(
-                bookings: _.bookingList.toList(),
-              ),
-            ),
-            Obx(
-              () => BookingListWidget(
-                bookings: _.bookingList.toList(),
-              ),
-            ),
-            Obx(
-              () => BookingListWidget(
-                bookings: _.bookingList.toList(),
-              ),
-            ),
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            BookingListWidget(),
+            UpcomingBookingsList(),
+            BookingListWidget(),
           ],
         ),
       ),

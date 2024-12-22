@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:ez_booking/core/api/json_converter.dart';
+import 'package:ez_booking/model/city_model.dart';
+import 'package:ez_booking/model/event_days.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,8 +10,8 @@ part 'event_model.g.dart';
 
 @JsonSerializable(converters: [
   StringConverter(),
-  IntConverter(),
   NumConverter(),
+  DateTimeConverter(),
   DateNullableConverter()
 ])
 class EventModel {
@@ -19,19 +23,29 @@ class EventModel {
   num latitude;
   num longitude;
   num event_type;
-  num ticket;
+  num event_city;
   num category_id;
   num quantity;
   num event_price;
-  @JsonKey(defaultValue: [], disallowNullValue: false)
-  List<String> features;
-  int event_status;
-  DateTime? event_date;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  String image_path;
+  String features;
+  num event_status;
+  DateTime created_at;
+  DateTime updated_at;
+  DateTime event_date;
+  dynamic event_time;
+  String event_discount;
+  num is_recommended;
+  String category_name;
+  String type;
+  @JsonKey(fromJson: checkCity)
+  CityModel city;
+  num platform_amount;
+  num total_amount;
+  @JsonKey(fromJson: checkEventDate)
+  List<EventDays>? event_days;
 
   String get dateStr => DateFormat('dd MMM,yyyy').format(event_date!);
+
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
 
@@ -46,15 +60,42 @@ class EventModel {
     required this.latitude,
     required this.longitude,
     required this.event_type,
-    required this.ticket,
+    required this.event_city,
     required this.category_id,
     required this.quantity,
     required this.event_price,
     required this.features,
     required this.event_status,
+    required this.created_at,
+    required this.updated_at,
     required this.event_date,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.image_path,
+    required this.event_time,
+    required this.event_discount,
+    required this.is_recommended,
+    required this.category_name,
+    required this.type,
+    required this.city,
+    required this.platform_amount,
+    required this.total_amount,
+    required this.event_days,
   });
+}
+
+checkCity(dynamic data) {
+  if (data is String) {
+    return CityModel.fromJson(jsonDecode(data));
+  }
+  return CityModel.fromJson(data);
+}
+
+checkEventDate(dynamic data) {
+  if (data == null) {
+    return null;
+  }
+  if (data is String) {
+    return (jsonDecode(data) as List)
+        .map((e) => EventDays.fromJson(e))
+        .toList();
+  }
+  return (data as List).map((e) => EventDays.fromJson(e)).toList();
 }

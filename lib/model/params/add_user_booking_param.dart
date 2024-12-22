@@ -8,8 +8,10 @@ class AddUserBookingParam {
   List<EventUser> users;
   double amount;
   double discount;
+  double grand_total;
   int? time_slot_id;
-  String week_days;
+  List<int> days;
+  // String week_days;
 
   AddUserBookingParam({
     required this.event_id,
@@ -19,8 +21,10 @@ class AddUserBookingParam {
     required this.users,
     required this.amount,
     required this.discount,
+    required this.grand_total,
     this.time_slot_id,
-    required this.week_days,
+    required this.days,
+    // required this.week_days,
   });
 
   Map<String, dynamic> toJson() {
@@ -31,9 +35,12 @@ class AddUserBookingParam {
       'event_type': this.event_type,
       'users': this.users.map((e) => e.toMap()).toList(),
       'amount': this.amount,
+      'grand_total': this.grand_total,
+      if(this.days.isNotEmpty)
+      'days': this.days.isEmpty?null:this.days,
       'discount': this.discount,
       'time_slot_id': this.time_slot_id,
-      'week_days': this.week_days,
+      // 'week_days': this.week_days,
     };
   }
 }

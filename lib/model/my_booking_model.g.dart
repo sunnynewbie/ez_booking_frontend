@@ -8,50 +8,64 @@ part of 'my_booking_model.dart';
 
 MyBookingModel _$MyBookingModelFromJson(Map<String, dynamic> json) =>
     MyBookingModel(
-      booking_id: const NumConverter().fromJson(json['booking_id']),
-      booking_date: const DateTimeConverter().fromJson(json['booking_date']),
-      created_at: const DateTimeConverter().fromJson(json['created_at']),
-      updated_at: const DateTimeConverter().fromJson(json['updated_at']),
-      amount: const NumConverter().fromJson(json['amount']),
-      discount: const NumConverter().fromJson(json['discount']),
-      event: EventBean.fromJson(json['event'] as Map<String, dynamic>),
-      time_slot: json['time_slot'] == null
-          ? null
-          : Time_slotBean.fromJson(json['time_slot'] as Map<String, dynamic>),
+      booking_details: checkData(json['booking_details']),
     );
 
 Map<String, dynamic> _$MyBookingModelToJson(MyBookingModel instance) =>
     <String, dynamic>{
-      'booking_id': const NumConverter().toJson(instance.booking_id),
-      'booking_date': const DateTimeConverter().toJson(instance.booking_date),
-      'created_at': const DateTimeConverter().toJson(instance.created_at),
-      'updated_at': const DateTimeConverter().toJson(instance.updated_at),
-      'amount': const NumConverter().toJson(instance.amount),
-      'discount': const NumConverter().toJson(instance.discount),
-      'event': instance.event,
-      'time_slot': instance.time_slot,
+      'booking_details': instance.booking_details,
     };
 
-Time_slotBean _$Time_slotBeanFromJson(Map<String, dynamic> json) =>
-    Time_slotBean(
-      start_time: json['start_time'] as String?,
-      end_time: json['end_time'] as String?,
+Booking_detailsBean _$Booking_detailsBeanFromJson(Map<String, dynamic> json) =>
+    Booking_detailsBean(
+      amount: const NumConverter().fromJson(json['amount']),
+      discount: json['discount'],
+      booked_by_id: const NumConverter().fromJson(json['booked_by_id']),
+      booking_id: const NumConverter().fromJson(json['booking_id']),
+      event_data:
+          EventBean.fromJson(json['event_data'] as Map<String, dynamic>),
+      person_dob: const StringConverter().fromJson(json['person_dob']),
+      person_name: const StringConverter().fromJson(json['person_name']),
+      booking_date: const StringConverter().fromJson(json['booking_date']),
+      person_gender: const NumConverter().fromJson(json['person_gender']),
+      booking_status: const StringConverter().fromJson(json['booking_status']),
+      person_contact: const StringConverter().fromJson(json['person_contact']),
+      parent_booking_id:
+          const StringConverter().fromJson(json['parent_booking_id']),
     );
 
-Map<String, dynamic> _$Time_slotBeanToJson(Time_slotBean instance) =>
+Map<String, dynamic> _$Booking_detailsBeanToJson(
+        Booking_detailsBean instance) =>
     <String, dynamic>{
-      'start_time': instance.start_time,
-      'end_time': instance.end_time,
+      'amount': const NumConverter().toJson(instance.amount),
+      'discount': instance.discount,
+      'booking_id': const NumConverter().toJson(instance.booking_id),
+      'booked_by_id': const NumConverter().toJson(instance.booked_by_id),
+      'event_data': instance.event_data,
+      'person_dob': const StringConverter().toJson(instance.person_dob),
+      'person_name': const StringConverter().toJson(instance.person_name),
+      'booking_date': const StringConverter().toJson(instance.booking_date),
+      'person_gender': const NumConverter().toJson(instance.person_gender),
+      'booking_status': const StringConverter().toJson(instance.booking_status),
+      'person_contact': const StringConverter().toJson(instance.person_contact),
+      'parent_booking_id':
+          const StringConverter().toJson(instance.parent_booking_id),
     };
 
-EventBean _$EventBeanFromJson(Map<String, dynamic> json) => EventBean(
-      event_name: json['event_name'] as String,
-      address: json['address'] as String,
-      tags: json['tags'] as String,
+Event_dataBean _$Event_dataBeanFromJson(Map<String, dynamic> json) =>
+    Event_dataBean(
+      tags: const StringConverter().fromJson(json['tags']),
+      type: const StringConverter().fromJson(json['type']),
+      address: const StringConverter().fromJson(json['address']),
+      event_date: const StringConverter().fromJson(json['event_date']),
+      event_name: const StringConverter().fromJson(json['event_name']),
     );
 
-Map<String, dynamic> _$EventBeanToJson(EventBean instance) => <String, dynamic>{
-      'event_name': instance.event_name,
-      'address': instance.address,
-      'tags': instance.tags,
+Map<String, dynamic> _$Event_dataBeanToJson(Event_dataBean instance) =>
+    <String, dynamic>{
+      'tags': const StringConverter().toJson(instance.tags),
+      'type': const StringConverter().toJson(instance.type),
+      'address': const StringConverter().toJson(instance.address),
+      'event_date': const StringConverter().toJson(instance.event_date),
+      'event_name': const StringConverter().toJson(instance.event_name),
     };

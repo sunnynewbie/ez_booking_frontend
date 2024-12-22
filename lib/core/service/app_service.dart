@@ -1,5 +1,6 @@
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/model/user_model.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -7,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 class Appservice extends GetxService {
   static Appservice instance = Get.find();
   Rxn<UserModel> user = Rxn();
-
+  Position? position;
   Future<bool> checkPermission() async {
     var result = await Permission.location.isGranted;
     if (result) {
@@ -28,6 +29,7 @@ class Appservice extends GetxService {
   Future<bool> onLocation() async {
     try {
       var location = await Geolocator.getCurrentPosition();
+      position=location;
       return true;
     } on Exception catch (e) {
       return false;
@@ -41,5 +43,15 @@ class Appservice extends GetxService {
     if (user != null) {
       this.user.value = user;
     }
+  }
+
+  Future<String> getCurrentCity() async {
+    await onLocation();
+    if(position==null){
+      return '';
+    }
+    var address =await placemarkFromCoordinates(position!.latitude, position!.longitude);
+    print(address.first.toJson());
+    return address.first.locality??'';
   }
 }

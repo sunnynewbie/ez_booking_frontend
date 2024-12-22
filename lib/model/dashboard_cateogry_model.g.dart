@@ -22,6 +22,7 @@ Map<String, dynamic> _$DashboardCateogryModelToJson(
 Category_typeBean _$Category_typeBeanFromJson(Map<String, dynamic> json) =>
     Category_typeBean(
       event_type: const NumConverter().fromJson(json['event_type']),
+      count: const NumConverter().fromJson(json['count']),
       category_type: const StringConverter().fromJson(json['category_type']),
       image_path: const StringConverter().fromJson(json['image_path']),
     );
@@ -29,6 +30,7 @@ Category_typeBean _$Category_typeBeanFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$Category_typeBeanToJson(Category_typeBean instance) =>
     <String, dynamic>{
       'event_type': const NumConverter().toJson(instance.event_type),
+      'count': const NumConverter().toJson(instance.count),
       'category_type': const StringConverter().toJson(instance.category_type),
       'image_path': const StringConverter().toJson(instance.image_path),
     };

@@ -1,3 +1,4 @@
+import 'package:ez_booking/controller/event_service_with_id.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
@@ -5,7 +6,6 @@ import 'package:ez_booking/core/extension/common_extension.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
-import 'package:ez_booking/controller/event_service_with_id.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
@@ -16,7 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
+import 'regular_checkout_page.dart';
 
 class EventDetailPage extends StatelessWidget {
   const EventDetailPage({super.key});
@@ -129,10 +130,10 @@ class EventDetailPage extends StatelessWidget {
                             horizontal: AppDimens.space15,
                             vertical: AppDimens.space15),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.black12, width: 1.2),
-                        color: Colors.white
-                        ),
+                            borderRadius: BorderRadius.circular(6),
+                            border:
+                                Border.all(color: Colors.black12, width: 1.2),
+                            color: Colors.white),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -144,13 +145,21 @@ class EventDetailPage extends StatelessWidget {
                             EventDetailsField(
                                 title: 'Date',
                                 text: _.event.value?.event_date != null
-                                    ?_.event.value!.event_date!.ddMMyyyy
+                                    ? _.event.value!.event_date!.ddMMyyyy
                                     : ''),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
                               title: 'Address',
                               text: _.event.value?.address ?? '',
                             ),
+                            const Gap(AppDimens.space15),
+                            if (_.event.value != null &&
+                                _.event.value!.event_days != null)
+                              EventDetailsField(
+                                  title: 'Days',
+                                  text: _.event.value!.event_days!
+                                      .map((e) => e.label)
+                                      .join(','))
                             // Gap(AppDimens.space15),
                             // EventDetailsField(title: 'Duration', text: '3 Days'),
                           ],
@@ -163,10 +172,10 @@ class EventDetailPage extends StatelessWidget {
                             horizontal: AppDimens.space15,
                             vertical: AppDimens.space15),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.black12, width: 1.2),
-                          color: Colors.white
-                        ),
+                            borderRadius: BorderRadius.circular(6),
+                            border:
+                                Border.all(color: Colors.black12, width: 1.2),
+                            color: Colors.white),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,11 +205,15 @@ class EventDetailPage extends StatelessWidget {
                 eventModel: _.event.value!,
               ));
               if (users is List<EventUser>) {
+                if (_.event.value!.event_type == 2) {
+                  Get.toNamed(AppRoutes.regularCheckout,
+                      arguments: RegularCheckoutArgs(
+                          eventModel: _.event.value!, users: users));
+                  return;
+                }
                 Get.toNamed(AppRoutes.addUserEvent,
-                    arguments: AddUserParam(
-                      eventModel: _.event.value!,
-                      users: users,
-                    ));
+                    arguments:
+                        AddUserParam(eventModel: _.event.value!, users: users));
               }
             },
           ),

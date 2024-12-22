@@ -71,13 +71,15 @@ Map<String, dynamic> _$Time_slotBeanToJson(Time_slotBean instance) =>
     };
 
 EventBean _$EventBeanFromJson(Map<String, dynamic> json) => EventBean(
-      event_name: json['event_name'] as String,
-      address: json['address'] as String,
-      tags: json['tags'] as String,
+      event_id: (json['event_id'] as num).toInt(),
+      event_name: const StringConverter().fromJson(json['event_name']),
+      address: const StringConverter().fromJson(json['address']),
+      tags: const StringConverter().fromJson(json['tags']),
     );
 
 Map<String, dynamic> _$EventBeanToJson(EventBean instance) => <String, dynamic>{
-      'event_name': instance.event_name,
-      'address': instance.address,
-      'tags': instance.tags,
+      'event_id': instance.event_id,
+      'event_name': const StringConverter().toJson(instance.event_name),
+      'address': const StringConverter().toJson(instance.address),
+      'tags': const StringConverter().toJson(instance.tags),
     };

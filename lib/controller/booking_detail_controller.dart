@@ -9,7 +9,7 @@ class BookingDetailController extends GetxController {
 
   @override
   void onInit() {
-    var args = Get.arguments as MyBookingModel;
+    var args = Get.arguments as Booking_detailsBean;
     super.onInit();
     Future.delayed(Duration.zero,() {
       getBookingDetail(args.booking_id.toInt());

@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/api/api_repository.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:ez_booking/model/event_model.dart';
@@ -24,7 +25,10 @@ class EventByCategoryListController extends GetxController {
 
   getCategories(int id) async {
     isoading.value = true;
-    var query = {'event_type': id.toString()};
+    var query = {
+      'event_type': id.toString(),
+      'city_id':Appservice.instance.user.value!.city?.city_id
+    };
     var response = await ApiRepository().getCategoriesbyType(query);
     if (response.data != null) {
       categories.assignAll(response.data ?? []);
@@ -39,6 +43,7 @@ class EventByCategoryListController extends GetxController {
     var response = await ApiRepository().getEventList({
       "page": "1",
       "limit": '10',
+      'city_id': Appservice.instance.user?.value?.city?.city_id,
       "category_id": selectedCategory.value!.category_id.toString()
     });
     if (response.status) {

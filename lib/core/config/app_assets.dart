@@ -50,4 +50,6 @@ class AppAssets {
   static const calendar_2 = 'assets/icon/calendar-2.png';
   static const profile = 'assets/icon/profile.png';
   static const profile_2 = 'assets/icon/profile-2.png';
+  static const orderFail = 'assets/icon/order-fail.png';
+  static const orderSuccess = 'assets/icon/order-success.png';
 }

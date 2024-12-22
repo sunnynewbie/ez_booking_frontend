@@ -3,12 +3,14 @@ import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_font.dart';
+import 'package:ez_booking/core/extension/common_extension.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/utils/animte_ext.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/features/events/widget/booking_event_item.dart';
 import 'package:ez_booking/features/events/widget/event_summery_widget.dart';
+import 'package:ez_booking/features/mybooking/presentation/widget/write_review_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -37,7 +39,7 @@ class BookingDetailspage extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(
-            ()=> Padding(
+                () => Padding(
                   padding: EdgeInsets.all(AppDimens.space15),
                   child: _.bookingDetail.value == null
                       ? Column(
@@ -65,8 +67,8 @@ class BookingDetailspage extends StatelessWidget {
                               () => _.bookingDetail.value == null
                                   ? SizedBox()
                                   : BookingEventItem(
-                                      eventTitle:
-                                          _.bookingDetail.value!.event.event_name,
+                                      eventTitle: _.bookingDetail.value!.event
+                                          .event_name,
                                       eventImage: '',
                                       eventAddress:
                                           _.bookingDetail.value!.event.address,
@@ -83,17 +85,19 @@ class BookingDetailspage extends StatelessWidget {
                                       content: [
                                         RowContent(
                                             title: 'Duration',
-                                            content: _
-                                                .bookingDetail.value!.booking_date
+                                            content: _.bookingDetail.value!
+                                                .booking_date
                                                 .toIso8601String(),
                                             titleStyle: context.md14.withgrey78,
-                                            contentStyle: context.md14.weigh500),
+                                            contentStyle:
+                                                context.md14.weigh500),
                                         RowContent(
                                             title: 'Location',
-                                            content: _.bookingDetail.value!.event
-                                                .address,
+                                            content: _.bookingDetail.value!
+                                                .event.address,
                                             titleStyle: context.md14.withgrey78,
-                                            contentStyle: context.md14.weigh500),
+                                            contentStyle:
+                                                context.md14.weigh500),
                                         RowContent(
                                             title: "Time",
                                             content: '',
@@ -107,20 +111,22 @@ class BookingDetailspage extends StatelessWidget {
                               title: 'Price details',
                               content: [
                                 RowContent(
-                                    title: 'Subtotal',
-                                    content: '',
+                                    title: 'Grand total',
+                                    content:
+                                        _.bookingDetail.value?.amount.toMoney ??
+                                            '',
                                     titleStyle: context.md14.withgrey78,
                                     contentStyle: context.md14.withgrey78),
-                                RowContent(
-                                    title: 'Tax',
-                                    content: '',
-                                    titleStyle: context.md14.withgrey78,
-                                    contentStyle: context.md14.withgrey78),
-                                RowContent(
-                                    title: 'Grand Total',
-                                    content: '',
-                                    titleStyle: context.lg16.weigh500,
-                                    contentStyle: context.lg16.weigh500)
+                                // RowContent(
+                                //     title: 'Tax',
+                                //     content: '',
+                                //     titleStyle: context.md14.withgrey78,
+                                //     contentStyle: context.md14.withgrey78),
+                                // RowContent(
+                                //     title: 'Grand Total',
+                                //     content: _.bookingDetail,
+                                //     titleStyle: context.lg16.weigh500,
+                                //     contentStyle: context.lg16.weigh500)
                               ],
                             ),
                             Gap(AppDimens.space30),
@@ -131,76 +137,57 @@ class BookingDetailspage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.all(AppDimens.space15),
-              child: AppElevatedButton(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return _buildCancelDialogue(context);
+              child: Column(
+                children: [
+                  AppElevatedButton(
+                    text: 'Write a review',
+                    onTap: () {
+                      ReviewArgs args = ReviewArgs(
+                          eventBean: _.bookingDetail.value!.event,
+                          booking_id: _.bookingDetail.value!.booking_id.toInt(),
+                          userid: _.bookingDetail.value!.user_id.toInt(),
+                          eventId: _.bookingDetail.value!.event_id.toInt());
+                      Get.dialog(
+                        AlertDialog(
+                          insetPadding: EdgeInsets.symmetric(
+                              horizontal: AppDimens.space5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              AppDimens.borderRadius10,
+                            ),
+                          ),
+                          backgroundColor: Colors.white,
+                          content: Container(
+                            width: Get.width * .8,
+                            child: WriteReviewDialog(reviewArgs: args),
+                          ),
+                        ),
+                      );
                     },
-                  );
-                },
-                borderRadius: 15,
-                height: AppDimens.space40,
-                width: double.infinity,
-                text: 'Cancel Booking',
+                    width: double.maxFinite,
+                    buttonColor: Colors.white,
+                    fontColor: AppColors.primary,
+                  ),
+                  const Gap(AppDimens.space15),
+                  AppElevatedButton(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return _buildCancelDialogue(context);
+                        },
+                      );
+                    },
+                    borderRadius: 15,
+                    height: AppDimens.space40,
+                    width: double.infinity,
+                    text: 'Cancel Booking',
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSection({required String title, required List<Widget> content}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: AppFont.lexend,
-              fontWeight: FontWeight.w700,
-              fontSize: 15),
-        ),
-        SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey.withOpacity(0.3), width: 1.1),
-          ),
-          child: Column(children: content),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRow(String label, String value) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-                color: AppColors.grey78.withOpacity(0.7),
-                fontFamily: AppFont.lexend,
-                fontWeight: FontWeight.w500,
-                fontSize: 13),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: AppFont.lexend,
-                fontWeight: FontWeight.w500,
-                fontSize: 14),
-          ),
-        ],
       ),
     );
   }

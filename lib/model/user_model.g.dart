@@ -16,6 +16,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       phone_no: const StringConverter().fromJson(json['phone_no']),
       gender: const IntConverter().fromJson(json['gender']),
       otp: const StringConverter().fromJson(json['otp']),
+      city_id: const NumConverter().fromJson(json['city_id']),
+      city: json['city'] == null
+          ? null
+          : CityModel.fromJson(json['city'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -28,4 +32,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'phone_no': const StringConverter().toJson(instance.phone_no),
       'gender': const IntConverter().toJson(instance.gender),
       'otp': const StringConverter().toJson(instance.otp),
+      'city_id': const NumConverter().toJson(instance.city_id),
+      'city': instance.city,
     };

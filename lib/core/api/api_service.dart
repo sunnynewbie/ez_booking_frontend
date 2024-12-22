@@ -29,8 +29,6 @@ class ApiService {
       Map<String, dynamic>? query,
       Map<String, dynamic>? data,
       Map<String, String>? headers}) async {
-    var url = Uri.parse('${NetworkUrl.baseUrl}$path');
-    url = url.replace(queryParameters: query?.cast<String, String>());
     try {
       headers ??= {};
       setHeader(headers);

@@ -69,8 +69,9 @@ class Time_slotBean {
   });
 }
 
-@JsonSerializable()
+@JsonSerializable( converters: [StringConverter(),NumConverter()])
 class EventBean {
+  int event_id;
   String event_name;
   String address;
   String tags;
@@ -80,6 +81,7 @@ class EventBean {
   Map<String, dynamic> toJson() => _$EventBeanToJson(this);
 
   EventBean({
+    required this.event_id,
     required this.event_name,
     required this.address,
     required this.tags,
