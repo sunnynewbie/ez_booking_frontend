@@ -16,6 +16,7 @@ class UserModel {
   final String phone_no;
   final int gender;
   final String otp;
+  final String firebase_id;
   final num city_id;
   final CityModel? city;
 
@@ -24,6 +25,7 @@ class UserModel {
     required this.f_name,
     required this.l_name,
     required this.user_name,
+    required this.firebase_id,
     required this.dob,
     required this.email,
     required this.phone_no,

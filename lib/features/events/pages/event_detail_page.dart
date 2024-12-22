@@ -1,4 +1,5 @@
 import 'package:ez_booking/controller/event_service_with_id.dart';
+import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
@@ -6,10 +7,13 @@ import 'package:ez_booking/core/extension/common_extension.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
+import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
+import 'package:ez_booking/features/review/presentation/pages/review_item.dart';
 import 'package:ez_booking/model/event_user_model.dart';
 import 'package:ez_booking/model/params/add_user_param.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +52,12 @@ class EventDetailPage extends StatelessWidget {
                         height: Get.width,
                         width: Get.width,
                         color: Colors.white,
-                        child: const Placeholder(),
+                        child: Obx(
+                          () => ImageView(
+                            imageType: ImageType.asset,
+                            path: _.image.value,
+                          ),
+                        ),
                       ),
                       const Gap(AppDimens.space15),
                       SizedBox(
@@ -56,10 +65,24 @@ class EventDetailPage extends StatelessWidget {
                         child: ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => const Placeholder(
-                                  fallbackHeight: 75,
-                                  fallbackWidth: 75,
+                            itemBuilder: (context, index) {
+                              var item = 'assets/${[
+                                'image1.png',
+                                'image2.png',
+                                'image3.png'
+                              ][index % 3]}';
+                              return InkWell(
+                                onTap: () {
+                                  _.image.value = item;
+                                },
+                                child: ImageView(
+                                  imageType: ImageType.asset,
+                                  path: item,
+                                  height: AppDimens.imageSize75,
+                                  width: AppDimens.imageSize75,
                                 ),
+                              );
+                            },
                             separatorBuilder: (context, index) =>
                                 const Gap(AppDimens.space15),
                             itemCount: 5),
@@ -192,7 +215,42 @@ class EventDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Gap(AppDimens.space15),
+                      const Gap(AppDimens.space15),
+                      Row(
+                        children: [
+                          Text(
+                            'Reviews',
+                            style: context.lg16.weigh500,
+                          ),
+                          const Spacer(),
+                          if (_.reviews.isNotEmpty)
+                            TextButton(
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.eventReviews,
+                                    arguments: _.event.value);
+                              },
+                              child: const Text('See all'),
+                            ),
+                        ],
+                      ),
+                      const Gap(AppDimens.space10),
+                      if (_.reviews.isEmpty)
+                        const NotFound(
+                            imgPath: AppAssets.group, text: 'No Reviews')
+                      else
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              var item = _.reviews.elementAt(index);
+                              return ReviewItem(item: item);
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Gap(AppDimens.space15);
+                            },
+                            itemCount: _.reviews.length),
+
+                      const Gap(AppDimens.space20),
                     ],
                   ),
           ),
@@ -233,7 +291,7 @@ class BookButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
           left: AppDimens.space16,
           right: AppDimens.space16,
           bottom: AppDimens.space20),

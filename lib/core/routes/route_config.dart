@@ -19,6 +19,7 @@ class AppRoutes{
   static const search ='/search';
   static const events ='/events';
   static const eventDetail ='/eventDetail';
+  static const eventReviews ='/eventReviews';
   static const addUserEvent ='/addUserEvent';
   static const eventSummeryPage ='/eventSummery';
   static const notifications ='/notifications';

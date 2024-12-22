@@ -5,8 +5,8 @@ class NetworkUrl {
   static const sendOtp = 'user/send-otp';
   static const setCity = 'user/set-city';
   static const getCities = 'user/cities';
-  static const verifyOtp = 'user/verify-otp';
-  static const getUser = 'user/user/:id';
+  static const verifyFirebseLogin = 'user/verify-firebase-login';
+  static  getUser(int id)=> 'user/user/$id';
   static const getEvents = 'events/event';
 
   static getEvent(int id) => 'events/event/$id';
@@ -32,6 +32,7 @@ class NetworkUrl {
   static const getReviews = 'review/get-reviews';
   static const getEventReviews = 'review/get-event-reviews';
   static const userReviews = 'review/user-reviews';
+  static const searchAPI ='app/search';
 
 //policies
   static const getPolicies = 'app/terms-privacy';

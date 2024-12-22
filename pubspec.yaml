@@ -39,6 +39,10 @@ dependencies:
   geocoding: ^3.0.0
   easy_stepper: ^0.8.5+1
 
+  firebase_core: ^3.6.0
+  firebase_analytics: ^11.3.6
+  firebase_auth: ^5.3.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

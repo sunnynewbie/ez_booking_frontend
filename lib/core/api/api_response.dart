@@ -42,7 +42,9 @@ class ApiResponse<T> {
         }
       }
     } else {
-      apiResponse.message = responseJson['message'].toString();
+      if(responseJson is Map){
+        apiResponse.message = responseJson['message'].toString();
+      }
 
     }
 

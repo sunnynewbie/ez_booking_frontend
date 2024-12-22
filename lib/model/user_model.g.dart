@@ -11,6 +11,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       f_name: const StringConverter().fromJson(json['f_name']),
       l_name: const StringConverter().fromJson(json['l_name']),
       user_name: const StringConverter().fromJson(json['user_name']),
+      firebase_id: const StringConverter().fromJson(json['firebase_id']),
       dob: const StringConverter().fromJson(json['dob']),
       email: const StringConverter().fromJson(json['email']),
       phone_no: const StringConverter().fromJson(json['phone_no']),
@@ -32,6 +33,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'phone_no': const StringConverter().toJson(instance.phone_no),
       'gender': const IntConverter().toJson(instance.gender),
       'otp': const StringConverter().toJson(instance.otp),
+      'firebase_id': const StringConverter().toJson(instance.firebase_id),
       'city_id': const NumConverter().toJson(instance.city_id),
       'city': instance.city,
     };

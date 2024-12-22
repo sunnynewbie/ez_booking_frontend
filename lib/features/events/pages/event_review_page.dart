@@ -1,5 +1,8 @@
+import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
+import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/events/controller/event_review_controller.dart';
+import 'package:ez_booking/features/review/presentation/pages/review_item.dart';
 import 'package:ez_booking/features/review/presentation/widget/review_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -13,17 +16,27 @@ class EventReviewPage extends StatelessWidget {
     return GetBuilder(
       init: EventReviewController(),
       builder: (_) => Scaffold(
+        appBar: AppBar(
+          title: Text('Reviews'),
+        ),
         body: _.loading.value
             ? const ReviewShimmer()
-            : ListView.separated(
-                itemBuilder: (context, index) {
-                  var item =_.reviews.elementAt(index);
-                  return const SizedBox();
-                },
-                separatorBuilder: (context, index) {
-                  return const Gap(AppDimens.space15);
-                },
-                itemCount: _.reviews.length),
+            : _.reviews.isEmpty
+                ? const NotFound(imgPath: AppAssets.group, text: 'No Reviews')
+                : ListView.separated(
+                    padding: const EdgeInsets.only(
+                      left: AppDimens.space15,
+                      right: AppDimens.space15,
+                      top: AppDimens.space15,
+                    ),
+                    itemBuilder: (context, index) {
+                      var item = _.reviews.elementAt(index);
+                      return ReviewItem(item: item);
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Gap(AppDimens.space15);
+                    },
+                    itemCount: _.reviews.length),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/model/booking_detail_model.dart';
 import 'package:ez_booking/model/city_model.dart';
@@ -24,6 +25,7 @@ import 'package:ez_booking/model/params/updated_bookng_param.dart';
 import 'package:ez_booking/model/privacy_content_model.dart';
 import 'package:ez_booking/model/privacy_model.dart';
 import 'package:ez_booking/model/review_model.dart';
+import 'package:ez_booking/model/search_result_model.dart';
 import 'package:ez_booking/model/user_model.dart';
 
 class ApiRepository {
@@ -34,6 +36,31 @@ class ApiRepository {
   factory ApiRepository() => _instance;
 
   ApiService apiService = ApiService(url: NetworkUrl.baseUrl);
+
+  Future<ApiResponse> sendEvent(Map<String, dynamic> data) async {
+    try {
+      var response = await apiService.post(path: 'path', data: data);
+      return ApiResponse.fromResponse(response);
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<SearchResultModel?>> searchApi(
+      {Map<String, dynamic>? query}) async {
+    try {
+      var response = await apiService.get(
+        path: NetworkUrl.searchAPI,
+        query: query,
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? SearchResultModel.fromJson(p0) : null,
+      );
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
 
   Future<ApiResponse<UserModel?>> sendOTP(Map<String, dynamic>? data) async {
     try {
@@ -94,8 +121,8 @@ class ApiRepository {
 
   Future<ApiResponse<UserModel>> verifyOtp(Map<String, dynamic>? data) async {
     try {
-      var response =
-          await apiService.post(path: NetworkUrl.verifyOtp, data: data);
+      var response = await apiService.post(
+          path: NetworkUrl.verifyFirebseLogin, data: data);
       if (response.headers['token'] != null) {
         await PrefUtils().setToken(response.headers.value('token').toString());
       }
@@ -115,8 +142,9 @@ class ApiRepository {
 
   Future<ApiResponse<UserModel>> getUser({Map<String, dynamic>? query}) async {
     try {
-      var response =
-          await apiService.get(path: NetworkUrl.getUser, query: query);
+      var response = await apiService.get(
+          path: NetworkUrl.getUser(Appservice.instance.user.value!.id),
+          query: query);
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,

@@ -5,10 +5,10 @@ import 'package:ez_booking/features/events/pages/event_detail_page.dart';
 import 'package:ez_booking/features/events/pages/event_list_page.dart';
 import 'package:ez_booking/features/events/pages/event_loading_page.dart';
 import 'package:ez_booking/features/events/pages/event_order_success_page.dart';
+import 'package:ez_booking/features/events/pages/event_review_page.dart';
 import 'package:ez_booking/features/events/pages/regular_checkout_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
-import 'package:ez_booking/features/home/presentation/pages/search_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/booking_details.dart';
@@ -19,6 +19,7 @@ import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page
 import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
 import 'package:ez_booking/features/review/presentation/pages/review_page.dart';
 import 'package:ez_booking/features/rewards_and_offer/presentation/pages/reward_and_offer.dart';
+import 'package:ez_booking/features/search/search_page.dart';
 import 'package:ez_booking/features/settings/pages/policies_page.dart';
 import 'package:ez_booking/features/settings/pages/privacy_detail_page.dart';
 import 'package:ez_booking/features/settings/pages/settings.dart';
@@ -92,6 +93,10 @@ class RouteUtil {
     GetPage(
       name: AppRoutes.rewardAndOffers,
       page: () => const RewardAndOffer(),
+    ),
+    GetPage(
+      name: AppRoutes.eventReviews,
+      page: () => const EventReviewPage(),
     ),
     GetPage(
       name: AppRoutes.review,

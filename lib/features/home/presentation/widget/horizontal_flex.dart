@@ -1,3 +1,4 @@
+import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
@@ -41,17 +42,19 @@ class HorizontalFlex extends StatelessWidget {
                       height: AppDimens.imageSize70,
                       width: AppDimens.imageSize70,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(AppDimens.borderRadius10),
-                        color: AppColors.grey78.withOpacity(selected ? .4 : .1),
-                      ),
-                      child: Center(
-                        child: ImageView(
-                          imageType: ImageType.network,
-                          path: item.category_name,
-                          height: AppDimens.imageSize50,
-                          width: AppDimens.imageSize50,
-                        ),
+                          borderRadius:
+                              BorderRadius.circular(AppDimens.borderRadius10),
+                          border: Border.all(
+                            color: AppColors.grey78
+                                .withOpacity(selected ? 1 : .1),
+                          )),
+                      clipBehavior: Clip.hardEdge,
+                      child: ImageView(
+                        imageType: ImageType.network,
+                        path:
+                            '${NetworkUrl.imagePath}${item.image_path}',
+                        height: AppDimens.imageSize50,
+                        width: AppDimens.imageSize50,
                       ),
                     ),
                     Gap(AppDimens.space10),

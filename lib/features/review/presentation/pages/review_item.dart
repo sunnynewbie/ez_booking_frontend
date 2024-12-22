@@ -19,8 +19,7 @@ class ReviewItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
         border: Border.all(color: AppColors.borderColor),
       ),
-      margin: EdgeInsets.symmetric(horizontal: AppDimens.space15),
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
           left: AppDimens.space16,
           right: AppDimens.space16,
           bottom: AppDimens.space10),
@@ -28,28 +27,53 @@ class ReviewItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: ImageView(
-              imageType: ImageType.network,
-              path: 'path',
-              height: AppDimens.imageSize45,
-              width: AppDimens.imageSize45,
+          if (item.events != null) ...[
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: AppDimens.space5,
+              ),
+              leading: const ImageView(
+                imageType: ImageType.network,
+                path: 'path',
+                height: AppDimens.imageSize45,
+                width: AppDimens.imageSize45,
+              ),
+              title: Text(
+                item.events?.event_name ?? '',
+                style: context.md14.weigh500,
+              ),
+              subtitle: Text(
+                item.events?.address ?? '',
+                style: context.sm12.withgrey78,
+              ),
             ),
-            title: Text(
-              item.events?.event_name ?? '',
-              style: context.md14.weigh500,
+            const Divider(
+              color: AppColors.borderColor,
+              height: 0,
             ),
-            subtitle: Text(
-              item.events?.address ?? '',
-              style: context.sm12.withgrey78,
+          ],
+          if (item.user != null) ...[
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: AppDimens.space5,
+              ),
+              leading: const ImageView(
+                imageType: ImageType.network,
+                path: 'path',
+                height: AppDimens.imageSize45,
+                width: AppDimens.imageSize45,
+              ),
+              title: Text(
+                item.user?.displayName ?? '',
+                style: context.md14.weigh500,
+              ),
             ),
-          ),
-          Divider(
-            color: AppColors.borderColor,
-            height: 0,
-          ),
-          Gap(AppDimens.space10),
+            const Divider(
+              color: AppColors.borderColor,
+              height: 0,
+            ),
+          ],
+          const Gap(AppDimens.space10),
           RatingBar(
             ratingWidget: RatingWidget(
               full: const Icon(
@@ -75,7 +99,7 @@ class ReviewItem extends StatelessWidget {
             updateOnDrag: false,
             tapOnlyMode: false,
           ),
-          Gap(AppDimens.space5),
+          const Gap(AppDimens.space5),
           Text(
             item.message,
             style: context.md14.withgrey78,
