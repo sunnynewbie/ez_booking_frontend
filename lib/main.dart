@@ -7,6 +7,7 @@ import 'package:ez_booking/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:toastification/toastification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,22 +33,24 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: Colors.white,
-          fontFamily: 'Lexend',
-          appBarTheme: AppBarTheme(
-              color: Colors.white,
-              titleSpacing: 0,
-              surfaceTintColor: Colors.white),
+      child: ToastificationWrapper(
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: Colors.white,
+            fontFamily: 'Lexend',
+            appBarTheme: AppBarTheme(
+                color: Colors.white,
+                titleSpacing: 0,
+                surfaceTintColor: Colors.white),
+          ),
+          initialRoute: AppRoutes.splash,
+          getPages: RouteUtil().route,
+          navigatorObservers: [
+            AnalyticsRouteObserver()
+          ],
         ),
-        initialRoute: AppRoutes.splash,
-        getPages: RouteUtil().route,
-        navigatorObservers: [
-          AnalyticsRouteObserver()
-        ],
       ),
     );
   }

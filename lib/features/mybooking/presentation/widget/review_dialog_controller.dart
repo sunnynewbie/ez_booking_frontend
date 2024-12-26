@@ -1,5 +1,6 @@
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/config/app_constant.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/model/booking_detail_model.dart';
 import 'package:ez_booking/model/params/add_review_param.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,7 +37,7 @@ class ReviewDialogController extends GetxController {
       Get.back(result: true);
     }
     if (response.message != null) {
-      Get.snackbar(AppConstant.appName, response.message ?? '');
+      ShowToast.showErrorMsg( response.message ?? '');
     }
   }
 }

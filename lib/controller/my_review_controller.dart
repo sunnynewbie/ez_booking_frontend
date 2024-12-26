@@ -1,5 +1,6 @@
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/config/app_constant.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/model/review_model.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,7 @@ class MyreviewController extends GetxController {
     if (response.status) {
       reviews.assignAll(response.data ?? []);
     } else {
-      Get.snackbar(AppConstant.appName, response.message ?? '');
+      ShowToast.showErrorMsg( response.message ?? '');
     }
   }
 }

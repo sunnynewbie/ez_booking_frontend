@@ -2,6 +2,7 @@ import 'package:ez_booking/core/config/app_constant.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/features/home/presentation/widget/category_widget.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class EventCategory extends StatelessWidget {
                     if (e.count > 0) {
                       Get.toNamed(AppRoutes.eventByCateogry, arguments: e);
                     }else{
-                      Get.snackbar(AppConstant.appName, "No events found");
+                      ShowToast.showErrorMsg('No Events Found');
                     }
                   }))
               .toList(),
