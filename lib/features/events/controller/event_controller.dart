@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/api/api_repository.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +25,7 @@ class EventController extends GetxController {
       'page': page.toString(),
       'limit': limit.toString(),
     if(id!=null)  'category_id': id.toString(),
+    'city_id': Appservice.instance.user.value!.city!.city_id,
     };
     var response = await ApiRepository().getEventList(query);
     isLoading.value=false;

@@ -52,6 +52,7 @@ class PopularEvent extends StatelessWidget {
                     eventid: item.event_id.toInt(),
                     eventName: item.event_name,
                     location: item.address,
+                    rating: 0,
                     eventDate: item.event_date,
                   ),
                 );

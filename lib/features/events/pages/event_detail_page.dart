@@ -50,21 +50,26 @@ class EventDetailPage extends StatelessWidget {
                     children: [
                       const Gap(AppDimens.space15),
                       Container(
-                        height: Get.width,
-                        width: Get.width,
                         color: Colors.white,
                         child: CarouselSlider.builder(
                           itemCount: 4,
                           itemBuilder: (context, index, realIndex) {
-                            return SizedBox();
+                            var item = 'assets/${[
+                              'image1.png',
+                              'image2.png',
+                              'image3.png'
+                            ][index % 3]}';
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ImageView(
+                                  imageType: ImageType.asset, path: item),
+                              );
                           },
-                          options: CarouselOptions(
-                          height: Get.height /3
-                          ),
+                          options: CarouselOptions(aspectRatio: 12 / 9),
                         ),
                       ),
                       const Gap(AppDimens.space15),
-                      SizedBox(
+                      /*     SizedBox(
                         height: 80,
                         child: ListView.separated(
                             shrinkWrap: true,
@@ -91,7 +96,7 @@ class EventDetailPage extends StatelessWidget {
                                 const Gap(AppDimens.space15),
                             itemCount: 5),
                       ),
-                      // ImageChangerWidget(controller: controller),
+                 */ // ImageChangerWidget(controller: controller),
                       // HorizontalTextDisplay(
                       //   items: items,
                       //   eventName: event.eventName.toString(),
@@ -142,7 +147,7 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             onRatingUpdate: (value) {},
                             itemCount: 5,
-                            initialRating: 3,
+                            initialRating: _.event.value?.average_rating.toDouble()??0,
                             allowHalfRating: false,
                             direction: Axis.horizontal,
                             itemSize: AppDimens.imageSize30,
@@ -219,40 +224,42 @@ class EventDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Gap(AppDimens.space15),
-                      Row(
-                        children: [
-                          Text(
-                            'Reviews',
-                            style: context.lg16.weigh500,
-                          ),
-                          const Spacer(),
-                          if (_.reviews.isNotEmpty)
-                            TextButton(
-                              onPressed: () {
-                                Get.toNamed(AppRoutes.eventReviews,
-                                    arguments: _.event.value);
-                              },
-                              child: const Text('See all'),
+                      if (_.reviews.isNotEmpty) ...[
+                        const Gap(AppDimens.space15),
+                        Row(
+                          children: [
+                            Text(
+                              'Reviews',
+                              style: context.lg16.weigh500,
                             ),
-                        ],
-                      ),
-                      const Gap(AppDimens.space10),
-                      if (_.reviews.isEmpty)
-                        const NotFound(
-                            imgPath: AppAssets.group, text: 'No Reviews')
-                      else
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              var item = _.reviews.elementAt(index);
-                              return ReviewItem(item: item);
-                            },
-                            separatorBuilder: (context, index) {
-                              return const Gap(AppDimens.space15);
-                            },
-                            itemCount: _.reviews.length),
+                            const Spacer(),
+                            if (_.reviews.isNotEmpty)
+                              TextButton(
+                                onPressed: () {
+                                  Get.toNamed(AppRoutes.eventReviews,
+                                      arguments: _.event.value);
+                                },
+                                child: const Text('See all'),
+                              ),
+                          ],
+                        ),
+                        const Gap(AppDimens.space10),
+                        if (_.reviews.isEmpty)
+                          const NotFound(
+                              imgPath: AppAssets.group, text: 'No Reviews')
+                        else
+                          ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var item = _.reviews.elementAt(index);
+                                return ReviewItem(item: item);
+                              },
+                              separatorBuilder: (context, index) {
+                                return const Gap(AppDimens.space15);
+                              },
+                              itemCount: _.reviews.length),
+                      ],
 
                       const Gap(AppDimens.space20),
                     ],

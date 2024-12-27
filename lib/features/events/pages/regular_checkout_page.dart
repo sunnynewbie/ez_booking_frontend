@@ -93,6 +93,7 @@ class RegularCheckoutpage extends StatelessWidget {
                                       _.selectDays.isEmpty) {
                                     Get.snackbar(AppConstant.appName,
                                         'Please select timings.',
+                                        
                                         colorText: Colors.white,
                                         borderRadius: 10,
                                         backgroundColor: AppColors.primary,

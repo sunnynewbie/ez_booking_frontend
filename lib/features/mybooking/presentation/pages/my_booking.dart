@@ -14,7 +14,6 @@ class MyBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> items = ['All', 'Upcoming', 'Cancel', 'Past'];
 
     return GetBuilder(
       init: MyBookingController(),

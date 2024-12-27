@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 class InfoCard extends StatelessWidget {
   final String eventName;
   final String location;
+  final num rating;
   final VoidCallback? onPressed;
   final int eventid;
   final DateTime? eventDate;
@@ -21,6 +22,7 @@ class InfoCard extends StatelessWidget {
       this.location = "Event Location Not Provided",
       this.onPressed,
       required this.eventid,
+      required this.rating,
       this.eventDate});
 
   @override
@@ -29,12 +31,11 @@ class InfoCard extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
-          border: Border.all(
-            color: Colors.black12,
-          ),
-          color:  Colors.white
-        ),
+            borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
+            border: Border.all(
+              color: Colors.black12,
+            ),
+            color: Colors.white),
         constraints: BoxConstraints(
           maxWidth: Get.width / 2.2,
         ),
@@ -58,21 +59,22 @@ class InfoCard extends StatelessWidget {
                         .cover, // Ensure the image covers the container fully
                   ),
                 ),
-                // Positioned widget to place the small container on the top-right corner of the image
-                Container(
-                  margin: const EdgeInsets.all(AppDimens.space5),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimens.space5, vertical: AppDimens.space3),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    // Background color for the small container
-                    borderRadius: BorderRadius.circular(5), // Rounded corners
+                if (rating.toInt() > 0)
+                  Container(
+                    margin: const EdgeInsets.all(AppDimens.space5),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimens.space5,
+                        vertical: AppDimens.space3),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Background color for the small container
+                      borderRadius: BorderRadius.circular(5), // Rounded corners
+                    ),
+                    child: Text(
+                      '${rating.toInt()}', // Text inside the small container
+                      style: AppTextStyle.regular,
+                    ),
                   ),
-                  child: const Text(
-                    '99+', // Text inside the small container
-                    style: AppTextStyle.regular,
-                  ),
-                ),
               ],
             ),
             const Gap(AppDimens.space15),
@@ -87,7 +89,7 @@ class InfoCard extends StatelessWidget {
                   horizontal: AppDimens.space5, vertical: AppDimens.space3),
               child: Text(
                   eventDate != null
-                      ? DateFormat('EEE, MMM-dd').format(eventDate!)
+                      ? DateFormat('EEE,dd MMM yy').format(eventDate!)
                       : '',
                   textAlign: TextAlign.center,
                   style: context.sm12),

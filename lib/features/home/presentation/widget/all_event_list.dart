@@ -40,9 +40,6 @@ class AllEvent extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              height: AppDimens.space15,
-            ),
             GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

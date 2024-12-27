@@ -35,6 +35,9 @@ class EventModel {
   dynamic event_time;
   String event_discount;
   num is_recommended;
+  num average_rating;
+  num total_reviews;
+  num image_path;
   String category_name;
   String type;
   @JsonKey(fromJson: checkCity)
@@ -43,7 +46,6 @@ class EventModel {
   num total_amount;
   @JsonKey(fromJson: checkEventDate)
   List<EventDays>? event_days;
-
   String get dateStr => DateFormat('dd MMM,yyyy').format(event_date!);
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
@@ -72,12 +74,15 @@ class EventModel {
     required this.event_time,
     required this.event_discount,
     required this.is_recommended,
+    required this.average_rating,
+    required this.total_reviews,
+    required this.image_path,
     required this.category_name,
     required this.type,
     required this.city,
     required this.platform_amount,
     required this.total_amount,
-    required this.event_days,
+    this.event_days,
   });
 }
 

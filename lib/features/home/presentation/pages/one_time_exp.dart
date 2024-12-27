@@ -40,15 +40,15 @@ class _OneTimeExperienceState extends State<OneTimeExperience> {
                   Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InfoCard(eventid: 1,),
-                  InfoCard(eventid: 1,)
+                  // InfoCard(eventid: 1,),
+                  // InfoCard(eventid: 1,)
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InfoCard(eventid: 1,),
-                  InfoCard(eventid: 1,)
+                  // InfoCard(eventid: 1,),
+                  // InfoCard(eventid: 1,)
                 ],
               ),
                 ],

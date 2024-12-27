@@ -22,9 +22,12 @@ class SearchResultModel {
 class SearchItem {
   String name;
   num id;
+  num average_rating;
+  num total_reviews;
   String address;
   String event_type;
   String result_type;
+  DateTime? event_date;
   String image_path;
 
   factory SearchItem.fromJson(Map<String, dynamic> json) => _$SearchItemFromJson(json);
@@ -35,8 +38,11 @@ class SearchItem {
     required this.name,
     required this.id,
     required this.address,
+    required this.event_date,
     required this.event_type,
     required this.result_type,
     required this.image_path,
+    required this.average_rating,
+    required this.total_reviews,
   });
 }

@@ -1,5 +1,6 @@
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/config/app_constant.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class EventController extends GetxController {
     if (response.status) {
       eventList.value = response.data ?? []; 
     } else {
-      Get.snackbar(AppConstant.appName, response.message ?? 'Failed to fetch events'); 
+      ShowToast.showErrorMsg( response.message ?? 'Failed to Fetch Events');
     }
   }
 }

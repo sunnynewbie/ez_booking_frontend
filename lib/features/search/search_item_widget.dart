@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SearchItemWidget extends StatelessWidget {
- final SearchItem item;
+  final SearchItem item;
+
   const SearchItemWidget({super.key, required this.item});
 
   @override
@@ -19,8 +20,8 @@ class SearchItemWidget extends StatelessWidget {
         vertical: AppDimens.space8,
       ),
       decoration: BoxDecoration(
-          borderRadius:
-          BorderRadius.circular(AppDimens.borderRadius10),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
           border: Border.all(color: AppColors.borderColor)),
       child: Row(
         children: [
@@ -36,14 +37,14 @@ class SearchItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${item.name} ${item.event_type.isNotEmpty?"(${item.event_type})":''}",
+                  "${item.name} ${item.event_type.isNotEmpty ? "(${item.event_type})" : ''}",
                   style: context.md14.withBlack,
                 ),
-                if(item.address.isNotEmpty)
-                Text(
-                  item.address,
-                  style: context.sm12.withgrey78,
-                ),
+                if (item.address.isNotEmpty)
+                  Text(
+                    item.address,
+                    style: context.sm12.withgrey78,
+                  ),
               ],
             ),
           ),

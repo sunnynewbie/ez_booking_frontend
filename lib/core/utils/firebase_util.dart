@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/config/app_constant.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +36,7 @@ class FirebaseUtil {
       }
       return null;
     } on FirebaseAuthException catch (e) {
-      Get.snackbar(AppConstant.appName,e.message??'');
+      ShowToast.showErrorMsg(e.message??'');
     }
   }
 }

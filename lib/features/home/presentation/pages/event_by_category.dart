@@ -63,6 +63,7 @@ class EventByCategoryPage extends StatelessWidget {
                               child: InfoCard(
                                 eventid: event.event_id.toInt(),
                                 location: event.address,
+                                rating:event.average_rating,
                                 eventName: event.event_name,
                                 eventDate: event.event_date,
                               ),

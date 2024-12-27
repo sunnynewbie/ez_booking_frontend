@@ -37,7 +37,7 @@ class AllEventCard extends StatelessWidget {
         children: [
           ImageView(
             imageType: ImageType.network,
-            path: '${NetworkUrl.imagePath}/assets/categories/${imgPath}',
+            path: '${NetworkUrl.imagePath}${imgPath}',
             height: AppDimens.space45,
             width: AppDimens.space45,
           ),

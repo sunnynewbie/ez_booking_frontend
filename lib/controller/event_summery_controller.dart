@@ -5,6 +5,7 @@ import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/utils/razor_pay_util.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/features/events/controller/event_order_controller.dart';
 import 'package:ez_booking/features/events/controller/event_summery_args.dart';
 import 'package:ez_booking/model/event_days.dart';
@@ -91,7 +92,7 @@ class EventSummeryController extends GetxController {
       } else {
         isLoading.value = false;
 
-        Get.snackbar(AppConstant.appName, response.message ?? '');
+        ShowToast.showErrorMsg( response.message ?? '');
       }
     }
   }

@@ -1,11 +1,14 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/review/presentation/widget/review_shimmer.dart';
 import 'package:ez_booking/features/search/search_controller.dart';
 import 'package:ez_booking/features/search/search_item_widget.dart';
+import 'package:ez_booking/features/widget/card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -18,7 +21,7 @@ class SearchPage extends StatelessWidget {
     return GetBuilder(
       init: AppSearchController(),
       builder: (_) {
-        return Scaffold(
+        return AppScaffold(
           appBar: AppBar(
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(
@@ -33,7 +36,6 @@ class SearchPage extends StatelessWidget {
                   prefixIcon: const Icon(Icons.search),
                   controller: _.searchCtrl,
                   onChange: (value) {
-
                     _.debouncer.run(() {
                       if (value!.isEmpty) {
                         _.events.clear();
@@ -78,7 +80,12 @@ class SearchPage extends StatelessWidget {
                                   const EdgeInsets.only(top: AppDimens.space15),
                               itemBuilder: (context, index) {
                                 var item = _.categories.elementAt(index);
-                                return SearchItemWidget(item: item);
+                                return InkWell(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.events,arguments: item.id);
+                                },
+                                  child: SearchItemWidget(item: item),
+                                );
                               },
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
@@ -93,20 +100,38 @@ class SearchPage extends StatelessWidget {
                               'Events',
                               style: context.lg16.weigh500,
                             ),
-                            ListView.separated(
+                            GridView.builder(
                               shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
+                              physics: ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: .65,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                              ),
                               padding:
                                   const EdgeInsets.only(top: AppDimens.space15),
                               itemBuilder: (context, index) {
                                 var item = _.events.elementAt(index);
-                                return SearchItemWidget(item: item);
+                                return InkWell(
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.eventDetail,
+                                        arguments: item.id.toInt());
+                                  },
+                                  child: InfoCard(
+                                    rating: item.average_rating,
+                                    eventid: item.id.toInt(),
+                                    location: item.address,
+                                    eventName: item.name,
+                                    eventDate: item.event_date,
+                                  ),
+                                );
                               },
-                              separatorBuilder: (context, index) =>
-                                  const Gap(AppDimens.space15),
                               itemCount: _.events.length,
                             ),
                           ],
+                          Gap(AppDimens.space20),
                         ],
                       ),
           ),
