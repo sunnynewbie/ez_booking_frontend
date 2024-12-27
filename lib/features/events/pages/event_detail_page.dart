@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ez_booking/controller/event_service_with_id.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
@@ -52,10 +53,13 @@ class EventDetailPage extends StatelessWidget {
                         height: Get.width,
                         width: Get.width,
                         color: Colors.white,
-                        child: Obx(
-                          () => ImageView(
-                            imageType: ImageType.asset,
-                            path: _.image.value,
+                        child: CarouselSlider.builder(
+                          itemCount: 4,
+                          itemBuilder: (context, index, realIndex) {
+                            return SizedBox();
+                          },
+                          options: CarouselOptions(
+                          height: Get.height /3
                           ),
                         ),
                       ),
