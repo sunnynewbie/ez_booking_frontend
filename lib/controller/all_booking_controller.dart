@@ -1,13 +1,16 @@
+import 'dart:collection';
+
 import 'package:ez_booking/core/api/api_repository.dart';
-import 'package:ez_booking/core/config/app_constant.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/model/my_booking_model.dart';
+import 'package:ez_booking/model/params/all_booking_param.dart';
 import 'package:get/get.dart';
 
 class AllBookingController extends GetxController {
   RxList<MyBookingModel> bookingList = RxList.empty();
   RxBool isLoading = RxBool(false);
-
+  int page = 1;
+  int limit = 10;
   @override
   void onInit() {
     super.onInit();
@@ -18,7 +21,9 @@ class AllBookingController extends GetxController {
 
   Future<void> getBookings() async {
     isLoading.value = true;
-    var response = await ApiRepository().getBookings({});
+    AllBookingParam param = AllBookingParam(
+        page: page, limit: limit);
+    var response = await ApiRepository().getBookings(param.toMap());
     isLoading.value = false;
     if (response.status) {
       bookingList.assignAll(response.data ?? []);
