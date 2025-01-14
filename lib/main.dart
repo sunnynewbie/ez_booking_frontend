@@ -1,8 +1,8 @@
 import 'package:ez_booking/core/config/analytic_tracker.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/routes/route_util.dart';
-import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/service/app_service.dart';
+import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await PrefUtils().initSharedPrefrence();
-  runApp(const MyApp());
+
+  Get.putAsync(() => Appservice().init()).whenComplete(() {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -27,7 +30,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Get.put( Appservice());
   }
 
   @override
@@ -47,9 +49,7 @@ class _MyAppState extends State<MyApp> {
           ),
           initialRoute: AppRoutes.splash,
           getPages: RouteUtil().route,
-          navigatorObservers: [
-            AnalyticsRouteObserver()
-          ],
+          navigatorObservers: [AnalyticsRouteObserver()],
         ),
       ),
     );

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/model/user_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -43,6 +46,20 @@ class Appservice extends GetxService {
     if (user != null) {
       this.user.value = user;
     }
+    Future.delayed(Duration.zero, () async {
+      try {
+        await FirebaseMessaging.instance.requestPermission(
+          alert: true,
+          announcement: true,
+          sound: true,
+        );
+        var fcmToken = await FirebaseMessaging.instance.getToken();
+        log(fcmToken ?? '');
+      } on Exception catch (e) {
+        // TODO
+      }
+    });
+
   }
 
   Future<String> getCurrentCity() async {
@@ -54,4 +71,9 @@ class Appservice extends GetxService {
     print(address.first.toJson());
     return address.first.locality??'';
   }
+
+  Future<Appservice> init()async{
+    return this;
+  }
 }
+
