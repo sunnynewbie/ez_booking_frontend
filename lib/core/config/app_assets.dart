@@ -52,4 +52,7 @@ class AppAssets {
   static const profile_2 = 'assets/icon/profile-2.png';
   static const orderFail = 'assets/icon/order-fail.png';
   static const orderSuccess = 'assets/icon/order-success.png';
+  static const flash_circle = 'assets/icon/flash-circle.png';
+  static const youtube_icon = 'assets/icon/youtube-icon.png';
+  static const instagram_icon = 'assets/icon/instagram-icon.png';
 }

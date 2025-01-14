@@ -79,7 +79,7 @@ class EditProfilePage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: AppTextFormField(
-                                  controller: _.nameController,
+                                  controller: _.fNameCtrl,
                                   hint: 'First name',
                                 ),
                               ),
@@ -87,14 +87,14 @@ class EditProfilePage extends StatelessWidget {
                               Expanded(
                                 child: AppTextFormField(
                                   hint: 'Last name',
-                                  controller: _.nameController,
+                                  controller: _.lNameCtrl,
                                 ),
                               ),
                             ],
                           ),
                           const Gap(AppDimens.space15),
                           AppTextFormField(
-                            controller: _.userNameController,
+                            controller: _.phoneCtrl,
                             hint: 'Phone number',
                             enable: false,
                           ),
@@ -119,11 +119,8 @@ class EditProfilePage extends StatelessWidget {
                               }
                             },
                           ),
-                          const Gap(AppDimens.space15),
-                          AppTextFormField(
-                            hint: 'Username',
-                            controller: _.userNameController,
-                          ),
+                          // const Gap(AppDimens.space15),
+                          
                           const Gap(AppDimens.space15),
                           Obx(
                             () => AppDropdown(

@@ -15,11 +15,13 @@ class InfoCard extends StatelessWidget {
   final VoidCallback? onPressed;
   final int eventid;
   final DateTime? eventDate;
+  final String imagePath;
 
   const InfoCard(
       {super.key,
       this.eventName = "Event Name Not Provided",
       this.location = "Event Location Not Provided",
+      this.imagePath =AppAssets.travel,
       this.onPressed,
       required this.eventid,
       required this.rating,
@@ -54,7 +56,7 @@ class InfoCard extends StatelessWidget {
                         topRight: Radius.circular(5)),
                   ),
                   child: Image.asset(
-                    AppAssets.travel,
+                    imagePath.toString(),
                     fit: BoxFit
                         .cover, // Ensure the image covers the container fully
                   ),

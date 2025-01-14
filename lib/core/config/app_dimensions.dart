@@ -56,6 +56,7 @@ class AppDimens {
   static const circleRadius25 = 25.0;
   static const circleRadius30 = 30.0;
   static const circleRadius35 = 35.0;
+  static const circleRadius100 = 100.0;
 
   static const double inputFieldHeight = 44;
   static const double dropDownFieldHeight = 20;

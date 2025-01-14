@@ -35,11 +35,14 @@ class AllEventCard extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomRight,
         children: [
-          ImageView(
-            imageType: ImageType.network,
-            path: '${NetworkUrl.imagePath}${imgPath}',
-            height: AppDimens.space45,
-            width: AppDimens.space45,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: ImageView(
+              imageType: ImageType.network,
+              path: '${NetworkUrl.imagePath}${imgPath}',
+              height: AppDimens.space45,
+              width: AppDimens.space45,
+            ),
           ),
           Column(
             children: [

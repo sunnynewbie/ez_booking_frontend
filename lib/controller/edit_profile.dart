@@ -41,9 +41,10 @@ class UserFormController extends GetxController {
         fNameCtrl.text = response.data?.f_name ?? '';
         lNameCtrl.text = response.data?.l_name ?? '';
         dobCtrl.text = response.data?.dob ?? '';
-        userNameController.text = response.data?.user_name ?? '';
+        userNameController.text = response.data?.user_name ?? 'abc';
         emailCtrl.text = response.data?.email ?? '';
         gender?.value = response.data?.gender ?? 2;
+        phoneCtrl.text = response.data?.phone_no ?? '';
       } else {
         Get.snackbar(
           'Error',
@@ -63,7 +64,7 @@ class UserFormController extends GetxController {
     var param = UpdateUserParam(
       f_name: fNameCtrl.text.trim(),
       l_name: lNameCtrl.text.trim(),
-      user_name: userNameController.text.trim(),
+      // user_name: userNameController.text.trim(),
       gender: gender.value,
       dob: dob.value,
       email: emailCtrl.text.trim(),
