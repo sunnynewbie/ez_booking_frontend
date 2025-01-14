@@ -3,7 +3,7 @@ import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_icon_button.dart';
 import 'package:ez_booking/features/events/controller/event_add_user_controller.dart';
-import 'package:ez_booking/features/events/presentation/pages/event_detail_page.dart';
+import 'package:ez_booking/features/events/pages/event_detail_page.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/event_user_model.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +96,7 @@ class EventAddUserBs extends StatelessWidget {
                   ),
                 Gap(AppDimens.space15),
                 BookButton(
-                  amount: eventModel.event_price,
+                  amount: eventModel.event_price.toString(),
                   onBookClick: () {
                     if (_.formKey.currentState!.validate()) {
                       _.submitUsers();

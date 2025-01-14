@@ -14,6 +14,7 @@ import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
+import 'package:ez_booking/features/events/widget/meet_the_host_widget.dart';
 import 'package:ez_booking/features/review/presentation/pages/review_item.dart';
 import 'package:ez_booking/model/event_user_model.dart';
 import 'package:ez_booking/model/params/add_user_param.dart';
@@ -157,6 +158,9 @@ class EventDetailPage extends StatelessWidget {
                         ],
                       ),
                       const Gap(AppDimens.space20),
+                      const MeetTheHostWidget(),
+                      const Gap(AppDimens.space20),
+                      
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimens.space15,

@@ -33,6 +33,7 @@ class AppRoutes{
   static const bottomNavBar = '/bottomNavBar';
   static const eventSuccess = '/eventSuccess';
   static const eventFail = '/eventFail';
+  static const HostProfilePage = '/host-profile';
 }
 
 
