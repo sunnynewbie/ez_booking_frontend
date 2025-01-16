@@ -179,20 +179,23 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
-                                title: 'Date',
+                                // title: 'Date',
+                                iconPath: AppAssets.calender_grey,
                                 text: _.event.value?.event_date != null
                                     ? _.event.value!.event_date!.ddMMyyyy
                                     : ''),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
-                              title: 'Address',
+                              // title: 'Address',
+                              iconPath: AppAssets.location_grey,
                               text: _.event.value?.address ?? '',
                             ),
                             const Gap(AppDimens.space15),
                             if (_.event.value != null &&
                                 _.event.value!.event_days != null)
                               EventDetailsField(
-                                  title: 'Days',
+                                  // title: 'Days',
+                                  iconPath: AppAssets.duration_grey,
                                   text: _.event.value!.event_days!
                                       .map((e) => e.label)
                                       .join(','))

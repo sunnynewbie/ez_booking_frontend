@@ -55,4 +55,9 @@ class AppAssets {
   static const flash_circle = 'assets/icon/flash-circle.png';
   static const youtube_icon = 'assets/icon/youtube-icon.png';
   static const instagram_icon = 'assets/icon/instagram-icon.png';
+  static const calender_grey = 'assets/icon/calender_grey.png';
+  static const duration_grey = 'assets/icon/duration_grey.png';
+  static const language_grey = 'assets/icon/language_grey.png';
+  static const location_grey = 'assets/icon/location_grey.png';
+  static const time_grey = 'assets/icon/time_grey.png';
 }

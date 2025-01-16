@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
@@ -53,6 +55,7 @@ class AllEvent extends StatelessWidget {
                 var item = dashboardModel.all_categories.elementAt(index);
                 return InkWell(
                   onTap: () {
+                    log('Cat ID : '+item.category_id.toString());
                     Get.toNamed(AppRoutes.events,arguments: item.category_id);
                   },
                   child: AllEventCard(
