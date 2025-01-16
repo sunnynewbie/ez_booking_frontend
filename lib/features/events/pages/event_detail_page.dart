@@ -15,10 +15,12 @@ import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
 import 'package:ez_booking/features/events/widget/meet_the_host_widget.dart';
+import 'package:ez_booking/features/home/presentation/widget/image_viewer.dart';
 import 'package:ez_booking/features/review/presentation/pages/review_item.dart';
 import 'package:ez_booking/model/event_user_model.dart';
 import 'package:ez_booking/model/params/add_user_param.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -60,48 +62,61 @@ class EventDetailPage extends StatelessWidget {
                               'image2.png',
                               'image3.png'
                             ][index % 3]}';
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ImageView(
-                                  imageType: ImageType.asset, path: item),
+                            return InkWell(
+                              onTap: () {
+                                Get.dialog(
+                                   ImageViewer(
+                                    images: _.event.value!.images,
+                                  ),
+                                  barrierColor: Colors.black.withOpacity(.9)
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ImageView(
+                                    imageType: ImageType.asset, path: item),
+                              ),
                             );
                           },
-                          options: CarouselOptions(aspectRatio: 12 / 9),
+                          carouselController: _.carouselSliderController,
+                          options: CarouselOptions(
+                            aspectRatio: 12 / 9,
+                            onPageChanged: (index, reason) {
+                              _.currentImage.value = index;
+                            },
+                          ),
                         ),
                       ),
-                      const Gap(AppDimens.space15),
-                      /*     SizedBox(
-                        height: 80,
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              var item = 'assets/${[
-                                'image1.png',
-                                'image2.png',
-                                'image3.png'
-                              ][index % 3]}';
-                              return InkWell(
-                                onTap: () {
-                                  _.image.value = item;
-                                },
-                                child: ImageView(
-                                  imageType: ImageType.asset,
-                                  path: item,
-                                  height: AppDimens.imageSize75,
-                                  width: AppDimens.imageSize75,
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [1, 2, 3, 4]
+                              .indexed
+                              .map(
+                                (e) => Obx(
+                                  () => AnimatedContainer(
+                                    duration: 500.ms,
+                                    height: 10,
+                                    width:
+                                        _.currentImage.value == e.$1 ? 30 : 10,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: AppDimens.space2),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppColors.primary,
+                                      ),
+                                      color: AppColors.darkBlue,
+                                      borderRadius: BorderRadius.circular(
+                                          _.currentImage.value == e.$1
+                                              ? 1000
+                                              : 10),
+                                    ),
+                                  ),
                                 ),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const Gap(AppDimens.space15),
-                            itemCount: 5),
+                              )
+                              .toList(),
+                        ),
                       ),
-                 */ // ImageChangerWidget(controller: controller),
-                      // HorizontalTextDisplay(
-                      //   items: items,
-                      //   eventName: event.eventName.toString(),
-                      // ),
                       const Gap(AppDimens.space15),
                       Text(
                         _.event.value?.event_name ?? '',
@@ -160,10 +175,9 @@ class EventDetailPage extends StatelessWidget {
                       ),
                       const Gap(AppDimens.space20),
                       MeetTheHostWidget(
-                        organizer: _.event.value!.organizer!,
+                        organizer: _.event.value!.organizer,
                       ),
                       const Gap(AppDimens.space20),
-
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimens.space15,
@@ -182,20 +196,23 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
-                                title: 'Date',
+                                // title: 'Date',
+                                iconPath: AppAssets.calender_grey,
                                 text: _.event.value?.event_date != null
                                     ? _.event.value!.event_date!.ddMMyyyy
                                     : ''),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
-                              title: 'Address',
+                              // title: 'Address',
+                              iconPath: AppAssets.location_grey,
                               text: _.event.value?.address ?? '',
                             ),
                             const Gap(AppDimens.space15),
                             if (_.event.value != null &&
                                 _.event.value!.event_days != null)
                               EventDetailsField(
-                                  title: 'Days',
+                                  // title: 'Days',
+                                  iconPath: AppAssets.duration_grey,
                                   text: _.event.value!.event_days!
                                       .map((e) => e.label)
                                       .join(','))
@@ -267,7 +284,6 @@ class EventDetailPage extends StatelessWidget {
                               },
                               itemCount: _.reviews.length),
                       ],
-
                       const Gap(AppDimens.space20),
                     ],
                   ),

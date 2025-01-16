@@ -12,7 +12,7 @@ class RegularChecoutController extends GetxController {
   RxList<EventTimeSlotModel> timeslots = RxList.empty();
   List<EventUser> users = [];
   RxBool isLoading = RxBool(false);
-  RxInt currentStep = RxInt(1);
+  RxInt currentStep = RxInt(0);
   RxList<EventDays> selectDays = RxList.empty();
   Rxn<EventTimeSlotModel> selectedTime = Rxn();
   PageController pageController = PageController();

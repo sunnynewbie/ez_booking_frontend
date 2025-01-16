@@ -16,6 +16,7 @@ import 'package:ez_booking/model/event_price_model.dart';
 import 'package:ez_booking/model/event_time_slot_model.dart';
 import 'package:ez_booking/model/my_booking_model.dart';
 import 'package:ez_booking/model/order_model.dart';
+import 'package:ez_booking/model/organizer_model.dart';
 import 'package:ez_booking/model/params/add_review_param.dart';
 import 'package:ez_booking/model/params/add_user_booking_param.dart';
 import 'package:ez_booking/model/params/event_price_param.dart';
@@ -225,12 +226,54 @@ class ApiRepository {
       return ApiResponse();
     }
   }
+ Future<ApiResponse<OrganizerModel?>> getOrganizerById(
+      {required num id}) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.organizer(id));
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? OrganizerModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
 
   Future<ApiResponse<List<AllCategoryBean>>> getCategoriesbyType(
       Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.get(path: NetworkUrl.geCategories, query: data);
+          await apiService.get(path: NetworkUrl.getCategories, query: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List)
+                .map(
+                  (e) => AllCategoryBean.fromJson(e),
+                )
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+  Future<ApiResponse<List<AllCategoryBean>>> exploreCategories(
+      Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.exploreCategories, query: data);
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => (p0['data'] is List)

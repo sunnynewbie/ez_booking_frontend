@@ -10,7 +10,9 @@ class NetworkUrl {
   static const getEvents = 'events/event';
 
   static getEvent(int id) => 'events/event/$id';
-  static const geCategories = 'events/event-categories';
+  static organizer(num id) => 'events/organizer/$id';
+  static const getCategories = 'events/event-categories';
+  static const exploreCategories = 'events/explore-categories';
 
   static getTimeSlots(int id) => 'events/event/$id/time_slot';
   static const getBookings = 'events_booking/get-bookings';

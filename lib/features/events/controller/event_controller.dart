@@ -20,7 +20,9 @@ class EventController extends GetxController {
   }
 
   getevents(int? id) async {
-    isLoading.value=true;
+    if(page==1) {
+      isLoading.value=true;
+    }
     var query = {
       'page': page.toString(),
       'limit': limit.toString(),

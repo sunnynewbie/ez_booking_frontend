@@ -10,16 +10,19 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return GetBuilder<SplashController>(
         init: SplashController(),
         builder: (_) {
           return Scaffold(
-            backgroundColor: AppColors.primary,
+            backgroundColor: isDarkMode ? AppColors.primary : Colors.white,
             body: CustomPaint(
               painter: SplashBg(),
               child: Center(
                 child: AppIcon(
-                  showWhite: true,
+                  showWhite: isDarkMode,
                 ),
               ),
             ),

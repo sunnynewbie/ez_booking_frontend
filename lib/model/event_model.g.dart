@@ -37,6 +37,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       platform_amount: const NumConverter().fromJson(json['platform_amount']),
       total_amount: const NumConverter().fromJson(json['total_amount']),
       event_days: checkEventDate(json['event_days']),
+      images: checkImages(json['images']),
     );
 
 Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
@@ -71,9 +72,11 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'platform_amount': const NumConverter().toJson(instance.platform_amount),
       'total_amount': const NumConverter().toJson(instance.total_amount),
       'event_days': instance.event_days,
+      'images': instance.images,
     };
 
 Organizer _$OrganizerFromJson(Map<String, dynamic> json) => Organizer(
+      instructor_id: const NumConverter().fromJson(json['instructor_id']),
       f_name: const StringConverter().fromJson(json['f_name']),
       l_name: const StringConverter().fromJson(json['l_name']),
       experience: const NumConverter().fromJson(json['experience']),
@@ -82,5 +85,17 @@ Organizer _$OrganizerFromJson(Map<String, dynamic> json) => Organizer(
 Map<String, dynamic> _$OrganizerToJson(Organizer instance) => <String, dynamic>{
       'f_name': const StringConverter().toJson(instance.f_name),
       'l_name': const StringConverter().toJson(instance.l_name),
+      'instructor_id': const NumConverter().toJson(instance.instructor_id),
       'experience': const NumConverter().toJson(instance.experience),
+    };
+
+ImageModel _$ImageModelFromJson(Map<String, dynamic> json) => ImageModel(
+      image_id: const NumConverter().fromJson(json['image_id']),
+      image_path: const StringConverter().fromJson(json['image_path']),
+    );
+
+Map<String, dynamic> _$ImageModelToJson(ImageModel instance) =>
+    <String, dynamic>{
+      'image_id': const NumConverter().toJson(instance.image_id),
+      'image_path': const StringConverter().toJson(instance.image_path),
     };

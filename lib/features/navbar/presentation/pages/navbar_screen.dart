@@ -5,6 +5,7 @@ import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
+import 'package:ez_booking/features/explore_page/explore_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/my_booking.dart';
 import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
@@ -33,11 +34,7 @@ class NavbarScreen extends StatelessWidget {
               index: controller.tabIndex.value,
               children: [
                 HomePage(),
-                Container(
-                  child: Center(
-                    child: Text('Explore'),
-                  ),
-                ),
+                ExplorePage(),
                 MyBooking(),
                 ProfilePage(),
               ],

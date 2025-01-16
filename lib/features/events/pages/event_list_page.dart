@@ -36,13 +36,16 @@ class EventListPage extends StatelessWidget {
               enablePullUp: true,  
              onLoading: () async {
                 ctrl.page++;  
-                await Future.delayed(Duration(milliseconds: 1000));
                 ctrl.isLoading = false.obs;
                 await ctrl.getevents(null); 
                 _refreshController.loadComplete();
               },
-              
-              
+              onRefresh: () async {
+                ctrl.page=1;
+                await ctrl.getevents(null);
+                _refreshController.loadComplete();
+
+              },
               child: GridView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.symmetric(

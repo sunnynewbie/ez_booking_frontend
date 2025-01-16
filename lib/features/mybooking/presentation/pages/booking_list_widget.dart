@@ -10,30 +10,29 @@ class BookingListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+        RefreshController(initialRefresh: false);
     return GetBuilder(
       init: AllBookingController(),
-      builder: (_) =>  SmartRefresher(
-         controller: _refreshController,
-          enablePullDown: true,
-          enablePullUp: true,  
-          onLoading: () async {
-            _.page++;  
-            await Future.delayed(Duration(milliseconds: 1000));
-            _.isLoading = false.obs;
-            await _.getBookings(); 
-            _refreshController.loadComplete();
+      builder: (_) => SmartRefresher(
+        controller: _refreshController,
+        enablePullDown: true,
+        enablePullUp: true,
+        onLoading: () async {
+          _.page++;
+          await _.getBookings();
+          _refreshController.loadComplete();
         },
         onRefresh: () async {
+          _.page = 1;
           await _.getBookings();
+          _refreshController.refreshCompleted();
         },
         child: Obx(
-            () => BookingList(
-              bookings: _.bookingList.toList(),
-            ),
+          () => BookingList(
+            bookings: _.bookingList.toList(),
           ),
+        ),
       ),
-      
     );
   }
 }

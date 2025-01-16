@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/params/event_review_param.dart';
@@ -9,7 +10,8 @@ class EventDetailController extends GetxController {
   var isLoading = false.obs; // Loading state
   RxList<ReviewModel> reviews = RxList.empty();
   RxString image = RxString('assets/image1.png');
-
+  RxInt currentImage= RxInt(0);
+  CarouselSliderController carouselSliderController =CarouselSliderController();
   // Method to fetch event details
   Future<void> fetchEventDetails(int id) async {
     isLoading.value = true;

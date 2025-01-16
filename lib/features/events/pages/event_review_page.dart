@@ -15,7 +15,7 @@ class EventReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+        RefreshController(initialRefresh: false);
     return GetBuilder(
       init: EventReviewController(),
       builder: (_) => Scaffold(
@@ -27,30 +27,33 @@ class EventReviewPage extends StatelessWidget {
             : _.reviews.isEmpty
                 ? const NotFound(imgPath: AppAssets.group, text: 'No Reviews')
                 : SmartRefresher(
-                  controller: _refreshController,
-                  enablePullUp: true,  
-                  onLoading: () async {
-                    _.page++;  
-                    await Future.delayed(Duration(milliseconds: 1000));
-                    _.loading = false.obs;
-                    await _.getEventreview(); 
-                    _refreshController.loadComplete();
-                  },
-                  child: ListView.separated(
-                      padding: const EdgeInsets.only(
-                        left: AppDimens.space15,
-                        right: AppDimens.space15,
-                        top: AppDimens.space15,
-                      ),
-                      itemBuilder: (context, index) {
-                        var item = _.reviews.elementAt(index);
-                        return ReviewItem(item: item);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Gap(AppDimens.space15);
-                      },
-                      itemCount: _.reviews.length),
-                ),
+                    controller: _refreshController,
+                    enablePullUp: true,
+                    onLoading: () async {
+                      _.page++;
+                      await _.getEventreview();
+                      _refreshController.loadComplete();
+                    },
+                    onRefresh: () async {
+                      _.page=1;
+                      await _.getEventreview();
+                      _refreshController.refreshCompleted();
+                    },
+                    child: ListView.separated(
+                        padding: const EdgeInsets.only(
+                          left: AppDimens.space15,
+                          right: AppDimens.space15,
+                          top: AppDimens.space15,
+                        ),
+                        itemBuilder: (context, index) {
+                          var item = _.reviews.elementAt(index);
+                          return ReviewItem(item: item);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Gap(AppDimens.space15);
+                        },
+                        itemCount: _.reviews.length),
+                  ),
       ),
     );
   }

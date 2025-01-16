@@ -9,7 +9,7 @@ import 'package:ez_booking/features/events/pages/event_review_page.dart';
 import 'package:ez_booking/features/events/pages/regular_checkout_page.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
-import 'package:ez_booking/features/host_profile/presentation/pages/host_profile.dart';
+import 'package:ez_booking/features/host_profile/host_profile.dart';
 import 'package:ez_booking/features/login/presentation/pages/login_page.dart';
 import 'package:ez_booking/features/login/presentation/pages/verifiation_page.dart';
 import 'package:ez_booking/features/mybooking/presentation/pages/booking_details.dart';
