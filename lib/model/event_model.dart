@@ -42,10 +42,13 @@ class EventModel {
   String type;
   @JsonKey(fromJson: checkCity)
   CityModel city;
+  @JsonKey(fromJson: checkOrganizer)
+  Organizer? organizer;
   num platform_amount;
   num total_amount;
   @JsonKey(fromJson: checkEventDate)
   List<EventDays>? event_days;
+
   String get dateStr => DateFormat('dd MMM,yyyy').format(event_date!);
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
@@ -58,6 +61,7 @@ class EventModel {
     required this.event_name,
     required this.event_desc,
     required this.tags,
+    required this.organizer,
     required this.address,
     required this.latitude,
     required this.longitude,
@@ -92,6 +96,14 @@ checkCity(dynamic data) {
   }
   return CityModel.fromJson(data);
 }
+checkOrganizer(dynamic data) {
+  if (data is String) {
+    return Organizer.fromJson(jsonDecode(data));
+  }
+  if(data !=null) {
+    return Organizer.fromJson(data);
+  }
+}
 
 checkEventDate(dynamic data) {
   if (data == null) {
@@ -103,4 +115,23 @@ checkEventDate(dynamic data) {
         .toList();
   }
   return (data as List).map((e) => EventDays.fromJson(e)).toList();
+}
+
+@JsonSerializable(converters: [
+  StringConverter(),
+  NumConverter(),
+  DateTimeConverter(),
+  DateNullableConverter()
+])
+class Organizer {
+  String f_name;
+  String l_name;
+  num experience;
+
+  Organizer({required this.f_name, required this.l_name, required this.experience});
+  factory Organizer.fromJson(Map<String, dynamic> json) =>
+      _$OrganizerFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrganizerToJson(this);
+
 }

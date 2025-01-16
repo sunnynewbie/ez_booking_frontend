@@ -59,6 +59,7 @@ class EventListPage extends StatelessWidget {
                 itemCount: ctrl.events.length,
                 itemBuilder: (context, index) {
                   var event = ctrl.events.elementAt(index);
+                  print(event.organizer?.toJson());
                   return InkWell(
                     onTap: () {
                       Get.toNamed(AppRoutes.eventDetail,
@@ -70,6 +71,7 @@ class EventListPage extends StatelessWidget {
                       rating: event.average_rating,
                       eventName: event.event_name,
                       eventDate: event.event_date,
+                      organizerName: '${event.organizer?.f_name} ${event.organizer?.l_name}',
                     ),
                   );
                 },

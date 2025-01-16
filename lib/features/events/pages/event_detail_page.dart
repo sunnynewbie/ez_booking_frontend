@@ -64,7 +64,7 @@ class EventDetailPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: ImageView(
                                   imageType: ImageType.asset, path: item),
-                              );
+                            );
                           },
                           options: CarouselOptions(aspectRatio: 12 / 9),
                         ),
@@ -148,7 +148,8 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             onRatingUpdate: (value) {},
                             itemCount: 5,
-                            initialRating: _.event.value?.average_rating.toDouble()??0,
+                            initialRating:
+                                _.event.value?.average_rating.toDouble() ?? 0,
                             allowHalfRating: false,
                             direction: Axis.horizontal,
                             itemSize: AppDimens.imageSize30,
@@ -158,9 +159,11 @@ class EventDetailPage extends StatelessWidget {
                         ],
                       ),
                       const Gap(AppDimens.space20),
-                      const MeetTheHostWidget(),
+                      MeetTheHostWidget(
+                        organizer: _.event.value!.organizer!,
+                      ),
                       const Gap(AppDimens.space20),
-                      
+
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimens.space15,

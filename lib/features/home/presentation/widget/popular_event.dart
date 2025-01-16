@@ -54,6 +54,7 @@ class PopularEvent extends StatelessWidget {
                     location: item.address,
                     rating: 0,
                     eventDate: item.event_date,
+                    organizerName: '${item.organizer?.f_name} ${item.organizer?.l_name}',
                   ),
                 );
               },

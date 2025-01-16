@@ -34,6 +34,7 @@ SearchItem _$SearchItemFromJson(Map<String, dynamic> json) => SearchItem(
       image_path: const StringConverter().fromJson(json['image_path']),
       average_rating: const NumConverter().fromJson(json['average_rating']),
       total_reviews: const NumConverter().fromJson(json['total_reviews']),
+      organizer: checkOrganizer(json['organizer']),
     );
 
 Map<String, dynamic> _$SearchItemToJson(SearchItem instance) =>
@@ -47,4 +48,5 @@ Map<String, dynamic> _$SearchItemToJson(SearchItem instance) =>
       'result_type': const StringConverter().toJson(instance.result_type),
       'event_date': instance.event_date?.toIso8601String(),
       'image_path': const StringConverter().toJson(instance.image_path),
+      'organizer': instance.organizer,
     };

@@ -66,6 +66,7 @@ class EventByCategoryPage extends StatelessWidget {
                                 rating:event.average_rating,
                                 eventName: event.event_name,
                                 eventDate: event.event_date,
+                                organizerName: '${event.organizer?.f_name} ${event.organizer?.l_name}',
                               ),
                             );
                           },

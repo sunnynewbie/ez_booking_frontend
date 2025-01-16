@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 class InfoCard extends StatelessWidget {
   final String eventName;
+  final String organizerName;
   final String location;
   final num rating;
   final VoidCallback? onPressed;
@@ -23,6 +24,7 @@ class InfoCard extends StatelessWidget {
       this.location = "Event Location Not Provided",
       this.imagePath =AppAssets.travel,
       this.onPressed,
+      this.organizerName ='',
       required this.eventid,
       required this.rating,
       this.eventDate});
@@ -114,6 +116,12 @@ class InfoCard extends StatelessWidget {
                     location,
                     style: context.sm12.withgrey78,
                   ),
+                  Gap(AppDimens.space5),
+                  Text(
+                    'By ${organizerName}',
+                    style: context.sm12.withgrey78,
+                  ),
+
                 ],
               ),
             ),

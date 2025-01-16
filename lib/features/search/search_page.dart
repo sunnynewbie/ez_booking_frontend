@@ -125,6 +125,7 @@ class SearchPage extends StatelessWidget {
                                     location: item.address,
                                     eventName: item.name,
                                     eventDate: item.event_date,
+                                    organizerName: '${item.organizer?.f_name} ${item.organizer?.l_name}',
                                   ),
                                 );
                               },

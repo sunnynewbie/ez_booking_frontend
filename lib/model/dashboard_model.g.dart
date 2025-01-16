@@ -47,6 +47,7 @@ PopularEventsBean _$PopularEventsBeanFromJson(Map<String, dynamic> json) =>
       event_name: const StringConverter().fromJson(json['event_name']),
       address: const StringConverter().fromJson(json['address']),
       image_path: const StringConverter().fromJson(json['image_path']),
+      organizer: checkOrganizer(json['organizer']),
     );
 
 Map<String, dynamic> _$PopularEventsBeanToJson(PopularEventsBean instance) =>
@@ -56,4 +57,5 @@ Map<String, dynamic> _$PopularEventsBeanToJson(PopularEventsBean instance) =>
       'event_name': const StringConverter().toJson(instance.event_name),
       'address': const StringConverter().toJson(instance.address),
       'image_path': const StringConverter().toJson(instance.image_path),
+      'organizer': instance.organizer,
     };

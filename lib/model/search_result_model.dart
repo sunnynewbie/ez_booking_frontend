@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/api/json_converter.dart';
+import 'package:ez_booking/model/event_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_result_model.g.dart';
@@ -29,6 +30,8 @@ class SearchItem {
   String result_type;
   DateTime? event_date;
   String image_path;
+  @JsonKey(fromJson: checkOrganizer)
+  Organizer? organizer;
 
   factory SearchItem.fromJson(Map<String, dynamic> json) => _$SearchItemFromJson(json);
 
@@ -44,5 +47,6 @@ class SearchItem {
     required this.image_path,
     required this.average_rating,
     required this.total_reviews,
+    required this.organizer,
   });
 }

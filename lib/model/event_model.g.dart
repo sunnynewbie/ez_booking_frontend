@@ -11,6 +11,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       event_name: const StringConverter().fromJson(json['event_name']),
       event_desc: const StringConverter().fromJson(json['event_desc']),
       tags: const StringConverter().fromJson(json['tags']),
+      organizer: checkOrganizer(json['organizer']),
       address: const StringConverter().fromJson(json['address']),
       latitude: const NumConverter().fromJson(json['latitude']),
       longitude: const NumConverter().fromJson(json['longitude']),
@@ -66,7 +67,20 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'category_name': const StringConverter().toJson(instance.category_name),
       'type': const StringConverter().toJson(instance.type),
       'city': instance.city,
+      'organizer': instance.organizer,
       'platform_amount': const NumConverter().toJson(instance.platform_amount),
       'total_amount': const NumConverter().toJson(instance.total_amount),
       'event_days': instance.event_days,
+    };
+
+Organizer _$OrganizerFromJson(Map<String, dynamic> json) => Organizer(
+      f_name: const StringConverter().fromJson(json['f_name']),
+      l_name: const StringConverter().fromJson(json['l_name']),
+      experience: const NumConverter().fromJson(json['experience']),
+    );
+
+Map<String, dynamic> _$OrganizerToJson(Organizer instance) => <String, dynamic>{
+      'f_name': const StringConverter().toJson(instance.f_name),
+      'l_name': const StringConverter().toJson(instance.l_name),
+      'experience': const NumConverter().toJson(instance.experience),
     };

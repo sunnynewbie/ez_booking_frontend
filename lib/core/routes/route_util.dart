@@ -129,7 +129,7 @@ class RouteUtil {
       binding: NavBarBinding(),
     ),
     GetPage(
-      name: AppRoutes.HostProfilePage,
+      name: AppRoutes.hostProfilePage,
       page: () => const HostProfilePage(),
     ),
   ];
