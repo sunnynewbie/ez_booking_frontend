@@ -164,6 +164,9 @@ class AppTextFormField extends StatelessWidget {
         fillColor: fillColor,
         counterText: '',
       ),
+      onTapOutside: (event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+      },
       obscureText: obscureText,
       inputFormatters: inputFormatters,
         )

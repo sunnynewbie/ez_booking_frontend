@@ -108,7 +108,7 @@ extension TextStyleExtension on BuildContext {
 }
 
 extension StyleExtension on TextStyle {
-  TextStyle get withBlack => copyWith(color: Color(0xff121212));
+  TextStyle get withBlack => copyWith(color: Color(0xff182627));
 
 
   TextStyle get withWhite => copyWith(color: Colors.white);

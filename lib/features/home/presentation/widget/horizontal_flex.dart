@@ -1,3 +1,4 @@
+import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
@@ -23,6 +24,9 @@ class HorizontalFlex extends StatelessWidget {
       height: 120,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDimens.space12,
+          ),
           itemBuilder: (context, index) {
             var item = categories.elementAt(index);
             bool selected = item == selectedCategory;
@@ -32,8 +36,8 @@ class HorizontalFlex extends StatelessWidget {
               },
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: 90,
-                  minWidth: 90,
+                  maxWidth: 80,
+                  minWidth: 80,
                 ),
                 child: Column(
                   children: [
@@ -41,17 +45,19 @@ class HorizontalFlex extends StatelessWidget {
                       height: AppDimens.imageSize70,
                       width: AppDimens.imageSize70,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(AppDimens.borderRadius10),
-                        color: AppColors.grey78.withOpacity(selected ? .4 : .1),
-                      ),
-                      child: Center(
-                        child: ImageView(
-                          imageType: ImageType.network,
-                          path: item.category_name,
-                          height: AppDimens.imageSize50,
-                          width: AppDimens.imageSize50,
-                        ),
+                          borderRadius:
+                              BorderRadius.circular(AppDimens.borderRadius10),
+                          border: Border.all(
+                            color: AppColors.grey78
+                                .withOpacity(selected ? 1 : .1),
+                          )),
+                      clipBehavior: Clip.hardEdge,
+                      child: ImageView(
+                        imageType: ImageType.network,
+                        path:
+                            '${NetworkUrl.imagePath}${item.image_path}',
+                        height: AppDimens.imageSize50,
+                        width: AppDimens.imageSize50,
                       ),
                     ),
                     Gap(AppDimens.space10),
@@ -70,7 +76,7 @@ class HorizontalFlex extends StatelessWidget {
             );
           },
           separatorBuilder: (context, index) {
-            return Gap(AppDimens.space10);
+            return Gap(AppDimens.space5);
           },
           itemCount: categories.length),
     );

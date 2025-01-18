@@ -1,51 +1,41 @@
+import 'package:ez_booking/core/config/app_assets.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventDetailsField extends StatelessWidget {
-  final String title;
+  final String iconPath;
   final String text;
-  const EventDetailsField({super.key, required this.title, required this.text});
+  const EventDetailsField({super.key, required this.iconPath, required this.text});
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          // color: Colors.red,
-          width: size.width * 0.4,
-          height: size.height * 0.06,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: size.height * 0.05,
-                width: size.height * 0.05,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.grey[300]),
-              ),
-              SizedBox(
-                width: size.width * 0.03,
-              ),
-              Text(
-                title,
-                style: AppTextStyle.regular5,
-              )
-            ],
-          ),
-        ),
-        Flexible(
-              child: Text(
-                text,
-                style: AppTextStyle.regular5,
-                overflow: TextOverflow.ellipsis, // Add ellipsis if text is too long
-                maxLines: 1, // Limit the text to 2 lines
-              ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppDimens.space2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center, 
+        children: [
+          SizedBox(
+            width: AppDimens.space30, 
+            height: AppDimens.space30, 
+            child: Image.asset(
+              iconPath,
+              fit: BoxFit.contain, 
+              // scale: 0.5, 
             ),
-      ],
+          ),
+          SizedBox(width: AppDimens.space12), 
+          Expanded(
+            child: Text(
+              text,
+              style: context.md14.withgrey78,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

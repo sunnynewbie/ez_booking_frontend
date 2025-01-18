@@ -1,7 +1,6 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -10,17 +9,25 @@ import 'package:intl/intl.dart';
 
 class InfoCard extends StatelessWidget {
   final String eventName;
+  final String organizerName;
   final String location;
+  final num rating;
+  final num totalReviews;
   final VoidCallback? onPressed;
   final int eventid;
   final DateTime? eventDate;
+  final String imagePath;
 
   const InfoCard(
       {super.key,
       this.eventName = "Event Name Not Provided",
       this.location = "Event Location Not Provided",
+      this.imagePath = AppAssets.travel,
       this.onPressed,
+      this.organizerName = '',
       required this.eventid,
+      required this.rating,
+      this.totalReviews = 0,
       this.eventDate});
 
   @override
@@ -29,11 +36,11 @@ class InfoCard extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
-          border: Border.all(
-            color: Colors.black12,
-          ),
-        ),
+            borderRadius: BorderRadius.circular(AppDimens.borderRadius10),
+            border: Border.all(
+              color: Colors.black12,
+            ),
+            color: Colors.white),
         constraints: BoxConstraints(
           maxWidth: Get.width / 2.2,
         ),
@@ -52,26 +59,47 @@ class InfoCard extends StatelessWidget {
                         topRight: Radius.circular(5)),
                   ),
                   child: Image.asset(
-                    AppAssets.travel,
+                    imagePath.toString(),
                     fit: BoxFit
                         .cover, // Ensure the image covers the container fully
                   ),
                 ),
-                // Positioned widget to place the small container on the top-right corner of the image
-                Container(
-                  margin: const EdgeInsets.all(AppDimens.space5),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimens.space5, vertical: AppDimens.space3),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    // Background color for the small container
-                    borderRadius: BorderRadius.circular(5), // Rounded corners
+                if (rating.toInt() > 0)
+                  Container(
+                    height: 20,
+                    margin: const EdgeInsets.all(AppDimens.space5),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimens.space5,
+                        vertical: AppDimens.space3),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Background color for the small container
+                      borderRadius: BorderRadius.circular(5), // Rounded corners
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${rating.toInt()}',
+                          // Text inside the small container
+                          style: context.sm12.weigh500.withgrey78,
+                        ),
+                        Gap(AppDimens.space2),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: AppDimens.imageSize12,
+                        ),
+                        VerticalDivider(
+                          width: 10,
+                        ),
+                        Text(
+                          '${totalReviews}',
+                          style: context.sm12.weigh500.withgrey78,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: const Text(
-                    '99+', // Text inside the small container
-                    style: AppTextStyle.regular,
-                  ),
-                ),
               ],
             ),
             const Gap(AppDimens.space15),
@@ -86,7 +114,7 @@ class InfoCard extends StatelessWidget {
                   horizontal: AppDimens.space5, vertical: AppDimens.space3),
               child: Text(
                   eventDate != null
-                      ? DateFormat('EEE, MMM-dd').format(eventDate!)
+                      ? DateFormat('EEE,dd MMM yy').format(eventDate!)
                       : '',
                   textAlign: TextAlign.center,
                   style: context.sm12),
@@ -107,6 +135,11 @@ class InfoCard extends StatelessWidget {
                   Gap(AppDimens.space5),
                   Text(
                     location,
+                    style: context.sm12.withgrey78,
+                  ),
+                  Gap(AppDimens.space5),
+                  Text(
+                    'By ${organizerName}',
                     style: context.sm12.withgrey78,
                   ),
                 ],

@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:ez_booking/model/login_response.dart';
 import 'package:ez_booking/model/user_model.dart';
-import 'package:ez_booking/model/verify_otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefUtils {
@@ -70,21 +68,24 @@ class PrefUtils {
     await sharedPreferences.setString(PrefUtils.token, token);
   }
 
-  String? getToken(){
+  String? getToken() {
     return sharedPreferences.getString(PrefUtils.token);
   }
-  setUser(UserModel user)async{
-    await sharedPreferences.setString(PrefUtils.userData, jsonEncode(user.toJson()));
+
+  setUser(UserModel user) async {
+    await sharedPreferences.setString(
+        PrefUtils.userData, jsonEncode(user.toJson()));
   }
- UserModel? getUser(){
-  var user =  sharedPreferences.getString(PrefUtils.userData);
-  if(user==null){
-    return null;
-  }
-  return UserModel.fromJson(jsonDecode(user));
+
+  UserModel? getUser() {
+    var user = sharedPreferences.getString(PrefUtils.userData);
+    if (user == null) {
+      return null;
+    }
+    return UserModel.fromJson(jsonDecode(user));
   }
 
   clear() async {
- await   sharedPreferences.clear();
+    await sharedPreferences.clear();
   }
 }

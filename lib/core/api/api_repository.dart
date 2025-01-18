@@ -1,15 +1,32 @@
 import 'dart:convert';
-import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
-import 'package:ez_booking/model/booking_model.dart';
+import 'package:ez_booking/model/booking_detail_model.dart';
+import 'package:ez_booking/model/city_model.dart';
+import 'package:ez_booking/model/create_single_booking_model.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:ez_booking/model/event_model.dart';
+import 'package:ez_booking/model/event_price_model.dart';
+import 'package:ez_booking/model/event_time_slot_model.dart';
+import 'package:ez_booking/model/my_booking_model.dart';
+import 'package:ez_booking/model/order_model.dart';
+import 'package:ez_booking/model/organizer_model.dart';
+import 'package:ez_booking/model/params/add_review_param.dart';
 import 'package:ez_booking/model/params/add_user_booking_param.dart';
+import 'package:ez_booking/model/params/event_price_param.dart';
+import 'package:ez_booking/model/params/event_review_param.dart';
+import 'package:ez_booking/model/params/update_user_param.dart';
+import 'package:ez_booking/model/params/updated_bookng_param.dart';
+import 'package:ez_booking/model/privacy_content_model.dart';
+import 'package:ez_booking/model/privacy_model.dart';
+import 'package:ez_booking/model/review_model.dart';
+import 'package:ez_booking/model/search_result_model.dart';
 import 'package:ez_booking/model/user_model.dart';
 
 class ApiRepository {
@@ -21,6 +38,31 @@ class ApiRepository {
 
   ApiService apiService = ApiService(url: NetworkUrl.baseUrl);
 
+  Future<ApiResponse> sendEvent(Map<String, dynamic> data) async {
+    try {
+      var response = await apiService.post(path: 'path', data: data);
+      return ApiResponse.fromResponse(response);
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<SearchResultModel?>> searchApi(
+      {Map<String, dynamic>? query}) async {
+    try {
+      var response = await apiService.get(
+        path: NetworkUrl.searchAPI,
+        query: query,
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? SearchResultModel.fromJson(p0) : null,
+      );
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
   Future<ApiResponse<UserModel?>> sendOTP(Map<String, dynamic>? data) async {
     try {
       var response =
@@ -29,42 +71,114 @@ class ApiRepository {
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
+      return ApiResponse();
+    }
+  }
 
+  Future<ApiResponse<UserModel?>> createGuestLogin(
+      Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.createGuestLogin, data: data);
+      if (response.headers['token'] != null) {
+        await PrefUtils().setToken(response.headers.value('token').toString());
+      }
+
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<CityModel>>> getCities(
+      {Map<String, dynamic>? query}) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.getCities, query: query);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map['data'] is List
+            ? (map['data'] as List).map((e) => CityModel.fromJson(e)).toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<UserModel?>> setCity(Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.setCity, data: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }
 
   Future<ApiResponse<UserModel>> verifyOtp(Map<String, dynamic>? data) async {
     try {
-      var response =
-          await apiService.post(path: NetworkUrl.verifyOtp, data: data);
+      var response = await apiService.post(
+          path: NetworkUrl.verifyFirebseLogin, data: data);
       if (response.headers['token'] != null) {
-        PrefUtils().setToken(response.headers['token'].toString());
+        await PrefUtils().setToken(response.headers.value('token').toString());
       }
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse<UserModel>> getUser(Map<String, dynamic>? query) async {
+  Future<ApiResponse<UserModel>> getUser({Map<String, dynamic>? query}) async {
     try {
-      var response =
-          await apiService.get(path: NetworkUrl.getUser, query: query);
+      var response = await apiService.get(
+          path: NetworkUrl.getUser(Appservice.instance.user.value!.id),
+          query: query);
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
@@ -84,15 +198,41 @@ class ApiRepository {
                 .toList()
             : [],
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
+      return ApiResponse();
+    }
+  }
 
+  Future<ApiResponse<List<PopularEventsBean>>> getMostBooked(
+      Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.getMostBooked, query: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map['data'] is List
+            ? (map['data'] as List)
+                .map((e) => PopularEventsBean.fromJson(e))
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }
 
   Future<ApiResponse<EventModel?>> getEventBYId(
-      {required int id,Map<String, dynamic>? data}) async {
+      {required int id, Map<String, dynamic>? data}) async {
     try {
       var response =
           await apiService.get(path: NetworkUrl.getEvent(id), query: data);
@@ -100,9 +240,30 @@ class ApiRepository {
         response,
         fromJson: (p0) => p0 != null ? EventModel.fromJson(p0) : null,
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
+      return ApiResponse();
+    }
+  }
 
+  Future<ApiResponse<OrganizerModel?>> getOrganizerById(
+      {required num id}) async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.organizer(id));
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? OrganizerModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }
@@ -111,7 +272,7 @@ class ApiRepository {
       Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.get(path: NetworkUrl.geCategories, query: data);
+          await apiService.get(path: NetworkUrl.getCategories, query: data);
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => (p0['data'] is List)
@@ -122,21 +283,61 @@ class ApiRepository {
                 .toList()
             : [],
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse> getTimeSlots(Map<String, dynamic>? data) async {
+  Future<ApiResponse<List<AllCategoryBean>>> exploreCategories(
+      Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getTimeSlots, data: data);
-      return ApiResponse.fromResponse(response);
+          await apiService.get(path: NetworkUrl.exploreCategories, query: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List)
+                .map(
+                  (e) => AllCategoryBean.fromJson(e),
+                )
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
+      return ApiResponse();
+    }
+  }
 
+  Future<ApiResponse<List<EventTimeSlotModel>>> getTimeSlots(int id) async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.getTimeSlots(id));
+      return ApiResponse.fromResponse(response, fromJson: (p0) {
+        var slots = p0['time_slots'];
+        if (slots is String) {
+          return (jsonDecode(slots) as List)
+              .map((e) => EventTimeSlotModel.fromJson(e))
+              .toList();
+        }
+        return (slots is List)
+            ? (slots).map((e) => EventTimeSlotModel.fromJson(e)).toList()
+            : [];
+      });
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }
@@ -146,14 +347,35 @@ class ApiRepository {
       var response =
           await apiService.post(path: NetworkUrl.createBooking, data: data);
       return ApiResponse.fromResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse<List<BookingModel>>> createOneTmeBooking(
+  Future<ApiResponse<EventPriceModel?>> getPrice(EventPriceParam param) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.getPrice, data: param.toMap());
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? EventPriceModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<CreateSingleBookingModel>> createOneTmeBooking(
       AddUserBookingParam param) async {
     try {
       var response = await apiService.post(
@@ -161,16 +383,15 @@ class ApiRepository {
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) {
-          return p0['data'] is List
-              ? (p0['data'] as List)
-                  .map((e) => BookingModel.fromJson(e))
-                  .toList()
-              : [];
+          return CreateSingleBookingModel.fromJson(p0);
         },
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
@@ -180,45 +401,142 @@ class ApiRepository {
       var response = await apiService.post(
           path: NetworkUrl.updateUserInBooking, data: data);
       return ApiResponse.fromResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse> getBookings(Map<String, dynamic>? data) async {
+  Future<ApiResponse<List<MyBookingModel>>> getBookings(
+      Map<String, dynamic>? data) async {
     try {
       var response =
-          await apiService.post(path: NetworkUrl.getBookings, data: data);
-      return ApiResponse.fromResponse(response);
+          await apiService.get(path: NetworkUrl.getBookings, data: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List)
+                .map((e) => MyBookingModel.fromJson(e))
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse> getSingleBooking(Map<String, dynamic>? data) async {
+  Future<ApiResponse<List<MyBookingModel>>> upcomingBookings(
+      {Map<String, dynamic>? query}) async {
     try {
-      var response =
-          await apiService.post(path: NetworkUrl.getBookingDetail, data: data);
-      return ApiResponse.fromResponse(response);
+      var response = await apiService.get(
+        path: NetworkUrl.upcomingBookings,
+        query: query,
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List)
+                .map((e) => MyBookingModel.fromJson(e))
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
-
       return ApiResponse();
     }
   }
 
-  Future<ApiResponse> addReview(Map<String, dynamic>? data) async {
+  Future<ApiResponse<BookingDetailModel?>> getSingleBooking(
+      {required int id, Map<String, dynamic>? data}) async {
     try {
-      var response =
-          await apiService.post(path: NetworkUrl.sendOtp, data: data);
-      return ApiResponse.fromResponse(response);
+      var response = await apiService.get(
+          path: NetworkUrl.getBookingDetail(id), data: data);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? BookingDetailModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
-      print(e);
+      return ApiResponse();
+    }
+  }
 
+  Future<ApiResponse<ReviewModel?>> addReview(
+      {required AddReviewParam param}) async {
+    try {
+      var response = await apiService.post(
+        path: NetworkUrl.addReview,
+        data: param.toMap(),
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? ReviewModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<ReviewModel>>> getReviews() async {
+    try {
+      var response = await apiService.get(
+        path: NetworkUrl.userReviews,
+      );
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List).map((e) => ReviewModel.fromJson(e)).toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<ReviewModel>>> getEventReviews(
+      EventReviewParam param) async {
+    try {
+      var response = await apiService.get(
+          path: NetworkUrl.getEventReviews, data: param.toMap());
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => (p0['data'] is List)
+            ? (p0['data'] as List).map((e) => ReviewModel.fromJson(e)).toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
       return ApiResponse();
     }
   }
@@ -229,15 +547,19 @@ class ApiRepository {
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => p0['data'] is List
-            ? (p0['data'] as List)
-                .map(
-                  (e) => e is String
-                      ? Category_typeBean.fromJson(jsonDecode(e))
-                      : Category_typeBean.fromJson(e),
-                )
-                .toList()
+            ? (p0['data'] as List).map((e) {
+                print(e);
+                return e is String
+                    ? Category_typeBean.fromJson(jsonDecode(e))
+                    : Category_typeBean.fromJson(e);
+              }).toList()
             : [],
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
       return ApiResponse();
     }
@@ -250,26 +572,90 @@ class ApiRepository {
         response,
         fromJson: (p0) => p0 != null ? DashboardModel.fromJson(p0) : null,
       );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
     } on Exception catch (e) {
       return ApiResponse();
     }
   }
 
-
-  Future<ApiResponse> editProfile(Map<String, dynamic> data) async {
+  Future<ApiResponse<UserModel?>> editProfile(
+      {required UpdateUserParam param}) async {
     try {
       var response = await apiService.post(
-        path:  NetworkUrl.updateUser,
-        data: data
-
-      );
+          path: NetworkUrl.updateUser, data: param.toMap());
       return ApiResponse.fromResponse(
         response,
         fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
       );
-    } catch (e) {
-      print("Error updating user: $e");
-      return  ApiResponse();
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<OrderModel>>> approveRejectBooking(
+      UpdateBookingParam param) async {
+    try {
+      var response = await apiService.post(
+          path: NetworkUrl.verifyPayment, data: param.toMap());
+
+      return ApiResponse.fromResponse(response,
+          fromJson: (p0) => p0['data'] is List
+              ? (p0['data'] as List).map((e) => OrderModel.fromJson(e)).toList()
+              : []);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<PrivacyModel>>> getPolicies() async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.getPolicies);
+
+      return ApiResponse.fromResponse(response,
+          fromJson: (p0) => p0['data'] is List
+              ? (p0['data'] as List)
+                  .map((e) => PrivacyModel.fromJson(e))
+                  .toList()
+              : []);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<PrivacyContentModel?>> getPolicyContent(int id) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.getPoliciesContent(id));
+
+      return ApiResponse.fromResponse(response,
+          fromJson: (p0) =>
+              p0 != null ? PrivacyContentModel.fromJson(p0) : null);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
     }
   }
 }

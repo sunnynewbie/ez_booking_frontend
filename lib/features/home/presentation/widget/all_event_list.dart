@@ -16,7 +16,10 @@ class AllEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(AppDimens.space15),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimens.space12,
+          vertical: AppDimens.space15,
+        ),
         // color: Colors.green,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -25,42 +28,44 @@ class AllEvent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "All Event List",
                   style: AppTextStyle.header,
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(RouteConfig.events);
+                    Get.toNamed(AppRoutes.events);
                   },
-                  child: Text(
+                  child: const Text(
                     "See All",
                     style: AppTextStyle.header1,
                   ),
                 )
               ],
             ),
-            SizedBox(
-              height: AppDimens.space15,
-            ),
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 16 / 8,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10),
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemCount: dashboardModel.all_categories.length,
               itemBuilder: (context, index) {
                 var item = dashboardModel.all_categories.elementAt(index);
-                return AllEventCard(
-                  text: item.category_name,
-                  text2: '${item.total_events} events',
-                  imgPath: '${item.image_path}',
-                  color1: AppColors.colors[index % AppColors.colors.length],
-                  color2: AppColors.colors[index % AppColors.colors.length]
-                      .withOpacity(.1),
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.events, arguments: item.category_id);
+                  },
+                  child: AllEventCard(
+                    text: item.category_name,
+                    text2: '${item.total_events} events',
+                    imgPath: '${item.image_path}',
+                    color1: AppColors.colors[index % AppColors.colors.length],
+                    color2: AppColors.colors[index % AppColors.colors.length]
+                        .withOpacity(.1),
+                  ),
                 );
               },
             ),

@@ -22,6 +22,7 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('${NetworkUrl.imagePath}$imgPath');
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Container(

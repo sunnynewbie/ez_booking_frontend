@@ -29,11 +29,10 @@ class ApiService {
       Map<String, dynamic>? query,
       Map<String, dynamic>? data,
       Map<String, String>? headers}) async {
-    var url = Uri.parse('${NetworkUrl.baseUrl}$path');
-    url = url.replace(queryParameters: query?.cast<String, String>());
     try {
       headers ??= {};
       setHeader(headers);
+      print(headers);
       dio.options.headers = headers;
       final response = await dio.get(path, queryParameters: query, data: data);
       return response;
@@ -53,7 +52,7 @@ class ApiService {
 
       headers ??= {};
       setHeader(headers);
-      print(url);
+      print(headers);
       print(jsonEncode(data));
       dio.options.contentType=Headers.jsonContentType;
       dio.options.headers = headers;
@@ -121,6 +120,7 @@ class ApiService {
 
   setHeader(Map<String, String> header) {
     var token = PrefUtils().getToken();
+    print(token);
     if (token != null) {
       header.addAll({'token': token});
     }

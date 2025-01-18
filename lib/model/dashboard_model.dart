@@ -1,4 +1,5 @@
 import 'package:ez_booking/core/api/json_converter.dart';
+import 'package:ez_booking/model/event_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'dashboard_model.g.dart';
@@ -47,6 +48,8 @@ class PopularEventsBean {
   String event_name;
   String address;
   String image_path;
+  @JsonKey(fromJson: checkOrganizer)
+  Organizer? organizer;
 
 
 
@@ -60,6 +63,7 @@ class PopularEventsBean {
     required this.event_name,
     required this.address,
     required this.image_path,
+    required this.organizer,
   });
 }
 

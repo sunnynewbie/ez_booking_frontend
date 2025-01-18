@@ -9,6 +9,7 @@ class AppDimens {
   static const double space15 = 15;
   static const double space16 = 16;
   static const double space20 = 20;
+  static const double space25 = 25;
   static const double space30 = 30;
   static const double space35 = 35;
   static const double space40 = 40;
@@ -55,6 +56,7 @@ class AppDimens {
   static const circleRadius25 = 25.0;
   static const circleRadius30 = 30.0;
   static const circleRadius35 = 35.0;
+  static const circleRadius100 = 100.0;
 
   static const double inputFieldHeight = 44;
   static const double dropDownFieldHeight = 20;

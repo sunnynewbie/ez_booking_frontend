@@ -42,12 +42,10 @@ class ApiResponse<T> {
         }
       }
     } else {
-      apiResponse.message = responseJson['message'].toString();
-      if (fromJson != null) {
-        apiResponse.data = responseJson['data'];
-      } else {
-        apiResponse.data = responseJson;
+      if(responseJson is Map){
+        apiResponse.message = responseJson['message'].toString();
       }
+
     }
 
     return apiResponse;

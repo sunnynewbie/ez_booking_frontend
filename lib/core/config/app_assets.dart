@@ -1,5 +1,7 @@
 class AppAssets {
   static const appIcon = 'assets/app_icon.png';
+  static const logoWhite = 'assets/logo_white.png';
+  static const commonBg = 'assets/common_bg.png';
   static const splash_logo = 'assets/splash_logo.png';
   static const allowLocation = 'assets/location_allow_img.png';
   static const splashBG = 'assets/splash_bg.png';
@@ -38,4 +40,24 @@ class AppAssets {
   static const guiter = 'assets/icon/guiter.png';
   static const coconutTree = 'assets/icon/coconut_tree.png';
   static const reward_icon = 'assets/icon/reward_icon.png';
+  static const hotAirBallon = 'assets/appImages/hot_air_ballon.png';
+  static const group = 'assets/appImages/group.png';
+  static const home = 'assets/icon/home.png';
+  static const home_2 = 'assets/icon/home-2.png';
+  static const discover = 'assets/icon/discover.png';
+  static const discover_2 = 'assets/icon/discover-2.png';
+  static const calendar = 'assets/icon/calendar.png';
+  static const calendar_2 = 'assets/icon/calendar-2.png';
+  static const profile = 'assets/icon/profile.png';
+  static const profile_2 = 'assets/icon/profile-2.png';
+  static const orderFail = 'assets/icon/order-fail.png';
+  static const orderSuccess = 'assets/icon/order-success.png';
+  static const flash_circle = 'assets/icon/flash-circle.png';
+  static const youtube_icon = 'assets/icon/youtube-icon.png';
+  static const instagram_icon = 'assets/icon/instagram-icon.png';
+  static const calender_grey = 'assets/icon/calender_grey.png';
+  static const duration_grey = 'assets/icon/duration_grey.png';
+  static const language_grey = 'assets/icon/language_grey.png';
+  static const location_grey = 'assets/icon/location_grey.png';
+  static const time_grey = 'assets/icon/time_grey.png';
 }

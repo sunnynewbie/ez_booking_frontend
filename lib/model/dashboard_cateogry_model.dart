@@ -20,6 +20,7 @@ class DashboardCateogryModel {
 @JsonSerializable(converters: [StringConverter(),NumConverter()])
 class Category_typeBean {
   num event_type;
+  num count;
   String category_type;
   String image_path;
 
@@ -29,6 +30,7 @@ class Category_typeBean {
 
   Category_typeBean({
     required this.event_type,
+    required this.count,
     required this.category_type,
     required this.image_path,
   });

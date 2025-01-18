@@ -2,17 +2,20 @@ import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/api/api_response.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxBool isLoading = RxBool(false);
   Rxn<DashboardModel> dashboard = Rxn();
   RxList<Category_typeBean> categories = RxList.empty();
+
   @override
   void onInit() {
     super.onInit();
+  getHomeScreen();
+  }
 
+  getHomeScreen() {
     isLoading.value = true;
     Future.delayed(
       Duration.zero,

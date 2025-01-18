@@ -4,7 +4,6 @@ import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/widget/card.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class PopularEvent extends StatelessWidget {
@@ -16,7 +15,10 @@ class PopularEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.amber,
-      padding: const EdgeInsets.all(AppDimens.space15),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimens.space12,
+        vertical: AppDimens.space15,
+      ),
       child: Column(
         children: [
           Row(
@@ -27,7 +29,7 @@ class PopularEvent extends StatelessWidget {
                 style: AppTextStyle.header,
               ),
               TextButton(
-                onPressed: () => Get.toNamed(RouteConfig.events),
+                onPressed: () => Get.toNamed(AppRoutes.events),
                 child: const Text(
                   "See All",
                   style: AppTextStyle.header1,
@@ -35,29 +37,35 @@ class PopularEvent extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
-            height: Get.height * .32,
-            child: ListView.separated(
-              separatorBuilder: (context, index) =>
-                  const Gap(AppDimens.space15),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                var item = dashboardModel.popular_events.elementAt(index);
-                return InkWell(
-                  onTap: () {
-                    Get.toNamed(RouteConfig.eventDetail,
-                        arguments: item.event_id);
-                  },
-                  child: InfoCard(
-                    eventid: item.event_id.toInt(),
-                    eventName: item.event_name,
-                    location: item.address,
-                    eventDate: item.event_date,
-                  ),
-                );
-              },
-              itemCount: dashboardModel.popular_events.length,
+          GridView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: .65,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
+            itemBuilder: (context, index) {
+              var item = dashboardModel.popular_events.elementAt(index);
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.eventDetail,
+                      arguments: item.event_id);
+                },
+                child: InfoCard(
+                  eventid: item.event_id.toInt(),
+                  eventName: item.event_name,
+                  location: item.address,
+                  totalReviews: 0,
+                  rating: 0,
+                  eventDate: item.event_date,
+                  organizerName:
+                      '${item.organizer?.f_name} ${item.organizer?.l_name}',
+                ),
+              );
+            },
+            itemCount: dashboardModel.popular_events.length,
           ),
         ],
       ),

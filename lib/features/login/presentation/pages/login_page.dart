@@ -2,8 +2,10 @@
 import 'package:ez_booking/controller/login_controller.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon.dart';
+import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +22,24 @@ class LoginPage extends StatelessWidget {
     return GetBuilder<LoginController>(
         init: LoginController(),
         builder: (_) {
-          return Scaffold(
+          return AppScaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              actions: [
+                Obx(
+                ()=> AppElevatedButton(
+                    onTap: () async {
+                      await _.createGuestLogin();
+                    },
+                    isLoading: _.isLoading.value,
+                    text: 'Skip',
+                    height: AppDimens.space40,
+                  ),
+                ),
+                const Gap(AppDimens.space10),
+              ],
+            ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: AppDimens.space15),
               child: Form(
@@ -32,7 +51,7 @@ class LoginPage extends StatelessWidget {
                       AppIcon(),
                       Gap(AppDimens.space50),
                       Text(
-                        'Welcome to Ezbooking!!',
+                        'Welcome to Ezbook!!',
                         style: context.x24.weigh600,
                       ),
                       SizedBox(
