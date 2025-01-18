@@ -32,7 +32,7 @@ class NavbarScreen extends StatelessWidget {
           child: Obx(
             () => IndexedStack(
               index: controller.tabIndex.value,
-              children: [
+              children: const [
                 HomePage(),
                 ExplorePage(),
                 MyBooking(),
@@ -43,13 +43,13 @@ class NavbarScreen extends StatelessWidget {
         ),
         bottomNavigationBar: Obx(
           () => GNav(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: AppDimens.space10,
               horizontal: AppDimens.space10,
             ),
             activeColor: Colors.white,
             textSize: 12,
-            tabMargin: EdgeInsets.symmetric(
+            tabMargin: const EdgeInsets.symmetric(
               vertical: AppDimens.space15,
               horizontal: AppDimens.space5,
             ),

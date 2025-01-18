@@ -65,11 +65,10 @@ class EventDetailPage extends StatelessWidget {
                             return InkWell(
                               onTap: () {
                                 Get.dialog(
-                                   ImageViewer(
-                                    images: _.event.value!.images,
-                                  ),
-                                  barrierColor: Colors.black.withOpacity(.9)
-                                );
+                                    ImageViewer(
+                                      images: _.event.value!.images,
+                                    ),
+                                    barrierColor: Colors.black.withOpacity(.9));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -144,35 +143,36 @@ class EventDetailPage extends StatelessWidget {
                             [],
                       ),
                       const Gap(AppDimens.space10),
-                      Row(
-                        children: [
-                          RatingBar(
-                            ratingWidget: RatingWidget(
-                              full: const Icon(
-                                Icons.star_rounded,
-                                color: Colors.yellow,
+                      if (_.event.value!.average_rating > 0)
+                        Row(
+                          children: [
+                            RatingBar(
+                              ratingWidget: RatingWidget(
+                                full: const Icon(
+                                  Icons.star_rounded,
+                                  color: Colors.yellow,
+                                ),
+                                half: const Icon(
+                                  Icons.star_half_rounded,
+                                  color: Colors.yellow,
+                                ),
+                                empty: const Icon(
+                                  Icons.star_border_rounded,
+                                  color: Colors.yellow,
+                                ),
                               ),
-                              half: const Icon(
-                                Icons.star_half_rounded,
-                                color: Colors.yellow,
-                              ),
-                              empty: const Icon(
-                                Icons.star_border_rounded,
-                                color: Colors.yellow,
-                              ),
+                              onRatingUpdate: (value) {},
+                              itemCount: 5,
+                              initialRating:
+                                  _.event.value?.average_rating.toDouble() ?? 0,
+                              allowHalfRating: false,
+                              direction: Axis.horizontal,
+                              itemSize: AppDimens.imageSize30,
+                              updateOnDrag: false,
+                              tapOnlyMode: false,
                             ),
-                            onRatingUpdate: (value) {},
-                            itemCount: 5,
-                            initialRating:
-                                _.event.value?.average_rating.toDouble() ?? 0,
-                            allowHalfRating: false,
-                            direction: Axis.horizontal,
-                            itemSize: AppDimens.imageSize30,
-                            updateOnDrag: false,
-                            tapOnlyMode: false,
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
                       const Gap(AppDimens.space20),
                       MeetTheHostWidget(
                         organizer: _.event.value!.organizer,
@@ -248,42 +248,40 @@ class EventDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (_.reviews.isNotEmpty) ...[
-                        const Gap(AppDimens.space15),
-                        Row(
-                          children: [
-                            Text(
-                              'Reviews',
-                              style: context.lg16.weigh500,
+                      const Gap(AppDimens.space15),
+                      Row(
+                        children: [
+                          Text(
+                            'Reviews',
+                            style: context.lg16.weigh500,
+                          ),
+                          const Spacer(),
+                          if (_.reviews.isNotEmpty)
+                            TextButton(
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.eventReviews,
+                                    arguments: _.event.value);
+                              },
+                              child: const Text('See all'),
                             ),
-                            const Spacer(),
-                            if (_.reviews.isNotEmpty)
-                              TextButton(
-                                onPressed: () {
-                                  Get.toNamed(AppRoutes.eventReviews,
-                                      arguments: _.event.value);
-                                },
-                                child: const Text('See all'),
-                              ),
-                          ],
-                        ),
-                        const Gap(AppDimens.space10),
-                        if (_.reviews.isEmpty)
-                          const NotFound(
-                              imgPath: AppAssets.group, text: 'No Reviews')
-                        else
-                          ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                var item = _.reviews.elementAt(index);
-                                return ReviewItem(item: item);
-                              },
-                              separatorBuilder: (context, index) {
-                                return const Gap(AppDimens.space15);
-                              },
-                              itemCount: _.reviews.length),
-                      ],
+                        ],
+                      ),
+                      const Gap(AppDimens.space10),
+                      if (_.reviews.isEmpty)
+                        const NotFound(
+                            imgPath: AppAssets.group, text: 'No Reviews')
+                      else
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              var item = _.reviews.elementAt(index);
+                              return ReviewItem(item: item);
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Gap(AppDimens.space15);
+                            },
+                            itemCount: _.reviews.length),
                       const Gap(AppDimens.space20),
                     ],
                   ),

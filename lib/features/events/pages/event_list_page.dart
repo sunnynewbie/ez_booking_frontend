@@ -72,6 +72,7 @@ class EventListPage extends StatelessWidget {
                       eventid: event.event_id.toInt(),
                       location: event.address,
                       rating: event.average_rating,
+                      totalReviews: event.total_reviews,
                       eventName: event.event_name,
                       eventDate: event.event_date,
                       organizerName: '${event.organizer?.f_name} ${event.organizer?.l_name}',

@@ -81,6 +81,29 @@ class ApiRepository {
     }
   }
 
+  Future<ApiResponse<UserModel?>> createGuestLogin(
+      Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.createGuestLogin, data: data);
+      if (response.headers['token'] != null) {
+        await PrefUtils().setToken(response.headers.value('token').toString());
+      }
+
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (map) => map != null ? UserModel.fromJson(map) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
   Future<ApiResponse<List<CityModel>>> getCities(
       {Map<String, dynamic>? query}) async {
     try {
@@ -226,11 +249,11 @@ class ApiRepository {
       return ApiResponse();
     }
   }
- Future<ApiResponse<OrganizerModel?>> getOrganizerById(
+
+  Future<ApiResponse<OrganizerModel?>> getOrganizerById(
       {required num id}) async {
     try {
-      var response =
-          await apiService.get(path: NetworkUrl.organizer(id));
+      var response = await apiService.get(path: NetworkUrl.organizer(id));
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => p0 != null ? OrganizerModel.fromJson(p0) : null,
@@ -269,6 +292,7 @@ class ApiRepository {
       return ApiResponse();
     }
   }
+
   Future<ApiResponse<List<AllCategoryBean>>> exploreCategories(
       Map<String, dynamic>? data) async {
     try {

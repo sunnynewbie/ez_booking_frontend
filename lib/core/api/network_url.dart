@@ -3,6 +3,7 @@ class NetworkUrl {
   static const imagePath = 'https://ezbooking-node.onrender.com';
 
   static const sendOtp = 'user/send-otp';
+  static const createGuestLogin = 'user/create-guest-user';
   static const setCity = 'user/set-city';
   static const getCities = 'user/cities';
   static const verifyFirebseLogin = 'user/verify-firebase-login';

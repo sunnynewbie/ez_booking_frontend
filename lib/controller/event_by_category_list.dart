@@ -32,8 +32,13 @@ class EventByCategoryListController extends GetxController {
     var response = await ApiRepository().getCategoriesbyType(query);
     if (response.data != null) {
       categories.assignAll(response.data ?? []);
-      selectedCategory.value = categories.first;
-      getEventsByCategory();
+      if(categories.isNotEmpty) {
+        selectedCategory.value = categories.first;
+
+        getEventsByCategory();
+      }else{
+        isoading.value=false;
+      }
     }
   }
 

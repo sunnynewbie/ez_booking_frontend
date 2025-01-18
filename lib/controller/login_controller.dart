@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/firebase_util.dart';
+import 'package:ez_booking/core/utils/pref_util.dart';
+import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -43,5 +50,34 @@ class LoginController extends GetxController {
     } else {
       Get.snackbar(AppConstant.appName, response.message ?? '');
     }*/
+  }
+
+  Future<void> createGuestLogin() async {
+    isLoading.value=true;
+    var deviceId = '';
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      deviceId = androidInfo.id;
+    } else {
+      IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
+      deviceId = iosInfo.identifierForVendor ?? '';
+    }
+    var data = {'device_id': deviceId};
+    var response = await ApiRepository().createGuestLogin(data);
+    isLoading.value=false;
+    if (response.status) {
+      await PrefUtils().setUser(response.data!);
+      Appservice.instance.user.value = response.data;
+      if (response.data!.city == null) {
+        Get.toNamed(AppRoutes.allowLocation);
+        return;
+      }
+      Get.offNamedUntil(
+        AppRoutes.bottomNavBar,
+        (route) => false,
+      );
+    } else {
+      ShowToast.showErrorMsg(response.message ?? '');
+    }
   }
 }

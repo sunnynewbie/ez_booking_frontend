@@ -21,7 +21,8 @@ class ExplorePage extends StatelessWidget {
       builder: (ctrl) => AppScaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text('   Explore', style: AppTextStyle.pagetitle),
+          titleSpacing: AppDimens.space15,
+          title: Text('Explore', style: AppTextStyle.pagetitle),
         ),
         body: Obx(
           () => ctrl.isoading.value && ctrl.categories.isEmpty
@@ -35,15 +36,13 @@ class ExplorePage extends StatelessWidget {
                     await ctrl.getEventsByCategory();
                     ctrl.refreshController.loadComplete();
                   },
-            onRefresh: () async {
-              ctrl.page=1;
+                  onRefresh: () async {
+                    ctrl.page = 1;
 
-              await ctrl.getEventsByCategory();
-              ctrl.refreshController.refreshCompleted();
-            },
+                    await ctrl.getEventsByCategory();
+                    ctrl.refreshController.refreshCompleted();
+                  },
                   child: ListView(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: AppDimens.space15),
                     children: [
                       HorizontalFlex(
                         selectedCategory: ctrl.selectedCategory.value,
@@ -53,10 +52,14 @@ class ExplorePage extends StatelessWidget {
                         },
                         categories: ctrl.categories.toList(),
                       ),
-                      Gap(AppDimens.space15),
+                      Gap(AppDimens.space10),
                       if (ctrl.events.isNotEmpty)
                         GridView.builder(
                           shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppDimens.space12,
+                            vertical: AppDimens.space15,
+                          ),
                           physics: ClampingScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -78,6 +81,7 @@ class ExplorePage extends StatelessWidget {
                                 eventid: event.event_id.toInt(),
                                 location: event.address,
                                 rating: event.average_rating,
+                                totalReviews: event.total_reviews,
                                 eventName: event.event_name,
                                 eventDate: event.event_date,
                                 organizerName:

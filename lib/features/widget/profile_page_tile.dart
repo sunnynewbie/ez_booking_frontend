@@ -3,7 +3,9 @@ import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
+import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -35,7 +37,6 @@ class ProfileWithAvatarTile extends StatelessWidget {
             border: Border.all(color: const Color.fromARGB(255, 244, 243, 243)),
             borderRadius: BorderRadius.circular(AppDimens.borderRadius10)),
         child: Row(
-
           children: [
             Container(
               child: Container(
@@ -67,7 +68,8 @@ class ProfileWithAvatarTile extends StatelessWidget {
                   Text(
                     phoneNumber.toString(),
                     style: context.md14.withgrey78,
-                  ),Text(
+                  ),
+                  Text(
                     phoneNumber.toString(),
                     style: context.md14.withgrey78,
                   )
@@ -75,18 +77,22 @@ class ProfileWithAvatarTile extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Container(
-              padding: const EdgeInsets.all(5),
-              child: IconButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.editUserProfile);
-                },
-                icon: Image.asset(
-                  AppAssets.editIcon,
-                  scale: 4,
+            if (Appservice.instance.user.value!.user_type == UserType.user)
+              Container(
+                padding: const EdgeInsets.all(5),
+                child: IconButton(
+                  onPressed: () {
+                    if (Appservice.instance.user.value!.user_type ==
+                        UserType.user) {
+                      Get.toNamed(AppRoutes.editUserProfile);
+                    }
+                  },
+                  icon: Image.asset(
+                    AppAssets.editIcon,
+                    scale: 4,
+                  ),
                 ),
-              ),
-            )
+              )
           ],
         ),
       ),

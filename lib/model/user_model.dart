@@ -3,7 +3,12 @@ import 'package:ez_booking/model/city_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
-
+enum UserType{
+  @JsonValue("guest")
+  guest,
+  @JsonValue("user")
+  user;
+}
 @JsonSerializable(
     converters: [StringConverter(), IntConverter(), NumConverter()])
 class UserModel {
@@ -17,8 +22,11 @@ class UserModel {
   final int gender;
   final String otp;
   final String firebase_id;
+  final String device_id;
   final num city_id;
   final CityModel? city;
+  @JsonKey(disallowNullValue: false,defaultValue: UserType.user,unknownEnumValue: UserType.user)
+  final UserType user_type;
 
   UserModel({
     required this.id,
@@ -32,7 +40,9 @@ class UserModel {
     required this.gender,
     required this.otp,
     required this.city_id,
+    required this.device_id,
     required this.city,
+    required this.user_type,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

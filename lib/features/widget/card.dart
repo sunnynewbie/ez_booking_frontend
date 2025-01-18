@@ -1,7 +1,6 @@
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -13,6 +12,7 @@ class InfoCard extends StatelessWidget {
   final String organizerName;
   final String location;
   final num rating;
+  final num totalReviews;
   final VoidCallback? onPressed;
   final int eventid;
   final DateTime? eventDate;
@@ -22,11 +22,12 @@ class InfoCard extends StatelessWidget {
       {super.key,
       this.eventName = "Event Name Not Provided",
       this.location = "Event Location Not Provided",
-      this.imagePath =AppAssets.travel,
+      this.imagePath = AppAssets.travel,
       this.onPressed,
-      this.organizerName ='',
+      this.organizerName = '',
       required this.eventid,
       required this.rating,
+      this.totalReviews = 0,
       this.eventDate});
 
   @override
@@ -65,6 +66,7 @@ class InfoCard extends StatelessWidget {
                 ),
                 if (rating.toInt() > 0)
                   Container(
+                    height: 20,
                     margin: const EdgeInsets.all(AppDimens.space5),
                     padding: const EdgeInsets.symmetric(
                         horizontal: AppDimens.space5,
@@ -74,9 +76,28 @@ class InfoCard extends StatelessWidget {
                       // Background color for the small container
                       borderRadius: BorderRadius.circular(5), // Rounded corners
                     ),
-                    child: Text(
-                      '${rating.toInt()}', // Text inside the small container
-                      style: AppTextStyle.regular,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${rating.toInt()}',
+                          // Text inside the small container
+                          style: context.sm12.weigh500.withgrey78,
+                        ),
+                        Gap(AppDimens.space2),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: AppDimens.imageSize12,
+                        ),
+                        VerticalDivider(
+                          width: 10,
+                        ),
+                        Text(
+                          '${totalReviews}',
+                          style: context.sm12.weigh500.withgrey78,
+                        ),
+                      ],
                     ),
                   ),
               ],
@@ -121,7 +142,6 @@ class InfoCard extends StatelessWidget {
                     'By ${organizerName}',
                     style: context.sm12.withgrey78,
                   ),
-
                 ],
               ),
             ),

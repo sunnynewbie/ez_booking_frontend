@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
                             Gap(AppDimens.space10),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal: AppDimens.space16,
+                                horizontal: AppDimens.space12,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

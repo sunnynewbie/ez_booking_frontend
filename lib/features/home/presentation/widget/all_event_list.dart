@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
@@ -18,7 +16,10 @@ class AllEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(AppDimens.space15),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimens.space12,
+          vertical: AppDimens.space15,
+        ),
         // color: Colors.green,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +28,7 @@ class AllEvent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "All Event List",
                   style: AppTextStyle.header,
                 ),
@@ -35,7 +36,7 @@ class AllEvent extends StatelessWidget {
                   onPressed: () {
                     Get.toNamed(AppRoutes.events);
                   },
-                  child: Text(
+                  child: const Text(
                     "See All",
                     style: AppTextStyle.header1,
                   ),
@@ -43,19 +44,19 @@ class AllEvent extends StatelessWidget {
               ],
             ),
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 16 / 8,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10),
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemCount: dashboardModel.all_categories.length,
               itemBuilder: (context, index) {
                 var item = dashboardModel.all_categories.elementAt(index);
                 return InkWell(
                   onTap: () {
-                    Get.toNamed(AppRoutes.events,arguments: item.category_id);
+                    Get.toNamed(AppRoutes.events, arguments: item.category_id);
                   },
                   child: AllEventCard(
                     text: item.category_name,

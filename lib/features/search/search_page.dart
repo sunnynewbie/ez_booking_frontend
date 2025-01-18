@@ -121,6 +121,7 @@ class SearchPage extends StatelessWidget {
                                   },
                                   child: InfoCard(
                                     rating: item.average_rating,
+                                    totalReviews: item.total_reviews,
                                     eventid: item.id.toInt(),
                                     location: item.address,
                                     eventName: item.name,

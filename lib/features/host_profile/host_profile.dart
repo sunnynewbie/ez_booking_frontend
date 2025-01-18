@@ -1,6 +1,5 @@
 import 'package:ez_booking/controller/host_profile_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/event_listing_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/host_name_and_icon_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/lives_in_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/review_list_widget.dart';
@@ -64,7 +63,7 @@ class HostProfilePage extends StatelessWidget {
                               const SizedBox(height: 20),
                               VerificationStatus(),
                               const SizedBox(height: 20),
-                              EventListing(context),
+                              // EventListing(context),
                             ],
                           ),
                         ),

@@ -2,6 +2,7 @@
 import 'package:ez_booking/controller/login_controller.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
@@ -22,6 +23,23 @@ class LoginPage extends StatelessWidget {
         init: LoginController(),
         builder: (_) {
           return AppScaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              actions: [
+                Obx(
+                ()=> AppElevatedButton(
+                    onTap: () async {
+                      await _.createGuestLogin();
+                    },
+                    isLoading: _.isLoading.value,
+                    text: 'Skip',
+                    height: AppDimens.space40,
+                  ),
+                ),
+                const Gap(AppDimens.space10),
+              ],
+            ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: AppDimens.space15),
               child: Form(

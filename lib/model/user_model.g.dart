@@ -18,9 +18,13 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       gender: const IntConverter().fromJson(json['gender']),
       otp: const StringConverter().fromJson(json['otp']),
       city_id: const NumConverter().fromJson(json['city_id']),
+      device_id: const StringConverter().fromJson(json['device_id']),
       city: json['city'] == null
           ? null
           : CityModel.fromJson(json['city'] as Map<String, dynamic>),
+      user_type: $enumDecodeNullable(_$UserTypeEnumMap, json['user_type'],
+              unknownValue: UserType.user) ??
+          UserType.user,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -34,6 +38,13 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'gender': const IntConverter().toJson(instance.gender),
       'otp': const StringConverter().toJson(instance.otp),
       'firebase_id': const StringConverter().toJson(instance.firebase_id),
+      'device_id': const StringConverter().toJson(instance.device_id),
       'city_id': const NumConverter().toJson(instance.city_id),
       'city': instance.city,
+      'user_type': _$UserTypeEnumMap[instance.user_type]!,
     };
+
+const _$UserTypeEnumMap = {
+  UserType.guest: 'guest',
+  UserType.user: 'user',
+};

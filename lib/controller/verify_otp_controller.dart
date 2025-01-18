@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/config/app_constant.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
@@ -7,7 +9,6 @@ import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/firebase_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
-import 'package:ez_booking/features/login/service/verify_otp_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,6 @@ class VerifiactionArgs {
 }
 
 class VerifyOtpController extends GetxController {
-  final ApiService _apiService = ApiService();
   RxString otpString = ''.obs;
   RxBool isLoading = false.obs; // Loading state
   var ctrl = TextEditingController();
@@ -47,9 +47,20 @@ class VerifyOtpController extends GetxController {
      isLoading.value=false;
      return;
    }
-     var response = await ApiRepository().verifyOtp({
+   var deviceId = '';
+   if (Platform.isAndroid) {
+     AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+     deviceId = androidInfo.id;
+   } else {
+     IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
+     deviceId = iosInfo.identifierForVendor ?? '';
+   }
+
+   var response = await ApiRepository().verifyOtp({
       'phone_no': verifiactionArgs.phoneNumber,
-      'firebase_id': user.uid
+      'firebase_id': user.uid,
+       'device_id':deviceId
+
     });
     isLoading.value = false;
     if (response.status) {

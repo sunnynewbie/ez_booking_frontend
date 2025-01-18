@@ -49,7 +49,6 @@ class EventModel {
   @JsonKey(fromJson: checkEventDate)
   List<EventDays>? event_days;
   @JsonKey(fromJson: checkImages)
-
   List<ImageModel> images;
 
   String get dateStr => DateFormat('dd MMM,yyyy').format(event_date!);
@@ -90,7 +89,7 @@ class EventModel {
     required this.platform_amount,
     required this.total_amount,
     this.event_days,
-  required  this.images,
+    required this.images,
   });
 }
 
@@ -100,11 +99,12 @@ checkCity(dynamic data) {
   }
   return CityModel.fromJson(data);
 }
+
 checkOrganizer(dynamic data) {
   if (data is String) {
     return Organizer.fromJson(jsonDecode(data));
   }
-  if(data !=null) {
+  if (data != null) {
     return Organizer.fromJson(data);
   }
 }
@@ -120,9 +120,10 @@ checkEventDate(dynamic data) {
   }
   return (data as List).map((e) => EventDays.fromJson(e)).toList();
 }
+
 checkImages(dynamic data) {
   if (data == null) {
-    return null;
+    return <ImageModel>[];
   }
   if (data is String) {
     return (jsonDecode(data) as List)
@@ -144,13 +145,18 @@ class Organizer {
   num instructor_id;
   num experience;
 
-  Organizer({required this.instructor_id,required this.f_name, required this.l_name, required this.experience});
+  Organizer(
+      {required this.instructor_id,
+      required this.f_name,
+      required this.l_name,
+      required this.experience});
+
   factory Organizer.fromJson(Map<String, dynamic> json) =>
       _$OrganizerFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrganizerToJson(this);
-
 }
+
 @JsonSerializable(converters: [
   StringConverter(),
   NumConverter(),
@@ -165,9 +171,9 @@ class ImageModel {
     required this.image_id,
     required this.image_path,
   });
+
   factory ImageModel.fromJson(Map<String, dynamic> json) =>
       _$ImageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ImageModelToJson(this);
-
 }

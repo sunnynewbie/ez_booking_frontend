@@ -24,6 +24,9 @@ class HorizontalFlex extends StatelessWidget {
       height: 120,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDimens.space12,
+          ),
           itemBuilder: (context, index) {
             var item = categories.elementAt(index);
             bool selected = item == selectedCategory;
@@ -33,8 +36,8 @@ class HorizontalFlex extends StatelessWidget {
               },
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: 90,
-                  minWidth: 90,
+                  maxWidth: 80,
+                  minWidth: 80,
                 ),
                 child: Column(
                   children: [
@@ -73,7 +76,7 @@ class HorizontalFlex extends StatelessWidget {
             );
           },
           separatorBuilder: (context, index) {
-            return Gap(AppDimens.space10);
+            return Gap(AppDimens.space5);
           },
           itemCount: categories.length),
     );
