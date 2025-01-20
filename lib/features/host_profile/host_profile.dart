@@ -1,9 +1,7 @@
 import 'package:ez_booking/controller/host_profile_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/host_name_and_icon_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/lives_in_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/review_list_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/stat_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/verification_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +12,7 @@ class HostProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: HostPorfileController(),
+      init: HostProfileController(),
       builder: (_) => Scaffold(
         backgroundColor: AppColors.primary,
         appBar: AppBar(
@@ -57,9 +55,16 @@ class HostProfilePage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              LivesInWidget(),
+                              ListTile(
+                                title: Text('Lives in India'),
+                              ),
+
                               const SizedBox(height: 20),
-                              Review(),
+                              Obx(
+                                () => OrganizerReviewList(
+                                  reviews: _.eventsReviews.value?.reviews ?? [],
+                                ),
+                              ),
                               const SizedBox(height: 20),
                               VerificationStatus(),
                               const SizedBox(height: 20),

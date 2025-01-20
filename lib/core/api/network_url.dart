@@ -7,13 +7,17 @@ class NetworkUrl {
   static const setCity = 'user/set-city';
   static const getCities = 'user/cities';
   static const verifyFirebseLogin = 'user/verify-firebase-login';
-  static  getUser(int id)=> 'user/user/$id';
+
+  static getUser(int id) => 'user/user/$id';
   static const getEvents = 'events/event';
 
   static getEvent(int id) => 'events/event/$id';
-  static organizer(num id) => 'events/organizer/$id';
+
+  static organizer(num id) => 'events/event/organizer/$id';
   static const getCategories = 'events/event-categories';
   static const exploreCategories = 'events/explore-categories';
+
+  static eventAndReviews(num organizerId) => 'events/event-and-reviews/$organizerId';
 
   static getTimeSlots(int id) => 'events/event/$id/time_slot';
   static const getBookings = 'events_booking/get-bookings';
@@ -35,7 +39,7 @@ class NetworkUrl {
   static const getReviews = 'review/get-reviews';
   static const getEventReviews = 'review/get-event-reviews';
   static const userReviews = 'review/user-reviews';
-  static const searchAPI ='app/search';
+  static const searchAPI = 'app/search';
 
 //policies
   static const getPolicies = 'app/terms-privacy';

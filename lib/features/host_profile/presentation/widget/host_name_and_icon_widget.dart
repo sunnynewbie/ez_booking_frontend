@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/model/organizer_model.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +14,11 @@ class NameTile extends StatelessWidget {
       children: [
         Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 25,
-              backgroundImage: NetworkImage(
-                'https://cdn.pixabay.com/photo/2023/09/09/20/03/ai-generated-8243777_1280.jpg',
+              backgroundImage: CachedNetworkImageProvider(
+                organizerModel.image_path,
+                errorListener: (p0) {},
               ),
             ),
             const SizedBox(width: 15),
@@ -26,24 +29,15 @@ class NameTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'James Ronald',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            '${organizerModel.f_name} ${organizerModel.l_name}',
+                            style: context.x20.withWhite.weigh500,
                           ),
-                          Text(
-                            'Event Reviewer',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
+                          Text(organizerModel.categories,
+                              style: context.md14.withgrey78),
                         ],
                       ),
                     ],
@@ -57,9 +51,10 @@ class NameTile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            buildStat('800', 'Reviews'),
-            buildStat('4.5', 'Ratings'),
-            buildStat('3', 'yr of\nhosting'),
+            StatItem(value: '0', label: 'Reviews'),
+            StatItem(value: '0', label: 'Ratings'),
+            StatItem(
+                value: '${organizerModel.experience}', label: 'yr of\nhosting'),
           ],
         ),
       ],
@@ -67,25 +62,26 @@ class NameTile extends StatelessWidget {
   }
 }
 
-Widget buildStat(String value, String label) {
-  return Column(
-    children: [
-      Text(
-        value,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
+class StatItem extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const StatItem({super.key, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: context.xl18.weigh500.withWhite,
         ),
-      ),
-      Text(
-        label,
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 12,
+        Text(
+          label,
+          style: context.md14.withgrey78,
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }

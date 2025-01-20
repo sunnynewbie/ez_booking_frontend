@@ -31,7 +31,7 @@ class MeetTheHostWidget extends StatelessWidget {
           const SizedBox(height: 15),
           GestureDetector(
             onTap: () {
-              Get.toNamed(AppRoutes.hostProfilePage,arguments: organizer!.l_name);
+              Get.toNamed(AppRoutes.hostProfilePage,arguments: organizer!.instructor_id);
             },
             // onTap: () => Get.toNamed('/host-profile', arguments: host['id']),
             child: Container(
