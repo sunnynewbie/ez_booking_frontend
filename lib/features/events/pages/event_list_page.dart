@@ -3,6 +3,7 @@ import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/features/events/controller/event_controller.dart';
 import 'package:ez_booking/features/widget/card.dart';
+import 'package:ez_booking/model/get_all_event.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
@@ -37,12 +38,12 @@ class EventListPage extends StatelessWidget {
              onLoading: () async {
                 ctrl.page++;  
                 ctrl.isLoading = false.obs;
-                await ctrl.getevents(null); 
+                await ctrl.getevents(ctrl.categoryId); 
                 _refreshController.loadComplete();
               },
               onRefresh: () async {
                 ctrl.page=1;
-                await ctrl.getevents(null);
+                await ctrl.getevents(ctrl.categoryId);
                 _refreshController.loadComplete();
 
               },

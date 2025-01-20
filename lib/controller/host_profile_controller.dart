@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/model/organizer_model.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,10 @@ class HostPorfileController extends GetxController {
 
   getOrganizerDetails(num id) async {
     var response = await ApiRepository().getOrganizerById(id: id);
+      log("ID IS " + id.toString());
+    
     if (response.status) {
+      log(response.toString());
       organizer.value = response.data;
     } else {
 

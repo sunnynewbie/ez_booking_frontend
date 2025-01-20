@@ -251,10 +251,6 @@ class EventDetailPage extends StatelessWidget {
                       const Gap(AppDimens.space15),
                       Row(
                         children: [
-                          Text(
-                            'Reviews',
-                            style: context.lg16.weigh500,
-                          ),
                           const Spacer(),
                           if (_.reviews.isNotEmpty)
                             TextButton(
@@ -268,20 +264,23 @@ class EventDetailPage extends StatelessWidget {
                       ),
                       const Gap(AppDimens.space10),
                       if (_.reviews.isEmpty)
-                        const NotFound(
-                            imgPath: AppAssets.group, text: 'No Reviews')
+                        const SizedBox.shrink()
                       else
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              var item = _.reviews.elementAt(index);
-                              return ReviewItem(item: item);
-                            },
-                            separatorBuilder: (context, index) {
-                              return const Gap(AppDimens.space15);
-                            },
-                            itemCount: _.reviews.length),
+                        Text(
+                          'Reviews',
+                          style: context.lg16.weigh500,
+                        ),
+                      ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var item = _.reviews.elementAt(index);
+                            return ReviewItem(item: item);
+                          },
+                          separatorBuilder: (context, index) {
+                            return const Gap(AppDimens.space15);
+                          },
+                          itemCount: _.reviews.length),
                       const Gap(AppDimens.space20),
                     ],
                   ),
