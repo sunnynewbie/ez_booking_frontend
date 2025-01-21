@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:ez_booking/core/api/api_repository.dart';
-import 'package:ez_booking/core/config/app_constant.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/firebase_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -35,32 +35,39 @@ class VerifyOtpController extends GetxController {
 
   Future<User?> _verifyFirebaseOtp() async {
     isLoading.value = true; // Start loading
-    var user =await FirebaseUtil().loginWithPhone(
+    var user = await FirebaseUtil().loginWithPhone(
         verificationId: verifiactionArgs.verification_id ?? '',
         smsCode: ctrl.text.trim());
-   return user;
+    return user;
   }
 
   Future<void> verifyOtp() async {
-   var user =await _verifyFirebaseOtp();
-   if(user ==null){
-     isLoading.value=false;
-     return;
-   }
-   var deviceId = '';
-   if (Platform.isAndroid) {
-     AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
-     deviceId = androidInfo.id;
-   } else {
-     IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
-     deviceId = iosInfo.identifierForVendor ?? '';
-   }
+    var user = await _verifyFirebaseOtp();
+    if (user == null) {
+      isLoading.value = false;
+      return;
+    }
+    var deviceId = '';
+    var fcm_token = '';
+    try {
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+        deviceId = androidInfo.id;
+        fcm_token = await FirebaseMessaging.instance.getToken() ?? '';
+      } else {
+        IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
+        deviceId = iosInfo.identifierForVendor ?? '';
+        fcm_token = await FirebaseMessaging.instance.getToken() ?? '';
+      }
+    } on Exception catch (e) {
+      // TODO
+    }
 
-   var response = await ApiRepository().verifyOtp({
+    var response = await ApiRepository().verifyOtp({
       'phone_no': verifiactionArgs.phoneNumber,
       'firebase_id': user.uid,
-       'device_id':deviceId
-
+      'device_id': deviceId,
+      'fcm_token': fcm_token
     });
     isLoading.value = false;
     if (response.status) {
@@ -75,7 +82,7 @@ class VerifyOtpController extends GetxController {
         (route) => false,
       );
     } else {
-      ShowToast.showErrorMsg( response.message ?? '');
+      ShowToast.showErrorMsg(response.message ?? '');
     }
   }
 
