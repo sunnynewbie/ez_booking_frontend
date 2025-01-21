@@ -47,6 +47,7 @@ dependencies:
   firebase_messaging: ^15.2.0
   pull_to_refresh_flutter3: ^2.0.2
   device_info_plus: ^11.2.1
+  flutter_local_notifications: ^18.0.1
 
 dev_dependencies:
   flutter_test:

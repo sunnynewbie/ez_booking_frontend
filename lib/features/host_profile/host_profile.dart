@@ -1,8 +1,8 @@
 import 'package:ez_booking/controller/host_profile_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/host_name_and_icon_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/review_list_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/verification_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +17,7 @@ class HostProfilePage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         appBar: AppBar(
           backgroundColor: AppColors.primary,
+          surfaceTintColor: AppColors.primary,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -25,7 +26,7 @@ class HostProfilePage extends StatelessWidget {
         ),
         body: Obx(
           () => _.organizer.value == null
-              ? SizedBox()
+              ? const SizedBox()
               : SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,8 +56,19 @@ class HostProfilePage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ListTile(
-                                title: Text('Lives in India'),
+                              Material(
+                                color: Colors.transparent,
+                                child: ListTile(
+                                  visualDensity: VisualDensity.compact,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        AppDimens.borderRadius10),
+                                    side: const BorderSide(
+                                        color: AppColors.grey0f),
+                                  ),
+                                  title: Text(
+                                      'Lives in ${_.organizer.value?.location}'),
+                                ),
                               ),
 
                               const SizedBox(height: 20),
@@ -66,8 +78,9 @@ class HostProfilePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              VerificationStatus(),
-                              const SizedBox(height: 20),
+                              OrganizationEvents(
+                                eventModel: _.eventsReviews.value!.event,
+                              ),
                               // EventListing(context),
                             ],
                           ),
