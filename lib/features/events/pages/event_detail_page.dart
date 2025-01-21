@@ -143,36 +143,36 @@ class EventDetailPage extends StatelessWidget {
                             [],
                       ),
                       const Gap(AppDimens.space10),
-                      if (_.event.value!.average_rating > 0)
-                        Row(
-                          children: [
-                            RatingBar(
-                              ratingWidget: RatingWidget(
-                                full: const Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.yellow,
-                                ),
-                                half: const Icon(
-                                  Icons.star_half_rounded,
-                                  color: Colors.yellow,
-                                ),
-                                empty: const Icon(
-                                  Icons.star_border_rounded,
-                                  color: Colors.yellow,
-                                ),
+                      if(_.event.value!.average_rating>0)
+                      Row(
+                        children: [
+                          RatingBar(
+                            ratingWidget: RatingWidget(
+                              full: const Icon(
+                                Icons.star_rounded,
+                                color: Colors.yellow,
                               ),
-                              onRatingUpdate: (value) {},
-                              itemCount: 5,
-                              initialRating:
-                                  _.event.value?.average_rating.toDouble() ?? 0,
-                              allowHalfRating: false,
-                              direction: Axis.horizontal,
-                              itemSize: AppDimens.imageSize30,
-                              updateOnDrag: false,
-                              tapOnlyMode: false,
+                              half: const Icon(
+                                Icons.star_half_rounded,
+                                color: Colors.yellow,
+                              ),
+                              empty: const Icon(
+                                Icons.star_border_rounded,
+                                color: Colors.yellow,
+                              ),
                             ),
-                          ],
-                        ),
+                            onRatingUpdate: (value) {},
+                            itemCount: 5,
+                            initialRating:
+                                _.event.value?.average_rating.toDouble() ?? 0,
+                            allowHalfRating: false,
+                            direction: Axis.horizontal,
+                            itemSize: AppDimens.imageSize30,
+                            updateOnDrag: false,
+                            tapOnlyMode: false,
+                          ),
+                        ],
+                      ),
                       const Gap(AppDimens.space20),
                       MeetTheHostWidget(
                         organizer: _.event.value!.organizer,
