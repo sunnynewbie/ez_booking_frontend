@@ -8,14 +8,14 @@ class EventController extends GetxController {
   RxList<EventModel> events = RxList.empty();
   int page = 1;
   int limit = 10;
-
+  int? categoryId;
   @override
   void onInit() {
-    var id = Get.arguments as int?;
+    categoryId = Get.arguments as int?;
 
     super.onInit();
     Future.delayed(Duration.zero, () async {
-      await getevents(id);
+      await getevents(categoryId);
     });
   }
 
@@ -26,7 +26,7 @@ class EventController extends GetxController {
     var query = {
       'page': page.toString(),
       'limit': limit.toString(),
-    if(id!=null)  'category_id': id.toString(),
+    if(categoryId!=null)  'category_id': categoryId.toString(),
     'city_id': Appservice.instance.user.value!.city!.city_id,
     };
     var response = await ApiRepository().getEventList(query);

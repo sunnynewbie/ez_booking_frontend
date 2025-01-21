@@ -134,6 +134,8 @@ class InfoCard extends StatelessWidget {
                       style: context.md14.weigh500),
                   Gap(AppDimens.space5),
                   Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     location,
                     style: context.sm12.withgrey78,
                   ),
