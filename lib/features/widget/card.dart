@@ -127,7 +127,7 @@ class InfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(eventName,
-                      maxLines: 2,
+                      maxLines: 1,
                       // Limit the text to 2 lines
                       overflow: TextOverflow.ellipsis,
                       // Show ellipsis if the text exceeds 2 lines

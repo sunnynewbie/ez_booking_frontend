@@ -79,7 +79,7 @@ class HostProfilePage extends StatelessWidget {
                               ),
                               const SizedBox(height: 20),
                               OrganizationEvents(
-                                eventModel: _.eventsReviews.value!.event,
+                                eventModel: _.eventsReviews.value!.event ,
                               ),
                               // EventListing(context),
                             ],

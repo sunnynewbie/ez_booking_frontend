@@ -23,6 +23,7 @@ import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

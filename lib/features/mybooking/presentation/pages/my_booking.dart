@@ -20,7 +20,7 @@ class MyBooking extends StatelessWidget {
       builder: (_) => AppScaffold(
         appBar: AppBar(
           title: Text(
-            'My Booking',
+            'My Reviews',
             style: context.lg16.weigh500,
           ),
           titleSpacing: 10,
