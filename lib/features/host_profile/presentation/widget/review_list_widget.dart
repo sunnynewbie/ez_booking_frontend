@@ -34,17 +34,6 @@ class OrganizationEvents extends StatelessWidget {
           ],
         ),
         const Gap(AppDimens.space15),
-        /*Container(
-          height: MediaQuery.of(context).size.height * 0.32,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: 2,
-            separatorBuilder: (context, index) => const SizedBox(width: 15),
-            itemBuilder: (context, index) {
-              return
-            },
-          ),
-        )*/
         InfoCard(
           eventid: eventModel.event_id.toInt(),
           rating: eventModel.average_rating,

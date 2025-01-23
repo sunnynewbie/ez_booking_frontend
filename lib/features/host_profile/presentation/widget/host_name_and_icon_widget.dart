@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 
 class NameTile extends StatelessWidget {
   final OrganizerModel organizerModel;
+  final num rating;
+  final num reviews;
 
-  const NameTile({super.key, required this.organizerModel});
+  const NameTile(
+      {super.key,
+      required this.organizerModel,
+      required this.rating,
+      required this.reviews});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +57,8 @@ class NameTile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            StatItem(value: '0', label: 'Reviews'),
-            StatItem(value: '0', label: 'Ratings'),
+            StatItem(value: '$reviews', label: 'Reviews'),
+            StatItem(value: '$rating', label: 'Ratings'),
             StatItem(
                 value: '${organizerModel.experience}', label: 'yr of\nhosting'),
           ],

@@ -161,7 +161,7 @@ class NormalTitle extends StatelessWidget {
                         height: AppDimens.imageSize24,
                         width: AppDimens.imageSize24,
                       ),
-                      onPressed: () {},
+                      onPressed: null,
                     ),
                   ],
                 ),
