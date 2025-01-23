@@ -21,6 +21,12 @@ class PopularEvent extends StatelessWidget {
       ),
       child: Column(
         children: [
+          
+
+          dashboardModel.popular_events.isEmpty
+          ? SizedBox.shrink()
+
+          : 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
