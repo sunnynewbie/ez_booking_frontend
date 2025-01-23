@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
                 Obx(
                 ()=> AppElevatedButton(
                   width: 80,
-                  borderRadius: AppDimens.borderRadius40,
+                  borderRadius: AppDimens.borderRadius20,
                   borderColor: const Color.fromARGB(210, 210, 210, 210),
                   buttonColor: const Color.fromARGB(210, 210, 210, 210),
                     onTap: () async {
