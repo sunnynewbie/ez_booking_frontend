@@ -120,7 +120,7 @@ class InfoCard extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: context.sm12),
             ),
-            const Gap(AppDimens.space10),
+            const Gap(AppDimens.space8),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: AppDimens.space10),
@@ -133,18 +133,19 @@ class InfoCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       // Show ellipsis if the text exceeds 2 lines
                       style: context.md14.weigh500),
-                  Gap(AppDimens.space5),
+                  Gap(AppDimens.space2),
                   Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     location,
                     style: context.sm12.withgrey78,
                   ),
-                  Gap(AppDimens.space5),
+                  Gap(AppDimens.space2),
                   Text(
                     'By ${organizerName}',
                     style: context.sm12.withgrey78,
                   ),
+                  // Gap(AppDimens.space5),
                 ],
               ),
             ),
