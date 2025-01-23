@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ez_booking/core/utils/notification_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,6 +13,8 @@ class Appservice extends GetxService {
   static Appservice instance = Get.find();
   Rxn<UserModel> user = Rxn();
   Position? position;
+  NotificationUtil notificationUtil = NotificationUtil();
+
   Future<bool> checkPermission() async {
     var result = await Permission.location.isGranted;
     if (result) {
@@ -32,7 +35,7 @@ class Appservice extends GetxService {
   Future<bool> onLocation() async {
     try {
       var location = await Geolocator.getCurrentPosition();
-      position=location;
+      position = location;
       return true;
     } on Exception catch (e) {
       return false;
@@ -55,25 +58,29 @@ class Appservice extends GetxService {
         );
         var fcmToken = await FirebaseMessaging.instance.getToken();
         log(fcmToken ?? '');
-      } on Exception catch (e) {
-        // TODO
-      }
+        notificationUtil.initialize();
+      } on Exception catch (e) {}
     });
 
+    FirebaseMessaging.onMessage.listen((event) {
+      notificationUtil.showNotification(
+          title: event.notification?.title ?? '',
+          body: event.notification?.body ?? '');
+    });
   }
 
   Future<String> getCurrentCity() async {
     await onLocation();
-    if(position==null){
+    if (position == null) {
       return '';
     }
-    var address =await placemarkFromCoordinates(position!.latitude, position!.longitude);
+    var address =
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
     print(address.first.toJson());
-    return address.first.locality??'';
+    return address.first.locality ?? '';
   }
 
-  Future<Appservice> init()async{
+  Future<Appservice> init() async {
     return this;
   }
 }
-

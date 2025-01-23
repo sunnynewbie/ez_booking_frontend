@@ -37,12 +37,12 @@ class EventModel {
   num is_recommended;
   num average_rating;
   num total_reviews;
-  num image_path;
+  String image_path;
   String category_name;
   String type;
   @JsonKey(fromJson: checkCity)
   CityModel city;
-  @JsonKey(fromJson: checkOrganizer)
+  @JsonKey(fromJson: checkOrganizer,name: 'eventOrganizer')
   Organizer? organizer;
   num platform_amount;
   num total_amount;

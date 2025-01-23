@@ -15,6 +15,7 @@ import 'verify_otp_controller.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
+  var isskipping = false.obs;
   var userModel = Rxn<UserModel>();
   var phoneCtrl = TextEditingController();
 
@@ -53,7 +54,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> createGuestLogin() async {
-    isLoading.value=true;
+    isskipping.value=true;
     var deviceId = '';
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -64,7 +65,7 @@ class LoginController extends GetxController {
     }
     var data = {'device_id': deviceId};
     var response = await ApiRepository().createGuestLogin(data);
-    isLoading.value=false;
+    isskipping.value=false;
     if (response.status) {
       await PrefUtils().setUser(response.data!);
       Appservice.instance.user.value = response.data;
@@ -74,7 +75,7 @@ class LoginController extends GetxController {
       }
       Get.offNamedUntil(
         AppRoutes.bottomNavBar,
-        (route) => false,
+      (route) => false,
       );
     } else {
       ShowToast.showErrorMsg(response.message ?? '');

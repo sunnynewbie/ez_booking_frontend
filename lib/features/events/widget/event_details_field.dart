@@ -1,39 +1,69 @@
-import 'package:ez_booking/core/config/app_assets.dart';
-import 'package:ez_booking/core/config/app_dimensions.dart';
-import 'package:ez_booking/core/config/app_textstyle.dart';
-import 'package:ez_booking/core/extension/text_style_extension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 
 class EventDetailsField extends StatelessWidget {
-  final String iconPath;
-  final String text;
-  const EventDetailsField({super.key, required this.iconPath, required this.text});
+  final String iconPath; 
+  final String text; 
+  final String? subText; 
+  final String? rightIconPath; 
+
+  const EventDetailsField({
+    super.key,
+    required this.iconPath,
+    required this.text,
+    this.subText,
+    this.rightIconPath,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: AppDimens.space2),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, 
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: AppDimens.space30, 
-            height: AppDimens.space30, 
+            width: AppDimens.space30,
+            height: AppDimens.space30,
             child: Image.asset(
               iconPath,
-              fit: BoxFit.contain, 
-              // scale: 0.5, 
+              fit: BoxFit.contain,
             ),
           ),
-          SizedBox(width: AppDimens.space12), 
+          SizedBox(width: AppDimens.space12),
           Expanded(
-            child: Text(
-              text,
-              style: context.md14.withgrey78,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: context.md14, 
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (subText != null) 
+                  Text(
+                    subText!,
+                    style: context.sm12,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+              ],
             ),
           ),
+          if (rightIconPath != null) ...[
+            SizedBox(width: AppDimens.space12), 
+            IconButton(
+              
+              icon: Image.asset(
+                rightIconPath!,
+                fit: BoxFit.contain,
+              ), onPressed: () { 
+                
+               },
+            ),
+          ],
         ],
       ),
     );

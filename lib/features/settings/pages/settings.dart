@@ -71,9 +71,9 @@ class Settings extends StatelessWidget {
                   Get.offNamedUntil(AppRoutes.login, (route) => false);
                 },
                 buttonColor: Colors.white,
-                borderColor: AppColors.black32,
+                borderColor: (Appservice.instance.user.value!.user_type == UserType.user) ? Colors.redAccent : AppColors.black32,
                 width: double.maxFinite,
-                fontColor: AppColors.black32,
+                fontColor: (Appservice.instance.user.value!.user_type == UserType.user)?Colors.redAccent : AppColors.black32,
                 height: AppDimens.buttonHeight,
               ),
             ),

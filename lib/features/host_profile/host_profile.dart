@@ -1,10 +1,8 @@
 import 'package:ez_booking/controller/host_profile_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
+import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/host_name_and_icon_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/lives_in_widget.dart';
 import 'package:ez_booking/features/host_profile/presentation/widget/review_list_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/stat_widget.dart';
-import 'package:ez_booking/features/host_profile/presentation/widget/verification_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,11 +12,12 @@ class HostProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: HostPorfileController(),
+      init: HostProfileController(),
       builder: (_) => Scaffold(
         backgroundColor: AppColors.primary,
         appBar: AppBar(
           backgroundColor: AppColors.primary,
+          surfaceTintColor: AppColors.primary,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -27,10 +26,9 @@ class HostProfilePage extends StatelessWidget {
         ),
         body: Obx(
           () => _.organizer.value == null
-              ? SizedBox()
+              ? const SizedBox()
               : SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -38,6 +36,8 @@ class HostProfilePage extends StatelessWidget {
                           children: [
                             NameTile(
                               organizerModel: _.organizer.value!,
+                              rating: _.eventsReviews.value?.event?.average_rating??0,
+                              reviews: _.eventsReviews.value?.event?.total_reviews??0,
                             ),
                           ],
                         ),
@@ -45,6 +45,7 @@ class HostProfilePage extends StatelessWidget {
                       const SizedBox(height: 25),
                       Container(
                         width: double.infinity,
+                        height: Get.height,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -57,12 +58,33 @@ class HostProfilePage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              LivesInWidget(),
+                              Material(
+                                color: Colors.transparent,
+                                child: ListTile(
+                                  visualDensity: VisualDensity.compact,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        AppDimens.borderRadius10),
+                                    side: const BorderSide(
+                                        color: AppColors.grey0f),
+                                  ),
+                                  title: Text(
+                                      'Lives in ${_.organizer.value?.location}'),
+                                ),
+                              ),
+
                               const SizedBox(height: 20),
-                              Review(),
+                              Obx(
+                                () => OrganizerReviewList(
+                                  reviews: _.eventsReviews.value?.reviews ?? [],
+                                ),
+                              ),
                               const SizedBox(height: 20),
-                              VerificationStatus(),
-                              const SizedBox(height: 20),
+
+                              if (_.eventsReviews.value != null)
+                                OrganizationEvents(
+                                  eventModel: _.eventsReviews.value!.event,
+                                ),
                               // EventListing(context),
                             ],
                           ),

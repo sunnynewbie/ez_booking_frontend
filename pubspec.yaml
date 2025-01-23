@@ -39,6 +39,7 @@ dependencies:
   geocoding: ^3.0.0
   easy_stepper: ^0.8.5+1
   toastification: ^2.3.0
+  image_picker: ^1.1.2
 
 
   firebase_core: ^3.6.0
@@ -47,6 +48,7 @@ dependencies:
   firebase_messaging: ^15.2.0
   pull_to_refresh_flutter3: ^2.0.2
   device_info_plus: ^11.2.1
+  flutter_local_notifications: ^18.0.1
 
 dev_dependencies:
   flutter_test:

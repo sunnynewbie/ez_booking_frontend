@@ -61,9 +61,16 @@ class ProfileWithAvatarTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    name.isEmpty ? 'Ezbook user' : name,
-                    style: context.lg16.weigh500,
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: 130
+                    ),
+                    child: Text(
+                      
+                      overflow: TextOverflow.ellipsis,
+                      name.isEmpty ? 'Ezbook user' : name,
+                      style: context.lg16.weigh500,
+                    ),
                   ),
                   Text(
                     phoneNumber.toString(),
@@ -154,7 +161,7 @@ class NormalTitle extends StatelessWidget {
                         height: AppDimens.imageSize24,
                         width: AppDimens.imageSize24,
                       ),
-                      onPressed: () {},
+                      onPressed: null,
                     ),
                   ],
                 ),

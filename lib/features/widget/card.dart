@@ -53,6 +53,7 @@ class InfoCard extends StatelessWidget {
               children: [
                 Container(
                   width: double.maxFinite,
+                  constraints: BoxConstraints(minHeight: 140),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(5),
@@ -127,13 +128,15 @@ class InfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(eventName,
-                      maxLines: 2,
+                      maxLines: 1,
                       // Limit the text to 2 lines
                       overflow: TextOverflow.ellipsis,
                       // Show ellipsis if the text exceeds 2 lines
                       style: context.md14.weigh500),
                   Gap(AppDimens.space5),
                   Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     location,
                     style: context.sm12.withgrey78,
                   ),

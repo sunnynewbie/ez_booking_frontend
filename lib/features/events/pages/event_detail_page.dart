@@ -13,6 +13,7 @@ import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
+import 'package:ez_booking/features/events/presentation/widgets/request_callback_button.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
 import 'package:ez_booking/features/events/widget/meet_the_host_widget.dart';
 import 'package:ez_booking/features/home/presentation/widget/image_viewer.dart';
@@ -143,36 +144,36 @@ class EventDetailPage extends StatelessWidget {
                             [],
                       ),
                       const Gap(AppDimens.space10),
-                      if (_.event.value!.average_rating > 0)
-                        Row(
-                          children: [
-                            RatingBar(
-                              ratingWidget: RatingWidget(
-                                full: const Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.yellow,
-                                ),
-                                half: const Icon(
-                                  Icons.star_half_rounded,
-                                  color: Colors.yellow,
-                                ),
-                                empty: const Icon(
-                                  Icons.star_border_rounded,
-                                  color: Colors.yellow,
-                                ),
+                      if(_.event.value!.average_rating>0)
+                      Row(
+                        children: [
+                          RatingBar(
+                            ratingWidget: RatingWidget(
+                              full: const Icon(
+                                Icons.star_rounded,
+                                color: Colors.yellow,
                               ),
-                              onRatingUpdate: (value) {},
-                              itemCount: 5,
-                              initialRating:
-                                  _.event.value?.average_rating.toDouble() ?? 0,
-                              allowHalfRating: false,
-                              direction: Axis.horizontal,
-                              itemSize: AppDimens.imageSize30,
-                              updateOnDrag: false,
-                              tapOnlyMode: false,
+                              half: const Icon(
+                                Icons.star_half_rounded,
+                                color: Colors.yellow,
+                              ),
+                              empty: const Icon(
+                                Icons.star_border_rounded,
+                                color: Colors.yellow,
+                              ),
                             ),
-                          ],
-                        ),
+                            onRatingUpdate: (value) {},
+                            itemCount: 5,
+                            initialRating:
+                                _.event.value?.average_rating.toDouble() ?? 0,
+                            allowHalfRating: false,
+                            direction: Axis.horizontal,
+                            itemSize: AppDimens.imageSize30,
+                            updateOnDrag: false,
+                            tapOnlyMode: false,
+                          ),
+                        ],
+                      ),
                       const Gap(AppDimens.space20),
                       MeetTheHostWidget(
                         organizer: _.event.value!.organizer,
@@ -206,6 +207,7 @@ class EventDetailPage extends StatelessWidget {
                               // title: 'Address',
                               iconPath: AppAssets.location_grey,
                               text: _.event.value?.address ?? '',
+                              rightIconPath: AppAssets.direction_icon,
                             ),
                             const Gap(AppDimens.space15),
                             if (_.event.value != null &&
@@ -249,12 +251,18 @@ class EventDetailPage extends StatelessWidget {
                         ),
                       ),
                       const Gap(AppDimens.space15),
-                      Row(
+                      
+                      if (_.reviews.isEmpty)
+                        const SizedBox.shrink()
+                      else
+                         Row(
                         children: [
-                          Text(
+                         
+                       Text(
                             'Reviews',
                             style: context.lg16.weigh500,
                           ),
+                      const Gap(AppDimens.space10),
                           const Spacer(),
                           if (_.reviews.isNotEmpty)
                             TextButton(
@@ -266,11 +274,6 @@ class EventDetailPage extends StatelessWidget {
                             ),
                         ],
                       ),
-                      const Gap(AppDimens.space10),
-                      if (_.reviews.isEmpty)
-                        const NotFound(
-                            imgPath: AppAssets.group, text: 'No Reviews')
-                      else
                         ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -288,25 +291,33 @@ class EventDetailPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: Obx(
-          () => BookButton(
-            amount: _.event.value?.event_price.toMoney,
-            onBookClick: () async {
-              var users = await Get.bottomSheet(EventAddUserBs(
-                eventModel: _.event.value!,
-              ));
-              if (users is List<EventUser>) {
-                if (_.event.value!.event_type == 2) {
-                  Get.toNamed(AppRoutes.regularCheckout,
-                      arguments: RegularCheckoutArgs(
-                          eventModel: _.event.value!, users: users));
-                  return;
-                }
-                Get.toNamed(AppRoutes.addUserEvent,
-                    arguments:
-                        AddUserParam(eventModel: _.event.value!, users: users));
-              }
-            },
-          ),
+          () => 
+          // RequestCallbackButton(
+          //   amount: _.event.value?.event_price.toMoney,
+          // )
+          RequestCallbackButton(
+             amount: _.event.value?.event_price.toMoney,
+          )
+          // BookButton(
+          //   amount: _.event.value?.event_price.toMoney,
+          //   onBookClick: () async {
+          //     var users = await Get.bottomSheet(EventAddUserBs(
+          //       eventModel: _.event.value!,
+          //     ));
+          //     if (users is List<EventUser>) {
+          //       if (_.event.value!.event_type == 2) {
+          //         Get.toNamed(AppRoutes.regularCheckout,
+          //             arguments: RegularCheckoutArgs(
+          //                 eventModel: _.event.value!, users: users));
+          //         return;
+          //       }
+          //       Get.toNamed(AppRoutes.addUserEvent,
+          //           arguments:
+          //               AddUserParam(eventModel: _.event.value!, users: users));
+          //     }
+          //   },
+          
+          
         ),
       ),
     );
@@ -348,3 +359,48 @@ class BookButton extends StatelessWidget {
     );
   }
 }
+// class RequestCallbackButton extends StatelessWidget {
+//   final String? amount;
+//   const RequestCallbackButton({super.key, this.amount});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.only(
+//         left: AppDimens.space16,
+//         right: AppDimens.space16,
+//         bottom: AppDimens.space20,
+//       ),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.05),
+//             blurRadius: 10,
+//             offset: const Offset(0, -5),
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           const Gap(AppDimens.space10),
+//           AppElevatedButton(
+//             height: AppDimens.buttonHeight,
+//             width: double.infinity,
+//             text: 'Request Callback',
+//             onTap: () {
+              
+//             },
+//             buttonColor: AppColors.darkBlue,
+//           ),
+//           const Gap(AppDimens.space5),
+//           Text(
+//             'Usually Response in 3-4 hours',
+//             style: context.sm12.withgrey78,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

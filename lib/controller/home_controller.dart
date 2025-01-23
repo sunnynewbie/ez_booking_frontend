@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/api/api_response.dart';
+import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
 import 'package:get/get.dart';
@@ -12,7 +15,10 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
   getHomeScreen();
+  final userId = Appservice.instance.user.value?.id ?? 'null';
+  log("Current user id: $userId");
   }
 
   getHomeScreen() {

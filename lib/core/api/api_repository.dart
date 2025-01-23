@@ -11,6 +11,7 @@ import 'package:ez_booking/model/city_model.dart';
 import 'package:ez_booking/model/create_single_booking_model.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
 import 'package:ez_booking/model/dashboard_model.dart';
+import 'package:ez_booking/model/event_and_reviews_model.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/event_price_model.dart';
 import 'package:ez_booking/model/event_time_slot_model.dart';
@@ -257,6 +258,25 @@ class ApiRepository {
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => p0 != null ? OrganizerModel.fromJson(p0) : null,
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<EventAndReviewModel?>> eventAndReviewsByOrganizer(
+      {required num organizerId}) async {
+    try {
+      var response =
+          await apiService.get(path: NetworkUrl.eventAndReviews(organizerId));
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0 != null ? EventAndReviewModel.fromJson(p0) : null,
       );
     } on DioException catch (e) {
       if (e.response != null) {

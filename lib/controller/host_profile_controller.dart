@@ -1,9 +1,11 @@
 import 'package:ez_booking/core/api/api_repository.dart';
+import 'package:ez_booking/model/event_and_reviews_model.dart';
 import 'package:ez_booking/model/organizer_model.dart';
 import 'package:get/get.dart';
 
-class HostPorfileController extends GetxController {
+class HostProfileController extends GetxController {
   Rxn<OrganizerModel> organizer = Rxn(null);
+  Rxn<EventAndReviewModel> eventsReviews = Rxn(null);
   RxBool isLoading = RxBool(false);
 
   @override
@@ -11,16 +13,23 @@ class HostPorfileController extends GetxController {
     var orgId = Get.arguments as num?;
     super.onInit();
     if (orgId != null) {
-      getOrganizerDetails(orgId);
+      Future.wait(
+          [getOrganizerDetails(orgId), eventAndReviewsByOrganizer(orgId)]);
     }
   }
 
-  getOrganizerDetails(num id) async {
+  Future<void> getOrganizerDetails(num id) async {
     var response = await ApiRepository().getOrganizerById(id: id);
     if (response.status) {
       organizer.value = response.data;
-    } else {
+    } else {}
+  }
 
-    }
+  Future<void> eventAndReviewsByOrganizer(num id) async {
+    var response =
+        await ApiRepository().eventAndReviewsByOrganizer(organizerId: id);
+    if (response.status) {
+      eventsReviews.value = response.data;
+    } else {}
   }
 }

@@ -1,5 +1,6 @@
 // pages/login_page.dart
 import 'package:ez_booking/controller/login_controller.dart';
+import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
@@ -29,12 +30,18 @@ class LoginPage extends StatelessWidget {
               actions: [
                 Obx(
                 ()=> AppElevatedButton(
+                  width: 80,
+                  borderRadius: AppDimens.borderRadius40,
+                  borderColor: const Color.fromARGB(210, 210, 210, 210),
+                  buttonColor: const Color.fromARGB(210, 210, 210, 210),
                     onTap: () async {
                       await _.createGuestLogin();
                     },
                     isLoading: _.isLoading.value,
                     text: 'Skip',
-                    height: AppDimens.space40,
+                    fontColor: Colors.black,
+                    fontSize: AppDimens.space12,
+                    height: AppDimens.space30,
                   ),
                 ),
                 const Gap(AppDimens.space10),
