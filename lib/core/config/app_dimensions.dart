@@ -8,6 +8,8 @@ class AppDimens {
   static const double space12 = 12;
   static const double space15 = 15;
   static const double space16 = 16;
+  static const double space18 = 18;
+  static const double space19 = 19;
   static const double space20 = 20;
   static const double space22 = 22;
   static const double space25 = 25;
