@@ -32,7 +32,7 @@ class NotificationUtil {
   initialize() {
     notificationsPlugin.initialize(
       const InitializationSettings(
-        android: AndroidInitializationSettings(''),
+        android: AndroidInitializationSettings('app_icon'),
         iOS: DarwinInitializationSettings(
           defaultPresentAlert: true,
           defaultPresentBadge: true,
@@ -43,7 +43,7 @@ class NotificationUtil {
           requestSoundPermission: true,
         ),
       ),
-      onDidReceiveBackgroundNotificationResponse: (details) {},
+      onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
       onDidReceiveNotificationResponse: (details) {},
     );
   }
@@ -65,4 +65,7 @@ class NotificationUtil {
         ),
         payload: jsonEncode(data));
   }
+}
+onDidReceiveBackgroundNotificationResponse(NotificationResponse response){
+
 }

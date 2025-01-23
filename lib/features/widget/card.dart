@@ -53,6 +53,7 @@ class InfoCard extends StatelessWidget {
               children: [
                 Container(
                   width: double.maxFinite,
+                  constraints: BoxConstraints(minHeight: 140),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(5),

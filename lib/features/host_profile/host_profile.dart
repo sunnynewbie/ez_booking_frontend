@@ -29,7 +29,6 @@ class HostProfilePage extends StatelessWidget {
               ? const SizedBox()
               : SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,6 +36,8 @@ class HostProfilePage extends StatelessWidget {
                           children: [
                             NameTile(
                               organizerModel: _.organizer.value!,
+                              rating: _.eventsReviews.value?.event?.average_rating??0,
+                              reviews: _.eventsReviews.value?.event?.total_reviews??0,
                             ),
                           ],
                         ),
@@ -44,6 +45,7 @@ class HostProfilePage extends StatelessWidget {
                       const SizedBox(height: 25),
                       Container(
                         width: double.infinity,
+                        height: Get.height,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -78,9 +80,10 @@ class HostProfilePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              OrganizationEvents(
-                                eventModel: _.eventsReviews.value!.event,
-                              ),
+                              if (_.eventsReviews.value != null)
+                                OrganizationEvents(
+                                  eventModel: _.eventsReviews.value!.event,
+                                ),
                               // EventListing(context),
                             ],
                           ),

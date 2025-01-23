@@ -13,7 +13,8 @@ class Appservice extends GetxService {
   static Appservice instance = Get.find();
   Rxn<UserModel> user = Rxn();
   Position? position;
-  NotificationUtil notificationUtil= NotificationUtil();
+  NotificationUtil notificationUtil = NotificationUtil();
+
   Future<bool> checkPermission() async {
     var result = await Permission.location.isGranted;
     if (result) {
@@ -59,6 +60,12 @@ class Appservice extends GetxService {
         log(fcmToken ?? '');
         notificationUtil.initialize();
       } on Exception catch (e) {}
+    });
+
+    FirebaseMessaging.onMessage.listen((event) {
+      notificationUtil.showNotification(
+          title: event.notification?.title ?? '',
+          body: event.notification?.body ?? '');
     });
   }
 

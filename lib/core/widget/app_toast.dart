@@ -10,8 +10,8 @@ class ShowToast {
       title: const Text(AppConstant.appName),
       description: Text(message),
       type: ToastificationType.error,
-      autoCloseDuration: const Duration(seconds: 2),
-      animationDuration: const Duration(milliseconds: 300),
+      autoCloseDuration: const Duration(seconds: 3),
+      animationDuration: const Duration(milliseconds: 200),
       style: ToastificationStyle.flatColored,
     );
   }

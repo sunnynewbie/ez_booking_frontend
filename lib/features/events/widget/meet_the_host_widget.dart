@@ -14,58 +14,61 @@ class MeetTheHostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return organizer==null? const SizedBox.shrink():Container(
-      padding: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColors.borderColor, width: 1.2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Meet the Host',
-            style: AppTextStyle.header,
-          ),
-          const SizedBox(height: 15),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(AppRoutes.hostProfilePage,arguments: organizer!.instructor_id);
-            },
-            // onTap: () => Get.toNamed('/host-profile', arguments: host['id']),
-            child: Container(
-              margin: EdgeInsets.only(bottom: 10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: AppColors.borderColor)),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 23,
-                    ),
-                    const SizedBox(width: 15),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return organizer == null
+        ? const SizedBox.shrink()
+        : Container(
+            padding: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: AppColors.borderColor, width: 1.2),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Meet the Host',
+                  style: AppTextStyle.header,
+                ),
+                const SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.hostProfilePage,
+                        arguments: organizer!.instructor_id);
+                  },
+                  // onTap: () => Get.toNamed('/host-profile', arguments: host['id']),
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: AppColors.borderColor)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 0),
+                      child: Row(
                         children: [
-                          Text(
-                            "${organizer!.f_name} ${organizer!.l_name}",
-                            style: context.lg16.weigh500,
+                          CircleAvatar(
+                            radius: 23,
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${organizer!.f_name} ${organizer!.l_name}",
+                                  style: context.lg16.weigh500,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
+          );
   }
 }
