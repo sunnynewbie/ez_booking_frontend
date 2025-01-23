@@ -34,6 +34,7 @@ class AppRoutes{
   static const eventSuccess = '/eventSuccess';
   static const eventFail = '/eventFail';
   static const hostProfilePage = '/host-profile';
+  static const verificationDialoge = '/verifcation-dailogue';
 }
 
 

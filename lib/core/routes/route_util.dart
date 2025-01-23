@@ -7,6 +7,7 @@ import 'package:ez_booking/features/events/pages/event_loading_page.dart';
 import 'package:ez_booking/features/events/pages/event_order_success_page.dart';
 import 'package:ez_booking/features/events/pages/event_review_page.dart';
 import 'package:ez_booking/features/events/pages/regular_checkout_page.dart';
+import 'package:ez_booking/features/events/presentation/widgets/otp_dialogue.dart';
 import 'package:ez_booking/features/home/presentation/pages/event_by_category.dart';
 import 'package:ez_booking/features/home/presentation/pages/home_page.dart';
 import 'package:ez_booking/features/host_profile/host_profile.dart';
@@ -131,6 +132,10 @@ class RouteUtil {
     GetPage(
       name: AppRoutes.hostProfilePage,
       page: () => const HostProfilePage(),
+    ),
+    GetPage(
+      name: AppRoutes.verificationDialoge,
+      page: () => const OTPVerificationDialog(),
     ),
   ];
 }

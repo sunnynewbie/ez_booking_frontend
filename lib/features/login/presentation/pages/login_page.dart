@@ -32,12 +32,12 @@ class LoginPage extends StatelessWidget {
                 ()=> AppElevatedButton(
                   width: 80,
                   borderRadius: AppDimens.borderRadius40,
-                  borderColor: const Color.fromARGB(210, 210, 210, 210),
-                  buttonColor: const Color.fromARGB(210, 210, 210, 210),
+                  borderColor: Colors.transparent,
+                  buttonColor: const Color.fromARGB(172, 210, 210, 210),
                     onTap: () async {
                       await _.createGuestLogin();
                     },
-                    isLoading: _.isLoading.value,
+                    isLoading: _.isskipping.value,
                     text: 'Skip',
                     fontColor: Colors.black,
                     fontSize: AppDimens.space12,
@@ -53,10 +53,14 @@ class LoginPage extends StatelessWidget {
                 key: formKey,
                 child: Center(
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisSize: MainAxisSize.min,
+
                     children: [
+                      SizedBox(
+                        height: 100,
+                      ),
                       AppIcon(),
-                      Gap(AppDimens.space50),
+                      Gap(AppDimens.space40),
                       Text(
                         'Welcome to Ezbook!!',
                         style: context.x24.weigh600,
@@ -74,7 +78,7 @@ class LoginPage extends StatelessWidget {
                           style: context.md14.weigh500.withgrey78,
                         ),
                       ),
-                      Gap(AppDimens.space15),
+                      Gap(AppDimens.space30),
                       AppTextFormField(
                         controller: _.phoneCtrl,
                         label: 'Phone number',

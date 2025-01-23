@@ -33,7 +33,8 @@ class LoginController extends GetxController {
             verification_id: verificationId,
             resendToken: forceResendingToken,
             phoneNumber: phonNumber);
-        Get.toNamed(AppRoutes.verification, arguments: verifiactionArgs);
+        Appservice.instance.user.value?.f_name == "name name" ?    
+        Get.toNamed(AppRoutes.verificationDialoge, arguments: verifiactionArgs) :Get.toNamed(AppRoutes.verification, arguments: verifiactionArgs) ;
       },
       verificationCompleted: (credential) {
         isLoading.value = false;
@@ -42,16 +43,8 @@ class LoginController extends GetxController {
         isLoading.value = false;
       },
     );
-    /*var response =
-        await ApiRepository().sendOTP({"phone_no": phoneCtrl.text.trim()});
-    isLoading.value = false;
-    if (response.status) {
-      userModel.value = response.data;
-      Get.toNamed(AppRoutes.verification, arguments: response.data);
-    } else {
-      Get.snackbar(AppConstant.appName, response.message ?? '');
-    }*/
   }
+
 
   Future<void> createGuestLogin() async {
     isskipping.value=true;
