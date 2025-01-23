@@ -13,7 +13,7 @@ class PopularEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return dashboardModel.popular_events.isEmpty? SizedBox():Container(
       // color: Colors.amber,
       padding: const EdgeInsets.symmetric(
         horizontal: AppDimens.space12,
