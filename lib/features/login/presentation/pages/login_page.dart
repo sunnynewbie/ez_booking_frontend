@@ -31,17 +31,17 @@ class LoginPage extends StatelessWidget {
                 Obx(
                 ()=> AppElevatedButton(
                   width: 80,
-                  borderRadius: AppDimens.borderRadius20,
+                  borderRadius: AppDimens.borderRadius15,
                   borderColor: const Color.fromARGB(210, 210, 210, 210),
                   buttonColor: const Color.fromARGB(210, 210, 210, 210),
                     onTap: () async {
                       await _.createGuestLogin();
                     },
-                    isLoading: _.isLoading.value,
+                    isLoading: _.isskipping.value,
                     text: 'Skip',
                     fontColor: Colors.black,
                     fontSize: AppDimens.space12,
-                    height: AppDimens.space30,
+                    height: AppDimens.space35,
                   ),
                 ),
                 const Gap(AppDimens.space10),
