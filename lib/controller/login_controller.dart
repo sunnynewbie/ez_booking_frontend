@@ -7,6 +7,7 @@ import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/firebase_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
+import 'package:ez_booking/features/events/presentation/widgets/otp_dialogue.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class LoginController extends GetxController {
             verification_id: verificationId,
             resendToken: forceResendingToken,
             phoneNumber: phonNumber);
-        Get.toNamed(AppRoutes.verification, arguments: verifiactionArgs);
+        Get.dialog(OTPVerificationDialog(),arguments: verifiactionArgs);
       },
       verificationCompleted: (credential) {
         isLoading.value = false;

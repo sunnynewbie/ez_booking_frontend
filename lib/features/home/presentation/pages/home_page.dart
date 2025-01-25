@@ -87,9 +87,7 @@ class HomePage extends StatelessWidget {
                                 fromHome: true));
 
                         if (response is CityModel) {
-                          if (response.city_id != city?.city_id) {
-                            ctrl.getHomeScreen();
-                          }
+                          ctrl.getHomeScreen();
                         }
                       },
                       child: Container(

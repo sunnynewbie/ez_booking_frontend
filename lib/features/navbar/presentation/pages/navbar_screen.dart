@@ -91,7 +91,7 @@ class NavbarScreen extends StatelessWidget {
                 gap: 10,
                 textStyle: getActiveStyle(2),
                 icon: Icons.abc_rounded,
-                text: 'My booking',
+                text: 'My request',
                 leading: ImageView(
                   height: AppDimens.imageSize20,
                   width: AppDimens.imageSize20,
