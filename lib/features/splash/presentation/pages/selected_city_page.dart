@@ -51,7 +51,7 @@ class SelectedCityPage extends StatelessWidget {
               const Gap(AppDimens.space15),
               Obx(
                 () => Text(
-                    'Current Location :${_.selectedCity.value?.city_name??''}'),
+                    'Current Location :${_.selectedCity.value?.city_name ?? ''}'),
               ),
               const Gap(AppDimens.space10),
               Obx(

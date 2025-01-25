@@ -18,7 +18,6 @@ class HomeController extends GetxController {
 
   getHomeScreen();
   final userId = Appservice.instance.user.value?.id ?? 'null';
-  log("Current user id: $userId");
   }
 
   getHomeScreen() {

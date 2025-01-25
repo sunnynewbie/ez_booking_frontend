@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class NavBarController extends GetxController {
   RxInt tabIndex = 0.obs;
+  PageController pageController=PageController();
    @override
    void onInit() {
     super.onInit();
@@ -14,7 +15,7 @@ class NavBarController extends GetxController {
   }
   void changeTabIndex(int index){
     tabIndex.value = index;
-
+    pageController.jumpToPage(index);
   }
 
 }

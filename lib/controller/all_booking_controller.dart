@@ -20,13 +20,20 @@ class AllBookingController extends GetxController {
   }
 
   Future<void> getBookings() async {
-    isLoading.value = true;
+    if(page==1) {
+      isLoading.value = true;
+    }
     AllBookingParam param = AllBookingParam(
         page: page, limit: limit);
     var response = await ApiRepository().getBookings(param.toMap());
     isLoading.value = false;
     if (response.status) {
-      bookingList.assignAll(response.data ?? []);
+      if(page==1) {
+        bookingList.assignAll(response.data ?? []);
+      }else{
+        bookingList.addAll(response.data ?? []);
+
+      }
     } else {
       ShowToast.showErrorMsg( response.message ?? '');
     }

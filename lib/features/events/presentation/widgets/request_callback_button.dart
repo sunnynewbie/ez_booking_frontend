@@ -1,16 +1,16 @@
-import 'dart:developer';
-
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class RequestCallbackButton extends StatelessWidget {
   final String? amount;
+
   const RequestCallbackButton({super.key, this.amount});
 
   void _showLoginDialog(BuildContext context) {
@@ -57,7 +57,7 @@ class RequestCallbackButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: context.md14.withgrey78,
               ),
-               Gap(AppDimens.space22),
+              Gap(AppDimens.space22),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,7 +84,11 @@ class RequestCallbackButton extends StatelessWidget {
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
                       style: context.md14,
-                      buildCounter: (context, {required currentLength, required isFocused, maxLength}) => null,
+                      buildCounter: (context,
+                              {required currentLength,
+                              required isFocused,
+                              maxLength}) =>
+                          null,
                     ),
                   ),
                 ],
@@ -113,19 +117,10 @@ class RequestCallbackButton extends StatelessWidget {
     );
   }
 
-
   void handleRequestCallback(BuildContext context) {
-     final fname = Appservice.instance.user.value?.f_name ;
-     final lname = Appservice.instance.user.value?.l_name ;
-    log("Current user id: $fname");
-    
-    
-    if ( fname == "name name" || lname == "laname") {
+    if (Appservice.instance.user.value!.user_type == UserType.guest) {
       _showLoginDialog(context);
-      return;
     }
-
-    
   }
 
   @override

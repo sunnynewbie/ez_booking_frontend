@@ -18,27 +18,27 @@ class NavbarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<NavBarController>(builder: (controller) {
+    return GetBuilder<NavBarController>(builder: (_) {
       TextStyle getActiveStyle(int index) {
         return context.md14.copyWith(
-            color: controller.tabIndex.value == index
-                ? Colors.white
-                : AppColors.primary);
+            color:
+                _.tabIndex.value == index ? Colors.white : AppColors.primary);
       }
 
       return AppScaffold(
-
         body: SafeArea(
-          child: Obx(
-            () => IndexedStack(
-              index: controller.tabIndex.value,
-              children: const [
-                HomePage(),
-                ExplorePage(),
-                MyBooking(),
-                ProfilePage(),
-              ],
-            ),
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _.pageController,
+            onPageChanged: (value) {
+              _.tabIndex.value = value;
+            },
+            children: const [
+              HomePage(),
+              ExplorePage(),
+              MyBooking(),
+              ProfilePage(),
+            ],
           ),
         ),
         bottomNavigationBar: Obx(
@@ -65,7 +65,7 @@ class NavbarScreen extends StatelessWidget {
                     imageType: ImageType.asset,
                     height: AppDimens.imageSize20,
                     width: AppDimens.imageSize20,
-                    path: controller.tabIndex.value == 0
+                    path: _.tabIndex.value == 0
                         ? AppAssets.home_2
                         : AppAssets.home,
                   ),
@@ -79,7 +79,7 @@ class NavbarScreen extends StatelessWidget {
                 text: 'Explore',
                 leading: ImageView(
                   imageType: ImageType.asset,
-                  path: controller.tabIndex.value == 1
+                  path: _.tabIndex.value == 1
                       ? AppAssets.discover_2
                       : AppAssets.discover,
                   height: AppDimens.imageSize20,
@@ -96,7 +96,7 @@ class NavbarScreen extends StatelessWidget {
                   height: AppDimens.imageSize20,
                   width: AppDimens.imageSize20,
                   imageType: ImageType.asset,
-                  path: controller.tabIndex.value == 2
+                  path: _.tabIndex.value == 2
                       ? AppAssets.calendar_2
                       : AppAssets.calendar,
                 ),
@@ -111,16 +111,16 @@ class NavbarScreen extends StatelessWidget {
                   height: AppDimens.imageSize20,
                   width: AppDimens.imageSize20,
                   imageType: ImageType.asset,
-                  path: controller.tabIndex.value == 3
+                  path: _.tabIndex.value == 3
                       ? AppAssets.profile_2
                       : AppAssets.profile,
                 ),
               ),
             ],
             style: GnavStyle.google,
-            selectedIndex: controller.tabIndex.value,
+            selectedIndex: _.tabIndex.value,
             onTabChange: (value) {
-              controller.changeTabIndex(value);
+              _.changeTabIndex(value);
             },
           ),
         ),

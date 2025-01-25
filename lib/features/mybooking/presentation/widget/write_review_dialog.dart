@@ -13,7 +13,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-class ReviewArgs{
+
+class ReviewArgs {
   EventBean eventBean;
   num booking_id;
   num userid;
@@ -27,21 +28,22 @@ class ReviewArgs{
   });
 }
 
-
 class WriteReviewDialog extends StatelessWidget {
   final ReviewArgs reviewArgs;
-  
+
   const WriteReviewDialog({super.key, required this.reviewArgs});
-  
 
   @override
   Widget build(BuildContext context) {
-      final imagePicker = ImagePicker();
+    final imagePicker = ImagePicker();
 
-    return  GetBuilder(
+    return GetBuilder(
       init: ReviewDialogController(booking_detailsBean: reviewArgs),
       builder: (_) => Container(
-        padding: const EdgeInsets.all(AppDimens.space16),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimens.space15,
+          vertical: AppDimens.space20
+        ),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -57,7 +59,7 @@ class WriteReviewDialog extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: ImageView(
+                    child: const ImageView(
                       imageType: ImageType.network,
                       path: '',
                       width: AppDimens.imageSize45,
@@ -65,7 +67,7 @@ class WriteReviewDialog extends StatelessWidget {
                       // fit: BoxFit.cover,
                     ),
                   ),
-                  Gap(AppDimens.space10),
+                  const Gap(AppDimens.space10),
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -75,7 +77,7 @@ class WriteReviewDialog extends StatelessWidget {
                           reviewArgs.eventBean.event_name,
                           style: context.md14.weigh500,
                         ),
-                        Gap(AppDimens.space4),
+                        const Gap(AppDimens.space4),
                         Text(
                           reviewArgs.eventBean.address,
                           style: context.sm12.withgrey78,
@@ -85,8 +87,8 @@ class WriteReviewDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              Gap(AppDimens.space20),
-              
+              const Gap(AppDimens.space20),
+
               // Rating Stars
               Center(
                 child: Obx(
@@ -104,9 +106,18 @@ class WriteReviewDialog extends StatelessWidget {
                       children: [
                         RatingBar(
                           ratingWidget: RatingWidget(
-                            full: Icon(Icons.star_rounded, color: Colors.blue),
-                            half: Icon(Icons.star_half_rounded, color: Colors.blue),
-                            empty: Icon(Icons.star_border_rounded, color: Colors.blue),
+                            full: const Icon(
+                              Icons.star_rounded,
+                              color: AppColors.purple,
+                            ),
+                            half: const Icon(
+                              Icons.star_half_rounded,
+                              color: AppColors.purple,
+                            ),
+                            empty: const Icon(
+                              Icons.star_border_rounded,
+                              color: AppColors.purple,
+                            ),
                           ),
                           onRatingUpdate: (value) {
                             _.rating.value = value;
@@ -115,8 +126,11 @@ class WriteReviewDialog extends StatelessWidget {
                           itemCount: 5,
                           initialRating: _.rating.value,
                           itemSize: AppDimens.imageSize30,
+                          itemPadding: const EdgeInsets.symmetric(
+                            horizontal: AppDimens.space10,
+                          ),
                         ),
-                        Gap(AppDimens.space2),
+                        const Gap(AppDimens.space2),
                         if (field.hasError)
                           Text(
                             field.errorText ?? '',
@@ -127,11 +141,11 @@ class WriteReviewDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(AppDimens.space20),
-              
+              const Gap(AppDimens.space20),
+
               // Review Text Field
               Text('Write your thought', style: context.md14),
-              Gap(AppDimens.space10),
+              const Gap(AppDimens.space10),
               AppTextFormField(
                 hint: 'Write your thought',
                 minLines: 3,
@@ -144,102 +158,105 @@ class WriteReviewDialog extends StatelessWidget {
                   return null;
                 },
               ),
-              Gap(AppDimens.space20),
-              
-               Obx(() {
-                  if (_.selectedImages.isEmpty) {
-                    return InkWell(
-                      onTap: () => _.pickImages(),
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(AppDimens.space20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey[300]!),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Icon(Icons.cloud_upload_outlined, 
-                                 color: Colors.grey[600], 
-                                 size: 32),
-                            Gap(AppDimens.space8),
-                            Text(
-                              'Click to upload image',
-                              style: context.sm12.withgrey78,
-                            ),
-                            Text(
-                              'PNG, JPG',
-                              style: context.sm12.withgrey78,
-                            ),
-                          ],
-                        ),
+              const Gap(AppDimens.space20),
+
+              Obx(() {
+                if (_.selectedImages.isEmpty) {
+                  return InkWell(
+                    onTap: () {
+                      _.pickImages();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(AppDimens.space20),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    );
-                  } else {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 100,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _.selectedImages.length,
-                            separatorBuilder: (context, index) => Gap(AppDimens.space10),
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.file(
-                                      File(_.selectedImages[index].path),
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
+                      child: Column(
+                        children: [
+                          Icon(Icons.cloud_upload_outlined,
+                              color: Colors.grey[600], size: 32),
+                          const Gap(AppDimens.space8),
+                          Text(
+                            'Click to upload image',
+                            style: context.sm12.withgrey78,
+                          ),
+                          Text(
+                            'PNG, JPG',
+                            style: context.sm12.withgrey78,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 100,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _.selectedImages.length,
+                          separatorBuilder: (context, index) =>
+                              const Gap(AppDimens.space10),
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(_.selectedImages[index].path),
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Positioned(
-                                    right: 4,
-                                    top: 4,
-                                    child: InkWell(
-                                      onTap: () {
-                                        _.selectedImages.removeAt(index);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(4),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black54,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Icon(
-                                          Icons.close,
-                                          size: 16,
-                                          color: Colors.white,
-                                        ),
+                                ),
+                                Positioned(
+                                  right: 4,
+                                  top: 4,
+                                  child: InkWell(
+                                    onTap: () {
+                                      _.selectedImages.removeAt(index);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.black54,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 16,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
-                                ],
-                              );
-                            },
-                          ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        Gap(AppDimens.space10),
-                        InkWell(
-                          onTap: () => _.pickImages(),
-                          child: Text(
-                            'Add more images',
-                            style: context.md14.copyWith(color: AppColors.primary),
-                          ),
+                      ),
+                      const Gap(AppDimens.space10),
+                      InkWell(
+                        onTap: () => _.pickImages(),
+                        child: Text(
+                          'Add more images',
+                          style:
+                              context.md14.copyWith(color: AppColors.primary),
                         ),
-                      ],
-                    );
-                  }
-                }),
-              Gap(AppDimens.space20),
-              
+                      ),
+                    ],
+                  );
+                }
+              }),
+              const Gap(AppDimens.space20),
+
               Obx(
                 () => _.loading.value
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : Row(
                         children: [
                           Expanded(
@@ -250,7 +267,7 @@ class WriteReviewDialog extends StatelessWidget {
                               fontColor: AppColors.primary,
                             ),
                           ),
-                          Gap(AppDimens.space15),
+                          const Gap(AppDimens.space15),
                           Expanded(
                             child: AppElevatedButton(
                               onTap: () {
