@@ -568,7 +568,6 @@ class ApiRepository {
         response,
         fromJson: (p0) => p0['data'] is List
             ? (p0['data'] as List).map((e) {
-                print(e);
                 return e is String
                     ? Category_typeBean.fromJson(jsonDecode(e))
                     : Category_typeBean.fromJson(e);

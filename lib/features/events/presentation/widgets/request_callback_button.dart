@@ -1,125 +1,135 @@
+import 'package:ez_booking/controller/login_controller.dart';
+import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class RequestCallbackButton extends StatelessWidget {
   final String? amount;
+  final LoginController loginController = Get.put(LoginController());
 
-  const RequestCallbackButton({super.key, this.amount});
+  RequestCallbackButton({super.key, this.amount});
 
   void _showLoginDialog(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
     Get.dialog(
-      Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Close button and back icon row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          insetPadding:
+              const EdgeInsets.symmetric(horizontal: AppDimens.space5),
+          content: SizedBox(
+            width: Get.width * .8,
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          loginController.phoneCtrl.clear();
+                          Get.back();
+                        },
+                        child: const Icon(Icons.close, size: 24),
+                      ),
+                    ],
+                  ),
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: EdgeInsets.all(AppDimens.space5),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey[100],
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.black,
-                      size: 20,
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: const Color.fromARGB(170, 210, 210, 210),
+                            width: 1.3)),
+                    height: AppDimens.space40,
+                    width: AppDimens.space40,
+                    child: Image.asset(AppAssets.login),
                   ),
-                  InkWell(
-                    onTap: () => Get.back(),
-                    child: const Icon(Icons.close, size: 24),
-                  ),
-                ],
-              ),
-              const Gap(AppDimens.space20),
-              Text(
-                'Log in to your account',
-                style: context.xl18.weigh600,
-              ),
-              const Gap(AppDimens.space8),
-              Text(
-                'Welcome back! Please enter your details.',
-                textAlign: TextAlign.center,
-                style: context.md14.withgrey78,
-              ),
-              Gap(AppDimens.space22),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                  const Gap(AppDimens.space10),
                   Text(
-                    'Phone Number',
-                    style: context.md14.weigh500,
+                    'Log in to your account',
+                    style: context.xl18.weigh600,
                   ),
                   const Gap(AppDimens.space8),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey[300]!),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Enter your Phone number',
-                        hintStyle: context.md14.withgrey78,
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                      ),
-                      keyboardType: TextInputType.phone,
-                      maxLength: 10,
-                      style: context.md14,
-                      buildCounter: (context,
-                              {required currentLength,
-                              required isFocused,
-                              maxLength}) =>
-                          null,
-                    ),
+                  Text(
+                    'Welcome back! Please enter your details.',
+                    textAlign: TextAlign.center,
+                    style: context.md14.withgrey78,
                   ),
+                  Gap(AppDimens.space22),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Phone Number',
+                        style: context.md14.weigh500,
+                      ),
+                      const Gap(AppDimens.space8),
+                      AppTextFormField(
+                        maxLength: 10,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter phone number';
+                          }
+                          if (value.length < 10) {
+                            return "Please enter valid phone number";
+                          }
+                          return null;
+                        },
+                        controller: loginController.phoneCtrl,
+                        hint: 'Enter your Phone number',
+                      ),
+                    ],
+                  ),
+                  const Gap(AppDimens.space22),
+                  Obx(() => AppElevatedButton(
+                        text: loginController.isLoading.value
+                            ? 'Sending...'
+                            : 'Continue',
+                        width: double.infinity,
+                        height: AppDimens.buttonHeight,
+                        buttonColor: AppColors.primary,
+                        borderRadius: 15,
+                        onTap: loginController.isLoading.value
+                            ? null
+                            : () {
+                                if (formKey.currentState!.validate()) {
+                                  loginController.sendOtp();
+                                }
+                              },
+                      )),
                 ],
               ),
-              const Gap(AppDimens.space22),
-              AppElevatedButton(
-                text: 'Continue',
-                width: double.infinity,
-                height: 48,
-                buttonColor: const Color(0xFF1A1F37),
-                borderRadius: 8,
-                onTap: () {
-                  Get.back();
-                  Get.snackbar(
-                    'Success',
-                    'Login successful',
-                    snackPosition: SnackPosition.BOTTOM,
-                  );
-                },
-              ),
-            ],
+            ),
           ),
         ),
-      ),
-      barrierColor: Colors.black54,
-    );
+        barrierColor: Colors.black54,
+        barrierDismissible: false);
   }
 
   void handleRequestCallback(BuildContext context) {
-    if (Appservice.instance.user.value!.user_type == UserType.guest) {
+    final user_type = Appservice.instance.user.value?.user_type;
+
+    if (user_type == UserType.guest) {
       _showLoginDialog(context);
+      return;
     }
   }
 
