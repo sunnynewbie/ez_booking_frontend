@@ -6,6 +6,7 @@ import 'package:ez_booking/core/config/app_font.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/utils/animte_ext.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +34,11 @@ class SelectedCityPage extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppDimens.space16),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(AppDimens.space20),
+              const Gap(AppDimens.space20),
               AppTextFormField(
                 filled: true,
                 hint: 'Search for location',
@@ -51,7 +52,7 @@ class SelectedCityPage extends StatelessWidget {
               const Gap(AppDimens.space15),
               Obx(
                 () => Text(
-                    'Current Location :${_.selectedCity.value?.city_name ?? ''}'),
+                    'Current Location :${_.selectedCity.value?.city_name ?? ' -'}'),
               ),
               const Gap(AppDimens.space10),
               Obx(
@@ -59,56 +60,125 @@ class SelectedCityPage extends StatelessWidget {
                   child: _.isLoading.value && _.cities.isEmpty
                       ? ListView.separated(
                           itemBuilder: (context, index) =>
-                              SizedBox().shimmerEffect(
+                              const SizedBox().shimmerEffect(
                             width: double.maxFinite,
                             height: 90,
                           ),
                           itemCount: 5,
                           separatorBuilder: (context, index) =>
-                              Gap(AppDimens.space15),
+                              const Gap(AppDimens.space15),
                         )
-                      : ListView.separated(
+                      : ListView(
                           shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            var item = _.cities.elementAt(index);
-                            return Obx(
-                              () => Material(
-                                child: ListTile(
-                                  tileColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          AppDimens.borderRadius10),
-                                      side: BorderSide(
-                                        color: _.selectedCity.value == item
-                                            ? AppColors.grey78
-                                            : AppColors.greyd2,
-                                      )),
-                                  title: Text(
-                                    item.city_name,
-                                    style: context.md14.weigh500.withgrey78,
-                                  ),
+                          children: [
+                            Text(
+                              'popular cities',
+                              style: context.lg16.weigh500,
+                            ),
+                            const Gap(AppDimens.space10),
+                            GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: AppDimens.space15,
+                                      mainAxisSpacing: AppDimens.space15),
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _.popularCities.length,
+                              itemBuilder: (context, index) {
+                                var item = _.popularCities.elementAt(index);
+                                return InkWell(
                                   onTap: () {
                                     _.selectedCity.value = item;
                                   },
-                                ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              Gap(AppDimens.space15),
-                          itemCount: _.cities.length,
+                                  child: Obx(
+                                    () => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            AppDimens.borderRadius10),
+                                        border: Border.all(
+                                          color: _.selectedCity.value == item
+                                              ? AppColors.grey78
+                                              : AppColors.greyd2,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          const Gap(AppDimens.space10),
+                                          Expanded(
+                                            child: ImageView(
+                                              imageType: ImageType.network,
+                                              path: item.image_path,
+                                              height: AppDimens.imageSize55,
+                                              width: AppDimens.imageSize55,
+                                            ),
+                                          ),
+                                          const Gap(AppDimens.space5),
+                                          Text(
+                                            item.city_name,
+                                            style: context.md14,
+                                            maxLines: 2,
+                                          ),
+                                          const Gap(AppDimens.space10),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const Gap(AppDimens.space15),
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var item = _.cities.elementAt(index);
+                                return Obx(
+                                  () => Material(
+                                    child: ListTile(
+                                      tileColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              AppDimens.borderRadius10),
+                                          side: BorderSide(
+                                            color: _.selectedCity.value == item
+                                                ? AppColors.grey78
+                                                : AppColors.greyd2,
+                                          )),
+                                      title: Text(
+                                        item.city_name,
+                                        style: context.md14.weigh500.withgrey78,
+                                      ),
+                                      onTap: () {
+                                        _.selectedCity.value = item;
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const Gap(AppDimens.space15),
+                              itemCount: _.cities.length,
+                            ),
+                            const Gap(AppDimens.space20),
+                          ],
                         ),
                 ),
               ),
-              AppElevatedButton(
-                onTap: () {
-                  _.selectCity();
-                },
-                isLoading: _.isLoading.value,
-                text: 'Select current city',
-                width: double.maxFinite,
+              Obx(
+                () => Visibility(
+                  visible: !_.isLoading.value,
+                  child: AppElevatedButton(
+                    onTap: () {
+                      _.selectCity();
+                    },
+                    isLoading: _.isLoading.value,
+                    text: 'Select current city',
+                    width: double.maxFinite,
+                  ),
+                ),
               ),
-              Gap(AppDimens.space15),
+              const Gap(AppDimens.space15),
             ],
           ),
         ),

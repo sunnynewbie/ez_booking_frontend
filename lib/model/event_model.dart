@@ -12,7 +12,8 @@ part 'event_model.g.dart';
   StringConverter(),
   NumConverter(),
   DateTimeConverter(),
-  DateNullableConverter()
+  DateNullableConverter(),
+  BoolConverter(),
 ])
 class EventModel {
   num event_id;
@@ -42,10 +43,11 @@ class EventModel {
   String type;
   @JsonKey(fromJson: checkCity)
   CityModel city;
-  @JsonKey(fromJson: checkOrganizer,name: 'eventOrganizer')
+  @JsonKey(fromJson: checkOrganizer, name: 'eventOrganizer')
   Organizer? organizer;
   num platform_amount;
   num total_amount;
+  bool is_booking_requested;
   @JsonKey(fromJson: checkEventDate)
   List<EventDays>? event_days;
   @JsonKey(fromJson: checkImages)
@@ -65,6 +67,7 @@ class EventModel {
     required this.tags,
     required this.organizer,
     required this.address,
+    required this.is_booking_requested,
     required this.latitude,
     required this.longitude,
     required this.event_type,
@@ -94,6 +97,9 @@ class EventModel {
 }
 
 checkCity(dynamic data) {
+  if (data == null) {
+    return null;
+  }
   if (data is String) {
     return CityModel.fromJson(jsonDecode(data));
   }

@@ -41,6 +41,11 @@ class NetworkUrl {
   static const userReviews = 'review/user-reviews';
   static const searchAPI = 'app/search';
 
+
+  static const createBookingReuest = 'booking-request/create-request';
+  static const getBookingRequest = 'booking-request/get-booking-request';
+  static  getSingleBookingRequest(num booking_id) => 'booking-request/get-single-booking-request/${booking_id}';
+  static const canceBookingrequest = 'booking-request/cancel-request';
 //policies
   static const getPolicies = 'app/terms-privacy';
 

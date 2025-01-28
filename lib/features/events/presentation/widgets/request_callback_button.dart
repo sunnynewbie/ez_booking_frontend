@@ -6,6 +6,7 @@ import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
+import 'package:ez_booking/features/events/controller/create_booking_request.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,9 +15,12 @@ import 'package:get/get.dart';
 
 class RequestCallbackButton extends StatelessWidget {
   final String? amount;
+  final String? eventId;
   final LoginController loginController = Get.put(LoginController());
+  final BookingRequestController bookingController =
+      Get.put(BookingRequestController());
 
-  RequestCallbackButton({super.key, this.amount});
+  RequestCallbackButton({super.key, this.amount, this.eventId});
 
   void _showLoginDialog(BuildContext context) {
     var formKey = GlobalKey<FormState>();
@@ -111,7 +115,9 @@ class RequestCallbackButton extends StatelessWidget {
                             ? null
                             : () {
                                 if (formKey.currentState!.validate()) {
-                                  loginController.sendOtp();
+                                  loginController.sendOtp(
+                                    fromDialog: true,
+                                  );
                                 }
                               },
                       )),
@@ -131,6 +137,8 @@ class RequestCallbackButton extends StatelessWidget {
       _showLoginDialog(context);
       return;
     }
+
+    bookingController.createBookingRequest(eventId!);
   }
 
   @override
@@ -155,12 +163,15 @@ class RequestCallbackButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Gap(AppDimens.space10),
-          AppElevatedButton(
-            height: AppDimens.buttonHeight,
-            width: double.infinity,
-            text: 'Request Callback',
-            onTap: () => handleRequestCallback(context),
-            buttonColor: AppColors.darkBlue,
+          Obx(
+            () => AppElevatedButton(
+              height: AppDimens.buttonHeight,
+              width: double.infinity,
+              text: 'Request Callback',
+              isLoading: bookingController.isLoading.value,
+              onTap: () => handleRequestCallback(context),
+              buttonColor: AppColors.darkBlue,
+            ),
           ),
           const Gap(AppDimens.space5),
           Text(

@@ -8,6 +8,7 @@ import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:ez_booking/features/mybooking/presentation/widget/review_dialog_controller.dart';
 import 'package:ez_booking/model/booking_detail_model.dart';
+import 'package:ez_booking/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
@@ -15,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ReviewArgs {
-  EventBean eventBean;
+  EventModel eventBean;
   num booking_id;
   num userid;
   num eventId;

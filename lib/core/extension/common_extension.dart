@@ -4,6 +4,7 @@ extension DateExt on DateTime {
   String get getDisplayDate => DateFormat('dd-MM-yyyy').format(this);
 
   String get ddMMyyyy => DateFormat('dd MMM,yyyy').format(this);
+  String get ddMMyyyyHHmma => DateFormat('dd MMM,yyyy hh:mm a').format(this);
 
   String get toApiFormat => DateFormat('yyyy-MM-dd').format(this);
 }

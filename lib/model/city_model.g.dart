@@ -7,15 +7,17 @@ part of 'city_model.dart';
 // **************************************************************************
 
 CityModel _$CityModelFromJson(Map<String, dynamic> json) => CityModel(
-      city_id: json['city_id'] as num,
-      city_name: json['city_name'] as String,
+      city_id: const NumConverter().fromJson(json['city_id']),
+      city_name: const StringConverter().fromJson(json['city_name']),
+      image_path: const StringConverter().fromJson(json['image_path']),
       status: json['status'] as bool?,
       is_top: json['is_top'] as bool?,
     );
 
 Map<String, dynamic> _$CityModelToJson(CityModel instance) => <String, dynamic>{
-      'city_id': instance.city_id,
-      'city_name': instance.city_name,
+      'city_id': const NumConverter().toJson(instance.city_id),
+      'city_name': const StringConverter().toJson(instance.city_name),
+      'image_path': const StringConverter().toJson(instance.image_path),
       'status': instance.status,
       'is_top': instance.is_top,
     };

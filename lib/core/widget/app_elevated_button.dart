@@ -59,11 +59,13 @@ class AppElevatedButton extends StatelessWidget {
         ),
         onPressed: onTap,
         child: isLoading
-            ? SizedBox(
-                height: shirnkLoading ? 24 : null,
-                width: shirnkLoading ? 24 : null,
-                child: CircularProgressIndicator(color: fontColor),
-              )
+            ? FittedBox(
+              child: SizedBox(
+                  height: shirnkLoading ? 24 : null,
+                  width: shirnkLoading ? 24 : null,
+                  child: CircularProgressIndicator(color: fontColor),
+                ),
+            )
             : childWidget ??
                 Text(
                   textAlign: TextAlign.center,
