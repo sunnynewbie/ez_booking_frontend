@@ -15,4 +15,15 @@ class ShowToast {
       style: ToastificationStyle.flatColored,
     );
   }
+  static void showMsg( message) {
+    Toastification().show(
+      context: Get.context,
+      title: const Text(AppConstant.appName),
+      description: Text(message),
+      type: ToastificationType.success,
+      autoCloseDuration: const Duration(seconds: 3),
+      animationDuration: const Duration(milliseconds: 200),
+      style: ToastificationStyle.flatColored,
+    );
+  }
 }

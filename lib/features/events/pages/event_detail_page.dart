@@ -296,6 +296,7 @@ class EventDetailPage extends StatelessWidget {
           //   amount: _.event.value?.event_price.toMoney,
           // )
           RequestCallbackButton(
+            eventId:  _.event.value?.event_id.toString(),
              amount: _.event.value?.event_price.toMoney,
           )
           // BookButton(

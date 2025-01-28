@@ -376,6 +376,20 @@ class ApiRepository {
       return ApiResponse();
     }
   }
+  Future<ApiResponse> createBookingRequest(Map<String, dynamic>? data) async {
+    try {
+      var response =
+          await apiService.post(path: NetworkUrl.createBookingReuest, data: data);
+      return ApiResponse.fromResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
 
   Future<ApiResponse<EventPriceModel?>> getPrice(EventPriceParam param) async {
     try {

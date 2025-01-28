@@ -41,6 +41,8 @@ class NetworkUrl {
   static const userReviews = 'review/user-reviews';
   static const searchAPI = 'app/search';
 
+
+  static const createBookingReuest = 'booking-request/create-request';
 //policies
   static const getPolicies = 'app/terms-privacy';
 
