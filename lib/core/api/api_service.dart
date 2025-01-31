@@ -125,4 +125,28 @@ class ApiService {
       header.addAll({'token': token});
     }
   }
+
+  Future<Response> postFormData({
+  required String path,
+  required FormData formData,
+  Map<String, String>? headers,
+}) async {
+  try {
+    headers ??= {};
+    setHeader(headers);
+    
+    dio.options.headers = headers;
+    dio.options.contentType = Headers.multipartFormDataContentType;
+
+    final response = await dio.post(
+      path,
+      data: formData,
+    );
+    
+    return response;
+  } on DioException catch (e) {
+    throw e;
+  }
+}
+
 }

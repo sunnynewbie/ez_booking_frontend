@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
-import 'package:ez_booking/model/params/add_review_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:dio/dio.dart' as dio;
+import 'dart:io';
 
 import 'write_review_dialog.dart';
 
@@ -21,7 +24,6 @@ class ReviewDialogController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // rating.value=booking_detailsBean
   }
 
   Future<void> pickImages() async {
@@ -35,19 +37,44 @@ class ReviewDialogController extends GetxController {
 
   writeReview() async {
     loading.value = true;
-    AddReviewParam param = AddReviewParam(
-        rating: rating.value,
-        message: remarkCtrl.text.trim(),
-        review_by: booking_detailsBean.userid.toInt(),
-        event_id: booking_detailsBean.eventId.toInt(),
-        booking_id: booking_detailsBean.booking_id.toInt());
-    var response = await ApiRepository().addReview(param: param);
-    loading.value = false;
-    if (response.status) {
-      Get.back(result: true);
-    }
-    if (response.message != null) {
-      ShowToast.showErrorMsg(response.message ?? '');
+    
+    try {
+      final form = dio.FormData.fromMap({
+        'rating': rating.value.toString(),
+        'message': remarkCtrl.text.trim(),
+        'review_by': booking_detailsBean.userid.toString(),
+        'event_id': booking_detailsBean.eventId.toString(),
+        'booking_id': booking_detailsBean.booking_id.toString(),
+      });
+
+      for (int i = 0; i < selectedImages.length; i++) {
+        final file = File(selectedImages[i].path);
+        final fileName = selectedImages[i].path.split('/').last;
+        
+        form.files.add(
+          MapEntry(
+            'images',
+            await dio.MultipartFile.fromFile(
+              file.path,
+              filename: fileName,
+            ),
+          ),
+        );
+      }
+
+      var response = await ApiRepository().addReview(param: form);
+      
+      if (response.status) {
+        Get.back(result: true);
+      }
+      if (response.message != null) {
+        log(" add review + " +response.message.toString());
+        ShowToast.showMsg(response.message ?? '');
+      }
+    } catch (e) {
+      ShowToast.showErrorMsg('Error uploading review: ${e.toString()}');
+    } finally {
+      loading.value = false;
     }
   }
 

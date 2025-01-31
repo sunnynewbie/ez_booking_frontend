@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ez_booking/core/api/api_repository.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
@@ -27,6 +29,7 @@ class AllBookingController extends GetxController {
     BookingRequestparam param = BookingRequestparam(
         userId: Appservice.instance.user.value!.id, page: page, limit: limit);
     var response = await ApiRepository().getBookingsRequest(param);
+    print("REUESYETSSSS : " + response.data.toString());
     isLoading.value = false;
     if (response.status) {
       if (page == 1) {

@@ -132,7 +132,7 @@ class SelectedCityPage extends StatelessWidget {
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                var item = _.cities.elementAt(index);
+                                var item = _.normalCities.elementAt(index);
                                 return Obx(
                                   () => Material(
                                     child: ListTile(
@@ -158,7 +158,7 @@ class SelectedCityPage extends StatelessWidget {
                               },
                               separatorBuilder: (context, index) =>
                                   const Gap(AppDimens.space15),
-                              itemCount: _.cities.length,
+                              itemCount: _.normalCities.length,
                             ),
                             const Gap(AppDimens.space20),
                           ],

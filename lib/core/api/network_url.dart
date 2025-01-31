@@ -7,6 +7,7 @@ class NetworkUrl {
   static const setCity = 'user/set-city';
   static const getCities = 'user/cities';
   static const verifyFirebseLogin = 'user/verify-firebase-login';
+  static const notificationList = 'user/notifications';
 
   static getUser(int id) => 'user/user/$id';
   static const getEvents = 'events/event';

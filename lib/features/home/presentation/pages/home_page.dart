@@ -67,7 +67,9 @@ class HomePage extends StatelessWidget {
                       shrinkButton: true,
                     ),
                     AppIconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.notifications);
+                      },
                       imagePath: AppAssets.notification,
                       iconSize: 20,
                       constraints: BoxConstraints(),
