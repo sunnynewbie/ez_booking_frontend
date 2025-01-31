@@ -517,11 +517,11 @@ class ApiRepository {
   }
 
   Future<ApiResponse<ReviewModel?>> addReview(
-      {required AddReviewParam param}) async {
+      {required FormData param}) async {
     try {
-      var response = await apiService.post(
+      var response = await apiService.postFormData(
         path: NetworkUrl.addReview,
-        data: param.toMap(),
+        formData: param,
       );
       return ApiResponse.fromResponse(
         response,
@@ -536,6 +536,26 @@ class ApiRepository {
       return ApiResponse();
     }
   }
+  // Future<ApiResponse<ReviewModel?>> addReview(
+  //     {required AddReviewParam param}) async {
+  //   try {
+  //     var response = await apiService.post(
+  //       path: NetworkUrl.addReview,
+  //       data: param.toMap(),
+  //     );
+  //     return ApiResponse.fromResponse(
+  //       response,
+  //       fromJson: (p0) => p0 != null ? ReviewModel.fromJson(p0) : null,
+  //     );
+  //   } on DioException catch (e) {
+  //     if (e.response != null) {
+  //       return ApiResponse.fromResponse(e.response!);
+  //     }
+  //     return ApiResponse();
+  //   } on Exception catch (e) {
+  //     return ApiResponse();
+  //   }
+  // }
 
   Future<ApiResponse<List<ReviewModel>>> getReviews() async {
     try {
