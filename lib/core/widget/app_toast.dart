@@ -26,4 +26,16 @@ class ShowToast {
       style: ToastificationStyle.flatColored,
     );
   }
+  static void showNormalPopUp( message) {
+    Toastification().show(
+      context: Get.context,
+      title: const Text(AppConstant.appName),
+      description: Text(message),
+      showIcon: false,
+      type: ToastificationType.warning,
+      autoCloseDuration: const Duration(seconds: 3),
+      animationDuration: const Duration(milliseconds: 200),
+      style: ToastificationStyle.flatColored,
+    );
+  }
 }

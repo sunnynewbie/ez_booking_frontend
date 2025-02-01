@@ -52,6 +52,8 @@ class AppDimens {
   static const double borderRadius20 = 20;
   static const double borderRadius30 = 30;
   static const double borderRadius40 = 40;
+  static const double borderRadius50 = 50;
+  static const double borderRadius60 = 60;
 
   static const circleRadius10 = 10.0;
   static const circleRadius15 = 15.0;
