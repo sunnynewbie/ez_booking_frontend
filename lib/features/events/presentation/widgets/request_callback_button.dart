@@ -130,6 +130,80 @@ class RequestCallbackButton extends StatelessWidget {
         barrierDismissible: false);
   }
 
+  void _showConfirmationDialog(BuildContext context) {
+    Get.dialog(
+      AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        contentPadding: const EdgeInsets.all(AppDimens.space20),
+        title: Row(
+          children: [
+            Icon(Icons.phone, color: AppColors.primary, size: 24),
+            const Gap(AppDimens.space8),
+            Text(
+              'Request Callback',
+              style: context.lg16.weigh500,
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Would you like to request a callback from our team? Our representative will contact you shortly.',
+              style: context.md14,
+            ),
+            const Gap(AppDimens.space20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimens.space16,
+                      vertical: AppDimens.space8,
+                    ),
+                  ),
+                  child: Text(
+                    'No, cancel',
+                    style: context.md14.withgrey78,
+                  ),
+                ),
+                const Gap(AppDimens.space8),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimens.space16,
+                      vertical: AppDimens.space8,
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.back();
+                    handleRequestCallback(context);
+                  },
+                  child: Text(
+                    'Yes, request',
+                    style: context.md14.withWhite,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      barrierColor: Colors.black54,
+    );
+  }
+
   void handleRequestCallback(BuildContext context) {
     final user_type = Appservice.instance.user.value?.user_type;
 
@@ -169,8 +243,8 @@ class RequestCallbackButton extends StatelessWidget {
               width: double.infinity,
               text: 'Request Callback',
               isLoading: bookingController.isLoading.value,
-              onTap: () => handleRequestCallback(context),
-              buttonColor: AppColors.darkBlue,
+              onTap: () => _showConfirmationDialog(context),
+              buttonColor: AppColors.primary,
             ),
           ),
           const Gap(AppDimens.space5),

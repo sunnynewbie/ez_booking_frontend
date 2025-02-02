@@ -14,6 +14,7 @@ import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/events/pages/even_add_user_bs.dart';
 import 'package:ez_booking/features/events/pages/event_shimmer_widget.dart';
 import 'package:ez_booking/features/events/presentation/widgets/request_callback_button.dart';
+import 'package:ez_booking/features/events/services/location_service.dart';
 import 'package:ez_booking/features/events/widget/event_details_field.dart';
 import 'package:ez_booking/features/events/widget/meet_the_host_widget.dart';
 import 'package:ez_booking/features/home/presentation/widget/image_viewer.dart';
@@ -144,36 +145,50 @@ class EventDetailPage extends StatelessWidget {
                             [],
                       ),
                       const Gap(AppDimens.space10),
-                      if(_.event.value!.average_rating>0)
-                      Row(
-                        children: [
-                          RatingBar(
-                            ratingWidget: RatingWidget(
-                              full: const Icon(
-                                Icons.star_rounded,
-                                color: Colors.yellow,
+                      if (_.event.value!.average_rating > 0)
+                        Row(
+                          children: [
+                            RatingBar(
+                              ignoreGestures: true,
+                              ratingWidget: RatingWidget(
+                                full: const Icon(
+                                  Icons.star_rounded,
+                                  color: Colors.yellow,
+                                ),
+                                half: const Icon(
+                                  Icons.star_half_rounded,
+                                  color: Colors.yellow,
+                                ),
+                                empty: const Icon(
+                                  Icons.star_border_rounded,
+                                  color: Colors.yellow,
+                                ),
                               ),
-                              half: const Icon(
-                                Icons.star_half_rounded,
-                                color: Colors.yellow,
-                              ),
-                              empty: const Icon(
-                                Icons.star_border_rounded,
-                                color: Colors.yellow,
-                              ),
+                              onRatingUpdate: (value) {},
+                              itemCount: 5,
+                              initialRating:
+                                  _.event.value?.average_rating.toDouble() ?? 0,
+                              allowHalfRating: false,
+                              direction: Axis.horizontal,
+                              itemSize: AppDimens.imageSize30,
+                              updateOnDrag: false,
+                              tapOnlyMode: false,
                             ),
-                            onRatingUpdate: (value) {},
-                            itemCount: 5,
-                            initialRating:
-                                _.event.value?.average_rating.toDouble() ?? 0,
-                            allowHalfRating: false,
-                            direction: Axis.horizontal,
-                            itemSize: AppDimens.imageSize30,
-                            updateOnDrag: false,
-                            tapOnlyMode: false,
-                          ),
-                        ],
-                      ),
+                            Gap(AppDimens.space15),
+                            Text(
+                              "${_.event.value!.average_rating.toString()}.0",
+                              style: const TextStyle(
+                                  fontSize: AppDimens.space18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Gap(AppDimens.space5),
+                            Text(
+                                "(${_.event.value!.average_rating.toString()}+ ratings)",
+                                style: const TextStyle(
+                                    fontSize: AppDimens.space15,
+                                    fontWeight: FontWeight.w600))
+                          ],
+                        ),
                       const Gap(AppDimens.space20),
                       MeetTheHostWidget(
                         organizer: _.event.value!.organizer,
@@ -191,24 +206,37 @@ class EventDetailPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Event Details',
-                              style: AppTextStyle.header,
-                            ),
+                            // const Text(
+                            //   'Event Details',
+                            //   style: AppTextStyle.header,
+                            // ),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
                                 // title: 'Date',
-                                iconPath: AppAssets.calender_grey,
+                                iconPath: AppAssets.calender_new,
                                 text: _.event.value?.event_date != null
                                     ? _.event.value!.event_date!.ddMMyyyy
                                     : ''),
                             const Gap(AppDimens.space15),
                             EventDetailsField(
-                              // title: 'Address',
-                              iconPath: AppAssets.location_grey,
-                              text: _.event.value?.address ?? '',
-                              rightIconPath: AppAssets.direction_icon,
-                            ),
+
+                                // title: 'Address',
+                                iconPath: AppAssets.location_new,
+                                text: _.event.value?.address ?? '',
+                                rightIconPath: AppAssets.direction_icon,
+                                onRightButtonClick: () async {
+                                  final locationService = LocationService();
+                                  try {
+                                    await locationService.openGoogleMaps(
+                                      _.event.value?.latitude.toDouble() ??
+                                          0.0, 
+                                      _.event.value?.longitude.toDouble() ??
+                                          0.0, 
+                                    );
+                                  } catch (e) {
+                                    print('Error opening maps: $e');
+                                  }
+                                }),
                             const Gap(AppDimens.space15),
                             if (_.event.value != null &&
                                 _.event.value!.event_days != null)
@@ -240,7 +268,7 @@ class EventDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               'About event',
-                              style: context.md14,
+                              style: AppTextStyle.header,
                             ),
                             const Gap(AppDimens.space10),
                             Text(
@@ -251,75 +279,51 @@ class EventDetailPage extends StatelessWidget {
                         ),
                       ),
                       const Gap(AppDimens.space15),
-                      
                       if (_.reviews.isEmpty)
                         const SizedBox.shrink()
                       else
-                         Row(
-                        children: [
-                         
-                       Text(
-                            'Reviews',
-                            style: context.lg16.weigh500,
-                          ),
-                      const Gap(AppDimens.space10),
-                          const Spacer(),
-                          if (_.reviews.isNotEmpty)
-                            TextButton(
-                              onPressed: () {
-                                Get.toNamed(AppRoutes.eventReviews,
-                                    arguments: _.event.value);
-                              },
-                              child: const Text('See all'),
+                        Row(
+                          children: [
+                            Text(
+                              'Reviews',
+                              style: context.lg16.weigh500,
                             ),
-                        ],
-                      ),
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              var item = _.reviews.elementAt(index);
-                              return ReviewItem(item: item);
-                            },
-                            separatorBuilder: (context, index) {
-                              return const Gap(AppDimens.space15);
-                            },
-                            itemCount: _.reviews.length),
+                            const Gap(AppDimens.space10),
+                            const Spacer(),
+                            if (_.reviews.isNotEmpty)
+                              TextButton(
+                                onPressed: () {
+                                  Get.toNamed(AppRoutes.eventReviews,
+                                      arguments: _.event.value);
+                                },
+                                child: const Text('See all'),
+                              ),
+                          ],
+                        ),
+                      ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var item = _.reviews.elementAt(index);
+                            return ReviewItem(item: item);
+                          },
+                          separatorBuilder: (context, index) {
+                            return const Gap(AppDimens.space15);
+                          },
+                          itemCount: _.reviews.length),
                       const Gap(AppDimens.space20),
                     ],
                   ),
           ),
         ),
-        bottomNavigationBar: Obx(
-          () =>
-          // RequestCallbackButton(
-          //   amount: _.event.value?.event_price.toMoney,
-          // )
-          RequestCallbackButton(
-            eventId:  _.event.value?.event_id.toString(),
-             amount: _.event.value?.event_price.toMoney,
-          )
-          // BookButton(
-          //   amount: _.event.value?.event_price.toMoney,
-          //   onBookClick: () async {
-          //     var users = await Get.bottomSheet(EventAddUserBs(
-          //       eventModel: _.event.value!,
-          //     ));
-          //     if (users is List<EventUser>) {
-          //       if (_.event.value!.event_type == 2) {
-          //         Get.toNamed(AppRoutes.regularCheckout,
-          //             arguments: RegularCheckoutArgs(
-          //                 eventModel: _.event.value!, users: users));
-          //         return;
-          //       }
-          //       Get.toNamed(AppRoutes.addUserEvent,
-          //           arguments:
-          //               AddUserParam(eventModel: _.event.value!, users: users));
-          //     }
-          //   },
-          
-          
-        ),
+        bottomNavigationBar: Obx(() =>
+            // RequestCallbackButton(
+            //   amount: _.event.value?.event_price.toMoney,
+            // )
+            RequestCallbackButton(
+              eventId: _.event.value?.event_id.toString(),
+              amount: _.event.value?.event_price.toMoney,
+            )),
       ),
     );
   }
@@ -360,48 +364,3 @@ class BookButton extends StatelessWidget {
     );
   }
 }
-// class RequestCallbackButton extends StatelessWidget {
-//   final String? amount;
-//   const RequestCallbackButton({super.key, this.amount});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.only(
-//         left: AppDimens.space16,
-//         right: AppDimens.space16,
-//         bottom: AppDimens.space20,
-//       ),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.05),
-//             blurRadius: 10,
-//             offset: const Offset(0, -5),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Gap(AppDimens.space10),
-//           AppElevatedButton(
-//             height: AppDimens.buttonHeight,
-//             width: double.infinity,
-//             text: 'Request Callback',
-//             onTap: () {
-              
-//             },
-//             buttonColor: AppColors.darkBlue,
-//           ),
-//           const Gap(AppDimens.space5),
-//           Text(
-//             'Usually Response in 3-4 hours',
-//             style: context.sm12.withgrey78,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

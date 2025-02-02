@@ -15,9 +15,9 @@ class BookingRequestController extends GetxController {
       };
       final response = await ApiRepository().createBookingRequest(requestData);
       if (response.status) {
-        ShowToast.showMsg(response.message ?? "");
+        ShowToast.showNormalPopUp(response.message ?? "");
       } else {
-       ShowToast.showErrorMsg(response.message ?? "");
+       ShowToast.showNormalPopUp(response.message ?? "");
       }
     } catch (e) {
       ShowToast.showMsg("Error");
