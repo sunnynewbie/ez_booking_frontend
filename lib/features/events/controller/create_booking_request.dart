@@ -1,4 +1,7 @@
+import 'package:ez_booking/controller/event_service_with_id.dart';
+import 'package:ez_booking/controller/event_summery_controller.dart';
 import 'package:ez_booking/core/api/api_repository.dart';
+import 'package:ez_booking/core/extension/common_extension.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +18,7 @@ class BookingRequestController extends GetxController {
       };
       final response = await ApiRepository().createBookingRequest(requestData);
       if (response.status) {
+        Get.find<EventDetailController>().fetchEventDetails(eventId.toInt);
         ShowToast.showNormalPopUp(response.message ?? "");
       } else {
        ShowToast.showNormalPopUp(response.message ?? "");

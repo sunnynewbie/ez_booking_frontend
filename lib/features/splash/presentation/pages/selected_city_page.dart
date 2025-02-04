@@ -39,7 +39,7 @@ class SelectedCityPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(AppDimens.space20),
-              AppTextFormField(
+              /*AppTextFormField(
                 filled: true,
                 hint: 'Search for location',
                 controller: _.cityCtrl,
@@ -50,6 +50,7 @@ class SelectedCityPage extends StatelessWidget {
                 onChange: (value) {},
               ),
               const Gap(AppDimens.space15),
+              */
               Obx(
                 () => Text(
                     'Current Location :${_.selectedCity.value?.city_name ?? ' -'}'),
@@ -96,6 +97,9 @@ class SelectedCityPage extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
                                             AppDimens.borderRadius10),
+                                        color: _.selectedCity.value == item
+                                            ? AppColors.grey0f
+                                            : Colors.white,
                                         border: Border.all(
                                           color: _.selectedCity.value == item
                                               ? AppColors.grey78
@@ -136,7 +140,9 @@ class SelectedCityPage extends StatelessWidget {
                                 return Obx(
                                   () => Material(
                                     child: ListTile(
-                                      tileColor: Colors.white,
+                                      tileColor: _.selectedCity.value == item
+                                          ? AppColors.grey0f
+                                          : Colors.white,
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                               AppDimens.borderRadius10),
