@@ -41,7 +41,7 @@ class VerifyOtpController extends GetxController {
     return user;
   }
 
-  Future<void> verifyOtp() async {
+  Future<void> verifyOtp({bool fromDialog = false}) async {
     var user = await _verifyFirebaseOtp();
     if (user == null) {
       isLoading.value = false;
@@ -77,10 +77,15 @@ class VerifyOtpController extends GetxController {
         Get.offNamedUntil(AppRoutes.allowLocation, (route) => false);
         return;
       }
-      Get.offNamedUntil(
-        AppRoutes.bottomNavBar,
-        (route) => false,
-      );
+      if(fromDialog){
+        Get.until((route) =>  route.settings.name==AppRoutes.eventDetail);
+      }else{
+        Get.offNamedUntil(
+          AppRoutes.bottomNavBar,
+              (route) => false,
+        );
+      }
+
     } else {
       ShowToast.showErrorMsg(response.message ?? '');
     }

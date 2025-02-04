@@ -13,6 +13,8 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       tags: const StringConverter().fromJson(json['tags']),
       organizer: checkOrganizer(json['eventOrganizer']),
       address: const StringConverter().fromJson(json['address']),
+      is_booking_requested:
+          const BoolConverter().fromJson(json['is_booking_requested']),
       latitude: const NumConverter().fromJson(json['latitude']),
       longitude: const NumConverter().fromJson(json['longitude']),
       event_type: const NumConverter().fromJson(json['event_type']),
@@ -71,6 +73,8 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'eventOrganizer': instance.organizer,
       'platform_amount': const NumConverter().toJson(instance.platform_amount),
       'total_amount': const NumConverter().toJson(instance.total_amount),
+      'is_booking_requested':
+          const BoolConverter().toJson(instance.is_booking_requested),
       'event_days': instance.event_days,
       'images': instance.images,
     };

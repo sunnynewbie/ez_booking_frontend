@@ -70,7 +70,7 @@ class AllowLocationPage extends StatelessWidget {
                             await Appservice.instance.getCurrentCity();
                         if (cityName.isNotEmpty) {
                           Get.toNamed(AppRoutes.select_city,
-                              arguments: SelectCityParam(cityName: ''));
+                              arguments: SelectCityParam(cityName: cityName));
                         }
                         // Get.offNamedUntil(AppRoutes.splash,(route) => false,);
                       }

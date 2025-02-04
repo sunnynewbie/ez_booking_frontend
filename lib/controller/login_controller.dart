@@ -7,6 +7,7 @@ import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/firebase_util.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
 import 'package:ez_booking/core/widget/app_toast.dart';
+import 'package:ez_booking/features/events/presentation/widgets/otp_dialogue.dart';
 import 'package:ez_booking/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class LoginController extends GetxController {
   var userModel = Rxn<UserModel>();
   var phoneCtrl = TextEditingController();
 
-  Future<void> sendOtp() async {
+  Future<void> sendOtp({bool fromDialog = false}) async {
     isLoading.value = true;
     var phonNumber = '${phoneCtrl.text.trim()}';
     FirebaseUtil().sendOtp(
@@ -33,7 +34,11 @@ class LoginController extends GetxController {
             verification_id: verificationId,
             resendToken: forceResendingToken,
             phoneNumber: phonNumber);
-        Get.toNamed(AppRoutes.verification, arguments: verifiactionArgs);
+        if (fromDialog) {
+          Get.dialog(OTPVerificationDialog(), arguments: verifiactionArgs);
+        } else {
+          Get.toNamed(AppRoutes.verification, arguments: verifiactionArgs);
+        }
       },
       verificationCompleted: (credential) {
         isLoading.value = false;
@@ -54,7 +59,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> createGuestLogin() async {
-    isskipping.value=true;
+    isskipping.value = true;
     var deviceId = '';
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -65,7 +70,7 @@ class LoginController extends GetxController {
     }
     var data = {'device_id': deviceId};
     var response = await ApiRepository().createGuestLogin(data);
-    isskipping.value=false;
+    isskipping.value = false;
     if (response.status) {
       await PrefUtils().setUser(response.data!);
       Appservice.instance.user.value = response.data;
@@ -75,7 +80,7 @@ class LoginController extends GetxController {
       }
       Get.offNamedUntil(
         AppRoutes.bottomNavBar,
-      (route) => false,
+        (route) => false,
       );
     } else {
       ShowToast.showErrorMsg(response.message ?? '');

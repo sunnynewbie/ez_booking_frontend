@@ -3,7 +3,6 @@ import 'package:ez_booking/controller/login_controller.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
-import 'package:ez_booking/core/routes/route_config.dart';
 import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_icon.dart';
 import 'package:ez_booking/core/widget/app_scaffold.dart';
@@ -29,15 +28,15 @@ class LoginPage extends StatelessWidget {
               backgroundColor: Colors.transparent,
               actions: [
                 Obx(
-                ()=> AppElevatedButton(
-                  width: 80,
-                  borderRadius: AppDimens.borderRadius40,
-                  borderColor: const Color.fromARGB(210, 210, 210, 210),
-                  buttonColor: const Color.fromARGB(210, 210, 210, 210),
+                  () => AppElevatedButton(
+                    width: 80,
+                    borderRadius: AppDimens.borderRadius60,
+                    borderColor:  Colors.transparent,
+                    buttonColor: const Color.fromARGB(182, 210, 210, 210),
                     onTap: () async {
                       await _.createGuestLogin();
                     },
-                    isLoading: _.isLoading.value,
+                    isLoading: _.isskipping.value,
                     text: 'Skip',
                     fontColor: Colors.black,
                     fontSize: AppDimens.space12,
@@ -51,64 +50,75 @@ class LoginPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: AppDimens.space15),
               child: Form(
                 key: formKey,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AppIcon(),
-                      Gap(AppDimens.space50),
-                      Text(
-                        'Welcome to Ezbook!!',
-                        style: context.x24.weigh600,
-                      ),
-                      SizedBox(
-                        height: AppDimens.space10,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppDimens.space30,
+                child: Column(
+                  children: [
+                    Spacer(),
+                    Column(
+                      children: [
+                        AppIcon(),
+                        Gap(AppDimens.space50),
+                        Text(
+                          'Welcome to Ezbook!!',
+                          style: context.x24.weigh600,
                         ),
-                        child: Text(
-                          'Start your journey,Please enter your phone number.',
-                          textAlign: TextAlign.center,
-                          style: context.md14.weigh500.withgrey78,
+                        SizedBox(
+                          height: AppDimens.space10,
                         ),
-                      ),
-                      Gap(AppDimens.space15),
-                      AppTextFormField(
-                        controller: _.phoneCtrl,
-                        label: 'Phone number',
-                        maxLength: 10,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter phone number';
-                          }
-                          if (value.length < 10) {
-                            return "Please enter valid phone number";
-                          }
-                          return null;
-                        },
-                      ),
-                      Gap(AppDimens.space20),
-                      Obx(
-                        () => AppElevatedButton(
-                          isLoading: _.isLoading.value,
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              _.sendOtp();
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppDimens.space30,
+                          ),
+                          child: Text(
+                            'Start your journey,Please enter your phone number.',
+                            textAlign: TextAlign.center,
+                            style: context.md14.weigh500.withgrey78,
+                          ),
+                        ),
+                        Gap(AppDimens.space15),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        AppTextFormField(
+                          fillColor: AppColors.white,
+                          hint: "Enter Your Phone Number",
+                          controller: _.phoneCtrl,
+                          label: 'Phone number',
+                          maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter phone number';
                             }
+                            if (value.length < 10) {
+                              return "Please enter valid phone number";
+                            }
+                            return null;
                           },
-                          text: 'Continue',
-                          width: double.maxFinite,
                         ),
-                      ),
-                      Gap(AppDimens.space15),
-                    ],
-                  ),
+                        Gap(AppDimens.space20),
+                        Obx(
+                          () => AppElevatedButton(
+                            isLoading: _.isLoading.value,
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                _.sendOtp();
+                              }
+                            },
+                            text: 'Continue',
+                            width: double.maxFinite,
+                          ),
+                        ),
+                        Gap(AppDimens.space15),
+                      ],
+                    ),
+                    Spacer(
+                      flex: 3,
+                    )
+                  ],
                 ),
               ),
             ),

@@ -11,11 +11,11 @@ class UpcomingBookingsList extends StatelessWidget {
     return GetBuilder(
       init: UpcomingBookingController(),
       builder: (_) => Scaffold(
-        body: Obx(
-          () => BookingList(
-            bookings: _.bookings.toList(),
-          ),
-        ),
+        // body: Obx(
+        //   () => BookingList(
+        //     bookings: _.bookings.toList(),
+        //   ),
+        // ),
       ),
     );
   }

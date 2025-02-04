@@ -61,4 +61,8 @@ class AppAssets {
   static const location_grey = 'assets/icon/location_grey.png';
   static const time_grey = 'assets/icon/time_grey.png';
   static const direction_icon = 'assets/icon/direction.png';
+  static const login = 'assets/icon/login.png';
+  static const calender_new = 'assets/icon/calender.png';
+  static const location_new = 'assets/icon/location.png';
+
 }

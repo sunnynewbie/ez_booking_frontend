@@ -30,6 +30,8 @@ class HorizontalFlex extends StatelessWidget {
           itemBuilder: (context, index) {
             var item = categories.elementAt(index);
             bool selected = item == selectedCategory;
+            print('${NetworkUrl.imagePath}${item.image_path}');
+
             return InkWell(
               onTap: () {
                 onPressed?.call(item);

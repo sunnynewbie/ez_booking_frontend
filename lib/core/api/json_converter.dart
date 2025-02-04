@@ -60,6 +60,31 @@ class NumConverter extends JsonConverter<num, dynamic> {
 
   const NumConverter();
 }
+class BoolConverter extends JsonConverter<bool, dynamic> {
+  @override
+  bool fromJson(json) {
+    if (json is num) {
+      return json==1;
+    }
+    if (json is bool) {
+      return json;
+    }
+    if (json is String) {
+      return (num.tryParse(json) ?? 0) ==1;
+    }
+    if (json == null) {
+      return false;
+    }
+    return false;
+  }
+
+  @override
+  toJson(bool object) {
+    return object;
+  }
+
+  const BoolConverter();
+}
 
 class DateTimeConverter extends JsonConverter<DateTime, dynamic> {
   @override

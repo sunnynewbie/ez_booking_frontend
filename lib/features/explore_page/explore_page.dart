@@ -22,11 +22,11 @@ class ExplorePage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           titleSpacing: AppDimens.space15,
-          title: Text('Explore', style: AppTextStyle.pagetitle),
+          title: const Text('Explore', style: AppTextStyle.pagetitle),
         ),
         body: Obx(
-          () => ctrl.isoading.value && ctrl.categories.isEmpty
-              ? EventByCategoryShimmer()
+          () => ctrl.isoading.value && ctrl.page == 1
+              ? const EventByCategoryShimmer()
               : SmartRefresher(
                   controller: ctrl.refreshController,
                   enablePullUp: true,
@@ -52,7 +52,7 @@ class ExplorePage extends StatelessWidget {
                         },
                         categories: ctrl.categories.toList(),
                       ),
-                      Gap(AppDimens.space10),
+                      const Gap(AppDimens.space10),
                       if (ctrl.events.isNotEmpty)
                         GridView.builder(
                           shrinkWrap: true,
@@ -60,7 +60,7 @@ class ExplorePage extends StatelessWidget {
                             horizontal: AppDimens.space12,
                             vertical: AppDimens.space15,
                           ),
-                          physics: ClampingScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,

@@ -67,7 +67,9 @@ class HomePage extends StatelessWidget {
                       shrinkButton: true,
                     ),
                     AppIconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.notifications);
+                      },
                       imagePath: AppAssets.notification,
                       iconSize: 20,
                       constraints: BoxConstraints(),
@@ -87,9 +89,7 @@ class HomePage extends StatelessWidget {
                                 fromHome: true));
 
                         if (response is CityModel) {
-                          if (response.city_id != city?.city_id) {
-                            ctrl.getHomeScreen();
-                          }
+                          ctrl.getHomeScreen();
                         }
                       },
                       child: Container(

@@ -11,6 +11,7 @@ class AppColors {
   static const greyd2 = Color(0xffd2d2d2);
   static const purpleLight = Color(0xffF2E8FF);
   static const errorRed = Color(0xffd80000);
+  static const purple = Color(0xff7B61FF);
   static const white = Color.fromARGB(255, 255, 255, 255);
  static List<Color> colors=[
     Color(0xff182841),

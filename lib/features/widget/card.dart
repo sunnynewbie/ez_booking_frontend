@@ -1,7 +1,9 @@
+import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -59,10 +61,16 @@ class InfoCard extends StatelessWidget {
                         topLeft: Radius.circular(5),
                         topRight: Radius.circular(5)),
                   ),
-                  child: Image.asset(
-                    imagePath.toString(),
-                    fit: BoxFit
-                        .cover, // Ensure the image covers the container fully
+                  // child: Image.network(
+                  //   imagePath.toString(),
+                  //   fit: BoxFit
+                  //       .cover, // Ensure the image covers the container fully
+                  // ),
+                  child: ImageView(
+                    imageType: ImageType.network,
+                    height: AppDimens.imageSize75,
+                    width: AppDimens.imageSize75,
+                    path: '${NetworkUrl.imagePath}$imagePath',
                   ),
                 ),
                 if (rating.toInt() > 0)

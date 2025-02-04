@@ -3,6 +3,7 @@ import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 class BookingEventItem extends StatelessWidget {
@@ -38,14 +39,17 @@ class BookingEventItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(dateStr),
+            Gap(AppDimens.space5),
             Text(
               eventTitle,
               style: context.lg16.weigh500.withBlack,
             ),
+            Gap(AppDimens.space5),
             Text(
               eventAddress,
               style: context.md13.weigh400.withgrey78,
             ),
+            Gap(AppDimens.space5),
           ],
         ),
       ),

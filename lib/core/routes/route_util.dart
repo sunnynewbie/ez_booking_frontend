@@ -16,6 +16,7 @@ import 'package:ez_booking/features/mybooking/presentation/pages/booking_details
 import 'package:ez_booking/features/mybooking/presentation/pages/my_booking.dart';
 import 'package:ez_booking/features/navbar/navbar_binding.dart';
 import 'package:ez_booking/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:ez_booking/features/notifications/notification_page.dart';
 import 'package:ez_booking/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:ez_booking/features/profile/presentation/pages/profile_page.dart';
 import 'package:ez_booking/features/review/presentation/pages/review_page.dart';
@@ -131,6 +132,9 @@ class RouteUtil {
     GetPage(
       name: AppRoutes.hostProfilePage,
       page: () => const HostProfilePage(),
+    ),GetPage(
+      name: AppRoutes.notifications,
+      page: () => const NotificationPage(),
     ),
   ];
 }

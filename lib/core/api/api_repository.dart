@@ -6,7 +6,7 @@ import 'package:ez_booking/core/api/api_service.dart';
 import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/service/app_service.dart';
 import 'package:ez_booking/core/utils/pref_util.dart';
-import 'package:ez_booking/model/booking_detail_model.dart';
+import 'package:ez_booking/model/booking_request_model.dart';
 import 'package:ez_booking/model/city_model.dart';
 import 'package:ez_booking/model/create_single_booking_model.dart';
 import 'package:ez_booking/model/dashboard_cateogry_model.dart';
@@ -16,10 +16,12 @@ import 'package:ez_booking/model/event_model.dart';
 import 'package:ez_booking/model/event_price_model.dart';
 import 'package:ez_booking/model/event_time_slot_model.dart';
 import 'package:ez_booking/model/my_booking_model.dart';
+import 'package:ez_booking/model/notification_model.dart';
 import 'package:ez_booking/model/order_model.dart';
 import 'package:ez_booking/model/organizer_model.dart';
-import 'package:ez_booking/model/params/add_review_param.dart';
 import 'package:ez_booking/model/params/add_user_booking_param.dart';
+import 'package:ez_booking/model/params/booking_request_param.dart';
+import 'package:ez_booking/model/params/cancel_booking_request_param.dart';
 import 'package:ez_booking/model/params/event_price_param.dart';
 import 'package:ez_booking/model/params/event_review_param.dart';
 import 'package:ez_booking/model/params/update_user_param.dart';
@@ -377,6 +379,21 @@ class ApiRepository {
     }
   }
 
+  Future<ApiResponse> createBookingRequest(Map<String, dynamic>? data) async {
+    try {
+      var response = await apiService.post(
+          path: NetworkUrl.createBookingReuest, data: data);
+      return ApiResponse.fromResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
   Future<ApiResponse<EventPriceModel?>> getPrice(EventPriceParam param) async {
     try {
       var response =
@@ -431,16 +448,16 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse<List<MyBookingModel>>> getBookings(
-      Map<String, dynamic>? data) async {
+  Future<ApiResponse<List<BookingRequestModel>>> getBookingsRequest(
+      BookingRequestparam param) async {
     try {
-      var response =
-          await apiService.get(path: NetworkUrl.getBookings, data: data);
+      var response = await apiService.get(
+          path: NetworkUrl.getBookingRequest, query: param.toMap());
       return ApiResponse.fromResponse(
         response,
         fromJson: (p0) => (p0['data'] is List)
             ? (p0['data'] as List)
-                .map((e) => MyBookingModel.fromJson(e))
+                .map((e) => BookingRequestModel.fromJson(e))
                 .toList()
             : [],
       );
@@ -479,14 +496,14 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse<BookingDetailModel?>> getSingleBooking(
+  Future<ApiResponse<BookingRequestModel?>> getSingleBooking(
       {required int id, Map<String, dynamic>? data}) async {
     try {
       var response = await apiService.get(
-          path: NetworkUrl.getBookingDetail(id), data: data);
+          path: NetworkUrl.getSingleBookingRequest(id), data: data);
       return ApiResponse.fromResponse(
         response,
-        fromJson: (p0) => p0 != null ? BookingDetailModel.fromJson(p0) : null,
+        fromJson: (p0) => p0 != null ? BookingRequestModel.fromJson(p0) : null,
       );
     } on DioException catch (e) {
       if (e.response != null) {
@@ -498,12 +515,11 @@ class ApiRepository {
     }
   }
 
-  Future<ApiResponse<ReviewModel?>> addReview(
-      {required AddReviewParam param}) async {
+  Future<ApiResponse<ReviewModel?>> addReview({required FormData param}) async {
     try {
-      var response = await apiService.post(
+      var response = await apiService.postFormData(
         path: NetworkUrl.addReview,
-        data: param.toMap(),
+        formData: param,
       );
       return ApiResponse.fromResponse(
         response,
@@ -518,6 +534,27 @@ class ApiRepository {
       return ApiResponse();
     }
   }
+
+  // Future<ApiResponse<ReviewModel?>> addReview(
+  //     {required AddReviewParam param}) async {
+  //   try {
+  //     var response = await apiService.post(
+  //       path: NetworkUrl.addReview,
+  //       data: param.toMap(),
+  //     );
+  //     return ApiResponse.fromResponse(
+  //       response,
+  //       fromJson: (p0) => p0 != null ? ReviewModel.fromJson(p0) : null,
+  //     );
+  //   } on DioException catch (e) {
+  //     if (e.response != null) {
+  //       return ApiResponse.fromResponse(e.response!);
+  //     }
+  //     return ApiResponse();
+  //   } on Exception catch (e) {
+  //     return ApiResponse();
+  //   }
+  // }
 
   Future<ApiResponse<List<ReviewModel>>> getReviews() async {
     try {
@@ -568,7 +605,6 @@ class ApiRepository {
         response,
         fromJson: (p0) => p0['data'] is List
             ? (p0['data'] as List).map((e) {
-                print(e);
                 return e is String
                     ? Category_typeBean.fromJson(jsonDecode(e))
                     : Category_typeBean.fromJson(e);
@@ -665,6 +701,45 @@ class ApiRepository {
     try {
       var response =
           await apiService.get(path: NetworkUrl.getPoliciesContent(id));
+
+      return ApiResponse.fromResponse(response,
+          fromJson: (p0) =>
+              p0 != null ? PrivacyContentModel.fromJson(p0) : null);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse<List<NotificationModel>>> getNotificationList() async {
+    try {
+      var response = await apiService.get(path: NetworkUrl.notificationList);
+      return ApiResponse.fromResponse(
+        response,
+        fromJson: (p0) => p0['data'] is List
+            ? (p0['data'] as List)
+                .map((e) => NotificationModel.fromJson(e))
+                .toList()
+            : [],
+      );
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return ApiResponse.fromResponse(e.response!);
+      }
+      return ApiResponse();
+    } on Exception catch (e) {
+      return ApiResponse();
+    }
+  }
+
+  Future<ApiResponse> cancelBookingRequest(CancelBookingParam param) async {
+    try {
+      var response = await apiService.put(
+          path: NetworkUrl.canceBookingrequest, data: param.toMap());
 
       return ApiResponse.fromResponse(response,
           fromJson: (p0) =>

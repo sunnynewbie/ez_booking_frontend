@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                     name: '${user?.displayName}'),
                 NormalTitle(
                   imgPath: AppAssets.bookingIcon,
-                  text: 'My Booking',
+                  text: 'My Request',
                   ontap: () {
                     Get.toNamed(AppRoutes.myBooking);
                   },

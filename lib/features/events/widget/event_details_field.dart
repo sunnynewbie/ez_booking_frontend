@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
+import 'package:flutter/material.dart';
 
 class EventDetailsField extends StatelessWidget {
-  final String iconPath; 
-  final String text; 
-  final String? subText; 
-  final String? rightIconPath; 
+  final String iconPath;
+  final String text;
+  final String? subText;
+  final String? rightIconPath;
+  final VoidCallback? onRightButtonClick;
 
   const EventDetailsField({
     super.key,
     required this.iconPath,
+    this.onRightButtonClick,
     required this.text,
     this.subText,
     this.rightIconPath,
@@ -38,30 +40,26 @@ class EventDetailsField extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: context.md14, 
-                  maxLines: 1,
+                  style: context.md14,
                   overflow: TextOverflow.ellipsis,
                 ),
-                if (subText != null) 
+                if (subText != null)
                   Text(
                     subText!,
                     style: context.sm12,
-                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
               ],
             ),
           ),
           if (rightIconPath != null) ...[
-            SizedBox(width: AppDimens.space12), 
+            SizedBox(width: AppDimens.space12),
             IconButton(
-              
               icon: Image.asset(
                 rightIconPath!,
                 fit: BoxFit.contain,
-              ), onPressed: () { 
-                
-               },
+              ),
+              onPressed: onRightButtonClick,
             ),
           ],
         ],

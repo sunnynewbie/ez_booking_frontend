@@ -67,4 +67,12 @@ class SelectCityController extends GetxController {
     }
     isLoading.value = false;
   }
+
+  RxList<CityModel> get popularCities => RxList(cities.isEmpty
+      ? []
+      : cities.where((element) => element.is_top ?? false).toList());
+
+  RxList<CityModel> get normalCities => RxList(cities.isEmpty
+      ? []
+      : cities.where((element) => !(element.is_top ?? false)).toList());
 }

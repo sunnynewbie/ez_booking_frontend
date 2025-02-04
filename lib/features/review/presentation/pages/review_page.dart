@@ -1,6 +1,7 @@
 import 'package:ez_booking/controller/my_review_controller.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
+import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/widget/not_found_component.dart';
 import 'package:ez_booking/features/review/presentation/pages/review_item.dart';
 import 'package:ez_booking/features/review/presentation/widget/review_shimmer.dart';
@@ -17,7 +18,10 @@ class MyReviews extends StatelessWidget {
       init: MyreviewController(),
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: const Text('My Reviews'),
+          title: Text(
+            'My Reviews',
+            style: context.lg16.weigh500,
+          ),
           backgroundColor: Colors.white,
         ),
         body: Obx(
@@ -26,7 +30,9 @@ class MyReviews extends StatelessWidget {
               : _.reviews.isNotEmpty
                   ? ListView.separated(
                       padding: const EdgeInsets.symmetric(
-                          vertical: AppDimens.space15),
+                        vertical: AppDimens.space15,
+                        horizontal: AppDimens.space15,
+                      ),
                       itemBuilder: (context, index) {
                         var item = _.reviews.elementAt(index);
                         return ReviewItem(item: item);
