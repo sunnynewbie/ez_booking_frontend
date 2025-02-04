@@ -1,3 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+
 import 'package:ez_booking/controller/login_controller.dart';
 import 'package:ez_booking/core/config/app_assets.dart';
 import 'package:ez_booking/core/config/app_color.dart';
@@ -8,19 +14,21 @@ import 'package:ez_booking/core/widget/app_elevated_button.dart';
 import 'package:ez_booking/core/widget/app_textform_field.dart';
 import 'package:ez_booking/features/events/controller/create_booking_request.dart';
 import 'package:ez_booking/model/user_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 
 class RequestCallbackButton extends StatelessWidget {
   final String? amount;
   final String? eventId;
   final LoginController loginController = Get.put(LoginController());
+  bool isReuqest;
   final BookingRequestController bookingController =
       Get.put(BookingRequestController());
 
-  RequestCallbackButton({super.key, this.amount, this.eventId});
+  RequestCallbackButton({
+    Key? key,
+    this.amount,
+    this.eventId,
+    required this.isReuqest,
+  }) : super(key: key);
 
   void _showLoginDialog(BuildContext context) {
     var formKey = GlobalKey<FormState>();
@@ -241,10 +249,12 @@ class RequestCallbackButton extends StatelessWidget {
             () => AppElevatedButton(
               height: AppDimens.buttonHeight,
               width: double.infinity,
-              text: 'Request Callback',
-              isLoading: bookingController.isLoading.value,
-              onTap: () => _showConfirmationDialog(context),
-              buttonColor: AppColors.primary,
+              text: !isReuqest ? 'Request Callback' : "Already Requested",
+              fontColor: !isReuqest ? Colors.white : Colors.black,
+              isLoading: !isReuqest ? bookingController.isLoading.value : false,
+              onTap: () => !isReuqest ? _showConfirmationDialog(context) : (){},
+              buttonColor: !isReuqest ? AppColors.primary : Colors.grey[300],
+              borderColor: !isReuqest ? AppColors.primary : AppColors.primary,
             ),
           ),
           const Gap(AppDimens.space5),
