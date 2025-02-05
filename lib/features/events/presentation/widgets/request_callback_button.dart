@@ -112,9 +112,10 @@ class RequestCallbackButton extends StatelessWidget {
                   ),
                   const Gap(AppDimens.space22),
                   Obx(() => AppElevatedButton(
-                        text: loginController.isLoading.value
-                            ? 'Sending...'
-                            : 'Continue',
+                    childWidget: loginController.isLoading.value ? const CircularProgressIndicator( color: Colors.white,): Text('Continue', style: const TextStyle(color: Colors.white),),
+                        // text: loginController.isLoading.value
+                        //     ? 'Sending...'
+                        //     : 'Continue',
                         width: double.infinity,
                         height: AppDimens.buttonHeight,
                         buttonColor: AppColors.primary,
