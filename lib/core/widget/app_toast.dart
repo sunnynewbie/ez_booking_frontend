@@ -13,6 +13,7 @@ class ShowToast {
       autoCloseDuration: const Duration(seconds: 3),
       animationDuration: const Duration(milliseconds: 200),
       style: ToastificationStyle.flatColored,
+      showIcon: false
     );
   }
   static void showMsg( message) {

@@ -177,7 +177,7 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             Gap(AppDimens.space5),
                             Text(
-                                "(${_.event.value!.average_rating.toString()}+ ratings)",
+                                "(${_.event.value!.total_reviews.toString()} ratings)",
                                 style: const TextStyle(
                                     fontSize: AppDimens.space15,
                                     fontWeight: FontWeight.w600))
@@ -200,22 +200,23 @@ class EventDetailPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // const Text(
-                            //   'Event Details',
-                            //   style: AppTextStyle.header,
-                            // ),
-                            const Gap(AppDimens.space15),
+                            const Gap(AppDimens.space2),
                             EventDetailsField(
                                 // title: 'Date',
-                                iconPath: AppAssets.calender_new,
+                                iconPath: AppAssets.calender_final,
                                 text: _.event.value?.event_date != null
                                     ? _.event.value!.event_date!.ddMMyyyy
                                     : ''),
-                            const Gap(AppDimens.space15),
+                            const Gap(AppDimens.space10),
+                            const Divider(
+                              height: AppDimens.space10,
+                              color: AppColors.greyd2,
+                            ),
+                            // const Gap( AppDimens.space5),
                             EventDetailsField(
 
                                 // title: 'Address',
-                                iconPath: AppAssets.location_new,
+                                iconPath: AppAssets.location_final,
                                 text: _.event.value?.address ?? '',
                                 rightIconPath: AppAssets.direction_icon,
                                 onRightButtonClick: () async {
@@ -230,16 +231,22 @@ class EventDetailPage extends StatelessWidget {
                                     print('Error opening maps: $e');
                                   }
                                 }),
-                            const Gap(AppDimens.space15),
+                            // const Gap(AppDimens.space15),
+                            const Divider(
+                              height: AppDimens.space10,
+                              color: AppColors.greyd2,
+                            ),
+                            const Gap(AppDimens.space10),
                             if (_.event.value != null &&
                                 _.event.value!.event_days != null)
                               EventDetailsField(
                                   // title: 'Days',
-                                  iconPath: AppAssets.duration_grey,
+                                  iconPath: AppAssets.timer_final,
                                   text: _.event.value!.event_days!
                                       .map((e) => e.label)
-                                      .join(','))
+                                      .join(',')),
                             // Gap(AppDimens.space15),
+                            // const Gap(AppDimens.space5),
                             // EventDetailsField(title: 'Duration', text: '3 Days'),
                           ],
                         ),

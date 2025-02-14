@@ -23,6 +23,7 @@ class UserModel {
   final String otp;
   final String firebase_id;
   final String device_id;
+  final String img;
   final num city_id;
   final CityModel? city;
   @JsonKey(disallowNullValue: false,defaultValue: UserType.user,unknownEnumValue: UserType.user)
@@ -43,6 +44,7 @@ class UserModel {
     required this.device_id,
     required this.city,
     required this.user_type,
+    required this.img,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

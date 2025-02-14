@@ -64,5 +64,8 @@ class AppAssets {
   static const login = 'assets/icon/login.png';
   static const calender_new = 'assets/icon/calender.png';
   static const location_new = 'assets/icon/location.png';
+  static const location_final = 'assets/icon/location_final.png';
+  static const calender_final = 'assets/icon/calendar_final.png';
+  static const timer_final = 'assets/icon/timer_final.png';
 
 }

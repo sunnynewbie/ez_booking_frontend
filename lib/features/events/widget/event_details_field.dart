@@ -21,13 +21,13 @@ class EventDetailsField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppDimens.space2),
+      padding: EdgeInsets.symmetric(vertical: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: AppDimens.space30,
-            height: AppDimens.space30,
+            width: AppDimens.space20,
+            height: AppDimens.space20,
             child: Image.asset(
               iconPath,
               fit: BoxFit.contain,
