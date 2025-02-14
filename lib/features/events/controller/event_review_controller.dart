@@ -7,7 +7,8 @@ import 'package:ez_booking/model/review_model.dart';
 import 'package:get/get.dart';
 
 class EventReviewController extends GetxController {
-  RxList<ReviewModel> reviews = RxList.empty();
+  // RxList<ReviewModel> reviews = RxList.empty();
+    final RxList<ReviewModel> reviews = RxList<ReviewModel>([]);
   int page = 1;
   int limit = 10;
   RxBool loading = RxBool(false);
@@ -15,9 +16,9 @@ class EventReviewController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     var args = Get.arguments as EventModel;
     event = Rx(args);
-    super.onInit();
     Future.delayed(Duration.zero, () {
       getEventreview();
     });

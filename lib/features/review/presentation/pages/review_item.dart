@@ -1,3 +1,4 @@
+import 'package:ez_booking/core/api/network_url.dart';
 import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_dimensions.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
@@ -57,11 +58,15 @@ class ReviewItem extends StatelessWidget {
               contentPadding: const EdgeInsets.symmetric(
                 vertical: AppDimens.space5,
               ),
-              leading: const ImageView(
-                imageType: ImageType.network,
-                path: 'path',
-                height: AppDimens.imageSize45,
-                width: AppDimens.imageSize45,
+              leading:  const ClipOval(
+                child: ImageView(
+                  boxFit: BoxFit.cover,
+                  imageType: ImageType.network,
+                  // path:  '${NetworkUrl.imagePath}${item.user?.img}' ?? '', 
+                  path: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+                  height: AppDimens.imageSize45,
+                  width: AppDimens.imageSize45,
+                ),
               ),
               title: Text(
                 item.user?.displayName ?? '',

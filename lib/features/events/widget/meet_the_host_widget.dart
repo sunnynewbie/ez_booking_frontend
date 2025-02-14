@@ -2,9 +2,12 @@ import 'package:ez_booking/core/config/app_color.dart';
 import 'package:ez_booking/core/config/app_textstyle.dart';
 import 'package:ez_booking/core/extension/text_style_extension.dart';
 import 'package:ez_booking/core/routes/route_config.dart';
+import 'package:ez_booking/core/widget/app_image_view.dart';
 import 'package:ez_booking/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../core/config/app_dimensions.dart';
 
 class MeetTheHostWidget extends StatelessWidget {
   final Organizer? organizer;
@@ -47,8 +50,19 @@ class MeetTheHostWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 0),
                       child: Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 23,
+                            child: ClipOval(
+                              child: ImageView(
+                                boxFit: BoxFit.cover,
+                                imageType: ImageType.network,
+                                // path:  '${NetworkUrl.imagePath}${item.user?.img}' ?? '',
+                                path:
+                                    'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+                                height: AppDimens.imageSize45,
+                                width: AppDimens.imageSize45,
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 15),
                           Expanded(
